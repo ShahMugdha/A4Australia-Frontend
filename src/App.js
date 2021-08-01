@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import Home from './views/user/home.js';
+import Profile from "./views/user/profile/display.js";
+import Login from "./views/authentication/login.js";
+import Product from "./views/user/product.js";
+import ProductsByCategory from "./views/user/productsByCategory.js";
+import ProductsBySubCategory from "./views/user/productsBySubCategory.js";
+import Wishlist from "./views/user/wishlist.js";
+import {BrowserRouter, Route, Switch} from "react-router-dom";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route path="/collection/product/:productId">
+          <Product/>
+        </Route> 
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="/product/category/:category">
+          <ProductsByCategory />
+        </Route>
+        <Route path="/product/:category/:subCategory">
+          <ProductsBySubCategory />
+        </Route>
+        <Route path="/wishlist">
+          <Wishlist />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
