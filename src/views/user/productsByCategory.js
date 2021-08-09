@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TopNavigation from "../../components/Navigation/topNav.js";
 import { getProductByCategory, getParticularProduct } from "../../redux/actions/products/index.js";
+import { addProductToWishList, getWishList } from "../../redux/actions/wishlist/index.js";
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import { toast } from 'react-toastify'
 import { MoreVertical, Filter } from 'react-feather'
@@ -31,6 +32,10 @@ const ProductsByCategory = () => {
     setFormModal(!formModal)
     dispatch(getParticularProduct(productId))
   }
+
+  const addToWishlist = (productId) => {
+    dispatch(addProductToWishList(productId))
+  }
   
   return(
     <>
@@ -48,10 +53,25 @@ const ProductsByCategory = () => {
                         <h2 className="card_title">{product.title}</h2>
                         <p className="card_text">{product.description}</p>
                         <h4 style={{marginTop: "-20px", marginBottom: "15px", marginLeft: "-158px"}}>Rs.{product.price}</h4>
-                        
+                        <p 
+                          className="wishlist_icon" 
+                          style={{marginTop: "-75px", cursor: "pointer"}}
+                        >
+                          {/* {wishlistData.map(wishlist => (       
+                            wishlist.products.map(wishProd => {return(
+                            
+                              wishProd._id === product._id ? flag++  : null
+                              
+                          
+                            )})
+                          ))}
+                          {flag !== 0 ? <FavoriteIcon style = {{color: "#fe2c54"}}/> : <FavoriteBorderOutlinedIcon onClick={() => addToWishlist(product._id)}/>} */}
+                          <FavoriteBorderOutlinedIcon onClick={() => addToWishlist(product._id)}/>
+                        </p>
                         <Button
                           color="primary"
                           onClick={() => addToCart(product._id)}
+                          style={{marginTop: "3rem"}}
                         >
                           Add to Cart
                         </Button>

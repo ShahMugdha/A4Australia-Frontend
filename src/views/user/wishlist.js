@@ -1,57 +1,65 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { getWishList } from "../../redux/actions/wishlist";
+import { getWishList, moveProductToCart, deleteProductfromWishList } from "../../redux/actions/wishlist";
 import "../../components/wishlist.css"
 import { Link, Redirect } from "react-router-dom";
 import { FormGroup, Label, Input } from "reactstrap";
+import Navigation from "../../components/Navigation/navigation";
 
 const Wishlist = () => {
+  const [size, setSize] = useState("Small")
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth)
   const wishlistData = useSelector(state => state.wishlist.wishlistData)
   useEffect(()=> {
     dispatch(getWishList())
   }, [dispatch])
+  const moveToCart = (productId, Size) => {
+    dispatch(moveProductToCart(productId, Size))
+  }
 
   return(
     <>
       { user.isAuth ? null : <Link to="/login" /> }
-      {wishlistData.length > 0 ? (
+      <Navigation/>
+      {wishlistData? (
         <section className="section-subscribe">
-          <div className="row">
+          <div className="w-row">
           {wishlistData.map(wishlist => (       
             wishlist.products.map(wishProd => {
               return(
                 <> 
-                  <a href="#" className="card">
-                    <div className="card__left-side">
-                      <img src="//unsplash.it/250/305/" alt="" className="card__img"/>
+                  <div className="w-card" key={wishProd._id}>
+                    <div className="w-card__left-side">
+                      <img src="//unsplash.it/250/305/" alt="" className="w-card__img"/>
                     </div>
-                    <div className="card__right-side">
-                      <h2 className="card__title">{wishProd.title}</h2>
-                      <p className="card__text">
+                    <div className="w-card__right-side">
+                      <h2 className="w-card__title">{wishProd.title}</h2>
+                      <p className="w-card__text">
                         {wishProd.description}
                       </p>
-                      <form action="#" className="card__form">
-                        <div className="card__box">
-                        <FormGroup>
+                      <div className="w-card__form">
+                        <div className="w-card__box">
+                        <FormGroup style = {{marginLeft: "-300px", color: "aliceblue", marginTop: "40px"}} >
                           <Label for="password">Size:</Label>
-                          <Input
+                          <Input style={{marginLeft: "10px"}}
                             type="select"
-                            name="status"
-                            id="status"
-                            placeholder="Employee"
+                            name="size"
+                            value = {size}
+                            id={wishProd._id}
+                            placeholder="Small"
+                            onChange = {(e) => setSize(e.target.value)}
                           >
                             <option value="Small">Small</option>
                             <option value="Medium">Medium</option>
                             <option value="Large">Large</option>
                           </Input>
                         </FormGroup>
-                          <button className="card__button">Add to Cart</button>
+                          <button className="w-card__button" onClick = {() => moveToCart(wishProd._id, size)}>Move to Cart</button>
                         </div>
-                      </form>
+                      </div>
                     </div>
-                  </a>
+                  </div>
                 </>
               )
             })

@@ -21,3 +21,25 @@ export const getWishList = () => {
     })
   };
 }
+
+export const moveProductToCart = (productId, size) => {
+  return async(dispatch) => {
+    await request.post(`/wishlist/move-to-cart/${productId}/${size}`).then((response) => {
+      dispatch({
+        type: "MOVE_PRODUCT_TO_CART",
+        payload: response.data
+      });
+    })
+  };
+}
+
+export const deleteProductfromWishList = (productId) => {
+  return async(dispatch) => {
+    await request.patch(`/wishlist/${productId}`).then((response) => {
+      dispatch({
+        type: "DELETE_PRODUCT_FROM_WISHLIST",
+        payload: response.data
+      });
+    })
+  };
+}

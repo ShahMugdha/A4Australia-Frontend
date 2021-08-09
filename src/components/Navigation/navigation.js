@@ -62,20 +62,20 @@ const Navigation = () => {
         <div style={{position: "absolute", top: "10px", right: "20px"}}>
           <Box display="flex" flexDirection="row" p={1} m={1}>
             <Box p={1}>
-              <Link to = "/profile"><AccountCircleOutlinedIcon style={{color: "#333"}}/></Link>
+              <Link to = "/profile"><AccountCircleOutlinedIcon style={{color: "#333", fontSize: "25px"}}/></Link>
             </Box>
             <Box p={1}>
-              <SearchIcon/>
+              <SearchIcon style={{fontSize: "25px"}}/>
             </Box>
             <Box p={1}>
-              <Link to = "/wishlist"><FavoriteBorderOutlinedIcon style={{color: "#333"}}/></Link>
+              <Link to = "/wishlist"><FavoriteBorderOutlinedIcon style={{color: "#333", fontSize: "25px"}}/></Link>
             </Box>
             <Box p={1}>
-              <Link to = "/cart"><ShoppingCartOutlinedIcon style={{color: "#333"}}/></Link>
+              <Link to = "/cart"><ShoppingCartOutlinedIcon style={{color: "#333", fontSize: "25px"}}/></Link>
             </Box>
           </Box>
         </div>
-        <p>A For Australia</p>
+        <p><Link to = "/">A For Australia</Link></p>
         {productsUniqueByKey ? (
           <nav>
             <ul style={{marginTop: "-8px"}}>

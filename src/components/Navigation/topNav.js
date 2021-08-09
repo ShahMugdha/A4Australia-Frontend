@@ -63,7 +63,7 @@ const TopNavigation = () => {
           </Box>
         </Box>
       </div>
-      <p>A For Australia</p>
+      <p><Link to = "/">A For Australia</Link></p>
       {productsUniqueByKey ? (
         <nav>
           <ul style={{marginTop: "-8px"}}>
