@@ -2,6 +2,7 @@ import { React, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Navigation from "../../components/Navigation/navigation.js";
 import SideNav from "../../components/Navigation/sideNav.js";
+import HideTop from "../../components/Navigation/hideTop.js";
 import { getProductList, getParticularProduct } from "../../redux/actions/products/index.js";
 import { addProductToWishList, getWishList } from "../../redux/actions/wishlist/index.js";
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
@@ -55,6 +56,7 @@ const Home = () => {
   
   return(
     <>
+      <HideTop/>
       <Navigation/>
       {productData.length > 0 ? (
         <div className="main">

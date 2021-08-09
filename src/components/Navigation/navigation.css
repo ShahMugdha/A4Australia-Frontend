@@ -53,7 +53,7 @@ section {
 
 }
 
-#menu__toggle {
+/* #menu__toggle {
   opacity: 0;
 }
 
@@ -146,11 +146,11 @@ section {
 }
 .menu__item:hover {
   color: #95a1a7;
-}
+} */
 
 /*side nav*/
 
-#mobileNav {
+/* #mobileNav {
   padding: 5px;
 }
 #top-nav {
@@ -164,8 +164,8 @@ section {
   opacity: 0;
   z-index: 2;
 }
-/*hamburger*/
-.hamburgerspan {
+ *//*hamburger*/
+/* .hamburgerspan {
   cursor: pointer;
   display: block;
   width: 33px;
@@ -302,3 +302,4 @@ label.menu-label:before {
 #menu-cont-3{z-index:1003;}
 .hamburgerspan{z-index:9998;}
 #top-nav{z-index:9999;}
+ */

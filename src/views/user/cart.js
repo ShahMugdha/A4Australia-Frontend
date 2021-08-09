@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
 import { FormGroup, Label, Input, Button } from "reactstrap";
 import Navigation from "../../components/Navigation/navigation.js"
+import HideTop from "../../components/Navigation/hideTop.js";
 import { getCartList, updateProductQuantity, updateProductSize, moveProductToWishList, deleteProductFromCart } from "../../redux/actions/cart/index.js";
 import "../../components/cart.css"
 
@@ -36,6 +37,7 @@ const Cart = () => {
   return(
     <>
       { user.isAuth ? null : <Link to="/login" /> }
+      <HideTop/>
       <Navigation/>
       <div className="container">
       

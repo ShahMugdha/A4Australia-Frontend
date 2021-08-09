@@ -2,12 +2,7 @@ import {React, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {Link} from "react-router-dom";
 import $ from 'jquery'
-import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
-import SearchIcon from '@material-ui/icons/Search';
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { getProductList } from "../../redux/actions/products";
-import Box from '@material-ui/core/Box';
 import "./navigation.css";
 
 const Navigation = () => {
@@ -32,8 +27,9 @@ const Navigation = () => {
 
   return(
     <>
+      {/* <HideTop/> */}
       {/* <section id="screen1"> */}
-        <div id="mobileNav">
+        {/* <div id="mobileNav">
           <input type="checkbox" id="top-nav" />
           <span style={{marginTop: "20px", marginLeft: "20px"}} className="hamburgerspan"></span>
           <span style={{marginTop: "4px", marginLeft: "20px"}} className="hamburgerspan"></span>
@@ -58,24 +54,7 @@ const Navigation = () => {
               <li className="nav-item"> item 5</li>
             </ul>
           </div>  
-        </div>
-        <div style={{position: "absolute", top: "10px", right: "20px"}}>
-          <Box display="flex" flexDirection="row" p={1} m={1}>
-            <Box p={1}>
-              <Link to = "/profile"><AccountCircleOutlinedIcon style={{color: "#333", fontSize: "25px"}}/></Link>
-            </Box>
-            <Box p={1}>
-              <SearchIcon style={{fontSize: "25px"}}/>
-            </Box>
-            <Box p={1}>
-              <Link to = "/wishlist"><FavoriteBorderOutlinedIcon style={{color: "#333", fontSize: "25px"}}/></Link>
-            </Box>
-            <Box p={1}>
-              <Link to = "/cart"><ShoppingCartOutlinedIcon style={{color: "#333", fontSize: "25px"}}/></Link>
-            </Box>
-          </Box>
-        </div>
-        <p><Link to = "/">A For Australia</Link></p>
+        </div> */}
         {productsUniqueByKey ? (
           <nav>
             <ul style={{marginTop: "-8px"}}>
@@ -91,8 +70,6 @@ const Navigation = () => {
             <h5>No Items Found</h5>
           </div>
         )}
-        
-      {/* </section> */}
       <section/>
     </>
   )

@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TopNavigation from "../../components/Navigation/topNav.js";
+import HideTop from "../../components/Navigation/hideTop.js";
 import { getProductBySubCategory, getParticularProduct } from "../../redux/actions/products/index.js";
 import { addProductToWishList, getWishList } from "../../redux/actions/wishlist/index.js";
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
@@ -39,6 +40,7 @@ const ProductsBySubCategory = () => {
   
   return(
     <>
+      <HideTop/>
       <TopNavigation/>
       {productData.length > 0 ? (
         <>

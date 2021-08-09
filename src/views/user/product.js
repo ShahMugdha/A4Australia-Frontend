@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { getParticularProduct } from "../../redux/actions/products";
 import { Link, Redirect, useParams } from "react-router-dom";
+import HideTop from "../../components/Navigation/hideTop";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const Product = () => {
 
   return(
     <>
+      <HideTop/>
       hello
     </>
   );

@@ -5,6 +5,7 @@ import "../../components/wishlist.css"
 import { Link, Redirect } from "react-router-dom";
 import { FormGroup, Label, Input } from "reactstrap";
 import Navigation from "../../components/Navigation/navigation";
+import HideTop from "../../components/Navigation/hideTop";
 
 const Wishlist = () => {
   const [size, setSize] = useState("Small")
@@ -21,6 +22,7 @@ const Wishlist = () => {
   return(
     <>
       { user.isAuth ? null : <Link to="/login" /> }
+      <HideTop/>
       <Navigation/>
       {wishlistData? (
         <section className="section-subscribe">
