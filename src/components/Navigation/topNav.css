@@ -13,20 +13,20 @@ body {
 }
 
 /* Navigation Settings */
-.top {
+nav {
 	position: absolute;
-	top: 80px;
+	top: 120;
 	width: 100%;
 	height: 50px;
 	background-color: #333;
 }
 
-.top li {
+nav li {
 	display: inline-block;
 	padding: 24px 10px;
 }
 
-.top li a {
+nav li a {
 	color: #b6abab;
 	text-transform: uppercase;
 }
@@ -37,11 +37,11 @@ section {
 
 @media only screen and (max-width: 520px) {
 
-	.top li {
+	nav li {
 		padding: 24px 4px;
 	}
 
-	.top li a {
+	nav li a {
 		font-size: 14px;
 	}
 
