@@ -22,8 +22,6 @@ import {
 const ProductsBySubCategory = () => {
   const [formModal, setFormModal] = useState(false);
   const {category, subCategory} = useParams()
-  console.log(category, "cat")
-  console.log(subCategory, "subcat")
   const productData = useSelector(state => state.products.productsBySubCategory)
   const dispatch = useDispatch()
   useEffect(() => {

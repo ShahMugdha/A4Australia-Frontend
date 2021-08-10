@@ -22,7 +22,7 @@ const HideTop = () => {
   }
   return(
     <>
-      <div style={{position: "absolute", top: "25px", left: "0px"}}>
+      <div style={{position: "absolute", top: "19px", left: "0px"}} id = "hideTop">
         <SideNav/>
       </div>
       <div style={{position: "absolute", top: "5px", right: "20px"}} id = "hideTop">
