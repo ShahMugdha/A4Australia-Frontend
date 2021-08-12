@@ -37,6 +37,9 @@ const Home = () => {
   let flag = 0
   const [formModal, setFormModal] = useState(false);
   const productData = useSelector(state => state.products.productData)
+  const key = 'title';
+  const productsUniqueByKey = [...new Map(productData.map(item => [item[key], item])).values()];
+  console.log(productsUniqueByKey, "title unique")
   const wishlistData = useSelector(state => state.wishlist.wishlistData)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -58,10 +61,10 @@ const Home = () => {
     <>
       <HideTop/>
       <Navigation/>
-      {productData.length > 0 ? (
+      {productsUniqueByKey.length > 0 ? (
         <div className="main">
           <ul className="cards">
-          {productData.map((product) => {
+          {productsUniqueByKey.map((product) => {
             return (
               <li className="cards_item" key = {product._id}>
                 <div className="card">
