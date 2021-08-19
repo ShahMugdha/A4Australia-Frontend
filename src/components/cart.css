@@ -1,8 +1,6 @@
-/* Layout: */
-
+/* 
 .col-main {
   flex: 1;  
-  /* float: left; */
 }  
 
 .col-complementary {
@@ -12,8 +10,6 @@
 .left {
   float:left 
 }  
-
-/* Responsive: */
 
 @media only screen and (min-width: 640px) {
   .layout {
@@ -31,4 +27,52 @@
   max-width: 30em;
   padding: 1em;
   margin: 0 2px 2px 0;
+} */
+
+.order {
+  margin-left: 60%;
+  top: 20%;
+  padding: 0;
+  width: 350px;
+  background-color: #f1f1f1;
+  position: fixed;
+  height: 70%;
+  overflow: hidden;
+}
+
+.order a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+ 
+div.cartprod {
+  margin-top: 10%;
+  margin-left: 10%;
+  width: 40%;
+  padding: 1px 16px;
+  height: 100%;
+  overflow-x: hidden;
+}
+
+@media screen and (max-width: 700px) {
+  .order {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .order a {float: none;}
+  div.cartprod {margin-left: 0;}
+}
+
+@media screen and (max-width: 700px) {
+  .order {
+    margin-left: 10%;
+    width: 80%;
+    text-align: center;
+    float: none;
+  }
+  div.cartprod {margin-left: 10%; width: 80%;}
 }

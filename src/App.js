@@ -2,7 +2,7 @@ import React from "react";
 import Home from './views/user/home.js';
 import Profile from "./views/user/profile/display.js";
 import Login from "./views/authentication/login.js";
-import Product from "./views/user/product.js";
+import ProductDetail from "./views/user/productDetail.js";
 import ProductsByCategory from "./views/user/productsByCategory.js";
 import ProductsBySubCategory from "./views/user/productsBySubCategory.js";
 import Wishlist from "./views/user/wishlist.js";
@@ -23,7 +23,7 @@ function App() {
           <Home />
         </Route>
         <Route path="/collection/product/:productId">
-          <Product/>
+          <ProductDetail/>
         </Route> 
         <Route path="/profile">
           <Profile />

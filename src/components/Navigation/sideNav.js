@@ -77,8 +77,9 @@ const SideNav = () => {
 </button>
 <section id="sidebar" className="sidebar">
     <div className="pad-dbl">
-        <h1>Sidebar</h1>
-        <h2>Navigation</h2>
+        <h1></h1>
+        <h2></h2>
+        <br/><br/>
         <div className="menu">
         <ul className="menu-level1 no-style">
             <li className="menu-toggle">

@@ -43,7 +43,7 @@ const Wishlist = () => {
                       <div className="w-card__form">
                         <div className="w-card__box">
                         <FormGroup style = {{marginLeft: "-20rem", color: "aliceblue", marginTop: "40px"}} >
-                          <Label for="password">Size:</Label>
+                          <Label for="size">Size:</Label>
                           <Input style={{marginLeft: "10px"}}
                             type="select"
                             name="size"

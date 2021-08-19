@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
-import { FormGroup, Label, Input, Button } from "reactstrap";
+import { FormGroup, Label, Button, Input} from "reactstrap";
 import Navigation from "../../components/Navigation/navigation.js"
 import HideTop from "../../components/Navigation/hideTop.js";
 import { getCartList, updateProductQuantity, updateProductSize, moveProductToWishList, deleteProductFromCart } from "../../redux/actions/cart/index.js";
@@ -30,6 +30,12 @@ const Cart = () => {
     dispatch(moveProductToWishList())
   }
 
+  const sizeOptions = [
+    { value: 'Small', label: 'Small' },
+    { value: 'Medium', label: 'Medium' },
+    { value: 'Large', label: 'Large' },
+  ];
+
   useEffect(()=> {
     dispatch(getCartList())
   }, [dispatch])
@@ -38,8 +44,7 @@ const Cart = () => {
     <>
       { user.isAuth ? null : <Link to="/login" /> }
       <HideTop/>
-      <Navigation/>
-      <div className="container">
+      <div className="cartprod">
       
         {cartData? (
           cartData.map(cart => (       
@@ -49,18 +54,18 @@ const Cart = () => {
                   <p className="col col-main">
                     <div style={{display: "flex", flexDirection: "column", height: "100%", boxSizing: "border-box", border: "solid pink 1px", marginBottom: "20px", textAlign: "left", padding: "2rem"}}>
                       <div>{cartProd.product.title}</div>
-                      <div>Rs. {cartProd.product.price}</div>
+                      <div>Rs. {cartProd.price}</div>
                       <div>Size: {cartProd.size}</div>
                       <div>Quantity: {cartProd.quantity}</div>
-                      <div className="layout">
+                      {/* <div className="layout"> */}
                         <FormGroup style = {{color: "black"}} className="left">
-                          <Label for="password" style={{color: "black"}}>Size: </Label>
+                          <Label for="size" style={{color: "black"}}>Size: </Label>
                           <Input
                             type="select"
                             name="size"
                             value = {size}
-                            id={cartProd._id}
-                            onChange = {(e) => setSize(e.target.value), changeSize(size)}
+                            /* id={cartProd.product._id} */
+                            onChange = {(e) => setSize(e.target.value)}
                           >
                             <option value="Small">Small</option>
                             <option value="Medium">Medium</option>
@@ -68,20 +73,20 @@ const Cart = () => {
                           </Input>
                         </FormGroup>
                         <FormGroup style = {{color: "black"}} role="complementary">
-                          <Label for="password" style={{color: "black", marginLeft: "1rem"}}>Quantity: </Label>
+                          <Label for="quantity" style={{color: "black"}}>Quantity: </Label>
                           <Input
                             type="select"
-                            name="size"
+                            name="quantity"
                             value = {quantity}
-                            id={cartProd._id}
-                            onChange = {(e) => setQuantity(e.target.value), changeQuantity(quantity)}
+                            /* id={cartProd.product._id} */
+                            onChange = {(e) => setQuantity(e.target.value)}
                           >
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                           </Input>
                         </FormGroup>
-                      </div>
+                      {/* </div> */}
                       <div className="layout" style={{marginTop: "0.5rem"}}>
                         <button className="left">
                           Remove
@@ -91,16 +96,7 @@ const Cart = () => {
                         </button>
                       </div>
                     </div>
-                  </p>    
-                  <p className="layout">
-                    <div style={{height: "100%", boxSizing: "border-box", border: "solid pink 1px"/* , marginBottom: "20px" */}} className="col col-complementary" role="complementary">
-                      <div>ORDER SUMMARY</div>
-                      <div>
-                        this is the middle row
-                      </div>
-                      <div>down</div>
-                    </div>
-                  </p>        
+                  </p>          
                 </div>  
               )
             })
@@ -108,12 +104,29 @@ const Cart = () => {
         ): (
           <h1>your cart is empty</h1>
         )}
-        <p>
-          <div style={{height: "100%", marginBottom: "20px"}} className="col col-complementary" role="complementary">
-            <Link to = "/wishlist"><Button>ADD MORE FROM WISHLIST</Button></Link>
-            <Link to = "/pay"><Button>CHECKOUT</Button></Link>
-          </div>
-        </p>    
+        
+        {cartData? (
+          cartData.map(cart => {
+            return(
+              <>
+                <div className = "order">
+                  Order Summary
+                  <div>Total Quantity: {cart.totalQuantity}</div>
+                  <div>Total Price: {cart.totalPrice}</div>
+                </div>
+                <p>
+                  <div style={{height: "100%", marginBottom: "20px"}} className="col col-complementary" role="complementary">
+                    <Link to = "/wishlist"><Button>ADD MORE FROM WISHLIST</Button></Link>
+                    <Link to = "/pay"><Button>CHECKOUT</Button></Link>
+                  </div>
+                </p>  
+              </> 
+            )
+          })
+        ): (
+          <h1></h1>
+        )}
+          
       </div>
     </>
   );

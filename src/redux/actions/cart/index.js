@@ -24,7 +24,7 @@ export const getCartList = () => {
 
 export const updateProductQuantity = (productId, size, quantity) => {
   return async(dispatch) => {
-    await request.get(`/cart/update-product-quantity/${productId}/${size}/${quantity}`).then((response) => {
+    await request.patch(`/cart/update-product-quantity/${productId}/${size}/${quantity}`).then((response) => {
       dispatch({
         type: "UPDATE_PRODUCT_QUANTITY",
         payload: response.data
@@ -35,7 +35,7 @@ export const updateProductQuantity = (productId, size, quantity) => {
 
 export const updateProductSize = (productId, originalSize, updatedSize) => {
   return async(dispatch) => {
-    await request.get(`/cart/update-product-size/${productId}/${originalSize}/${updatedSize}`).then((response) => {
+    await request.patch(`/cart/update-product-size/${productId}/${originalSize}/${updatedSize}`).then((response) => {
       dispatch({
         type: "UPDATE_PRODUCT_SIZE",
         payload: response.data
