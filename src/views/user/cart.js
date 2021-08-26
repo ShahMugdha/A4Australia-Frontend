@@ -117,7 +117,7 @@ const Cart = () => {
                 <p>
                   <div style={{height: "100%", marginBottom: "20px"}} className="col col-complementary" role="complementary">
                     <Link to = "/wishlist"><Button>ADD MORE FROM WISHLIST</Button></Link>
-                    <Link to = "/pay"><Button>CHECKOUT</Button></Link>
+                    <Link to = "/address"><Button>CHECKOUT</Button></Link>
                   </div>
                 </p>  
               </> 

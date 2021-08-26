@@ -1,16 +1,28 @@
 import {React, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
 import CardSection from './cardSection.js';
+import { getCartList } from '../../../redux/actions/cart/index.js';
+import { getMyAddress } from '../../../redux/actions/address/index.js';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const elements = useElements();
+  const cart = useSelector(state => state.cart.cartData)
+  const address = useSelector(state => state.address.myAddress.addresses)
+  const count = address ? address.length: null
+  const orderAddress = address ? address[count-1] : ''
+  console.log(orderAddress, "final")
+  console.log(count, "count")
+  const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(getCartList())
+    dispatch(getMyAddress())
     if (!stripe || !elements) {
       return;
     }
-  }, [stripe, elements])
+  }, [stripe, elements, dispatch])
 
   function handleServerResponse(response) {
     if (response.error) {
@@ -41,12 +53,12 @@ export default function CheckoutForm() {
     }
   }
 
-  function stripePaymentMethodHandler(result) {
+  function stripePaymentMethodHandler(result, userId) {
     if (result.error) {
       // Show error in payment form
     } else {
       // Otherwise send paymentMethod.id to your server (see Step 4)
-      fetch('http://localhost:5000/pay', {
+      fetch(`http://localhost:5000/pay/${userId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -77,19 +89,24 @@ export default function CheckoutForm() {
       card: elements.getElement(CardElement),
       billing_details: {
         // Include any additional collected billing details.
-        name: 'Jenny Rosen',
+        email: cart.user.email,
+        name: cart.user.name,
+        phone: cart.user.mobile
       },
     });
 
-    stripePaymentMethodHandler(result);
+    stripePaymentMethodHandler(result, cart.user._id);
   };
   
   return (
-    <form onSubmit={e => handleSubmit(e)}>
-      <CardSection />
-      <button type="submit" disabled={!stripe}>
-        Submit Payment
-      </button>
-    </form>
+    <>
+      <form><div style={{boxSizing: "border-box", padding: "20px", border: "5px solid blue"}}>Total Amount: {cart && cart[0] ? cart[0].totalPrice : 0} &nbsp; Total Quantity: {cart && cart[0] ? cart[0].totalQuantity : 0} </div></form>
+      <form onSubmit={e => handleSubmit(e)} >
+        <CardSection />
+        <button type="submit" disabled={!stripe}>
+          Pay {cart && cart[0] ? cart[0].totalPrice: null}
+        </button>
+      </form>
+    </>
   );
 } 

@@ -44,7 +44,7 @@ const HideTop = () => {
       <div style={{position: "absolute", top: "19px", left: "0px"}}>
         <SideNav/>
       </div>
-      <header style={{position: "absolute", top: "5px", right: "20px"}}>
+      <header style={{position: "absolute", top: "5px", right: "-10px"}}>
         <Box display="flex" flexDirection="row" p={1} m={1}>
           <Box p={1}>
             <Link to = "/profile"><AccountCircleOutlinedIcon style={{color: "#333", fontSize: "25px"}}/></Link>

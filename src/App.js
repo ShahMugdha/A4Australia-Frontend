@@ -7,6 +7,7 @@ import ProductsByCategory from "./views/user/productsByCategory.js";
 import ProductsBySubCategory from "./views/user/productsBySubCategory.js";
 import Wishlist from "./views/user/wishlist.js";
 import Cart from "./views/user/cart.js";
+import Address from "./views/user/payment/address.js";
 import CheckoutForm from "./views/user/payment/checkoutForm.js"
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 
@@ -39,6 +40,9 @@ function App() {
         </Route>
         <Route path="/cart">
           <Cart />
+        </Route>
+        <Route path="/address">
+          <Address />
         </Route>
         <Elements stripe={stripePromise}>
           <CheckoutForm />

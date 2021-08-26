@@ -5,6 +5,7 @@ import profile from "./profile/index.js"
 import products from "./products/index.js"
 import wishlist from "./wishlist/index.js"
 import cart from "./cart/index.js"
+import address from "./address/index.js"
 import auth from "./auth/index.js"
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   products,
   profile,
   wishlist,
-  cart
+  cart,
+  address
 });
 
 export default rootReducer;
