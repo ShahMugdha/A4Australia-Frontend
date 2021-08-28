@@ -11,33 +11,13 @@ export const getUserProfile = () => {
   };
 };
 
-export const updateUserAccountDetails = () => {
+export const updateUserAccountDetails = (account) => {
+  const fullname = account.firstName + " " + account.lastName
+  const param = { ...account, name: fullname};
   return async(dispatch) => {
-    await request.patch('/profile/account-details').then((response) => {
+    await request.patch('/profile/account-details', param).then((response) => {
       dispatch({
         type: "UPDATE_ACCOUNT_DETAILS",
-        payload: response.data
-      })
-    })
-  }
-}
-
-export const setUserAddress = () => {
-  return async(dispatch) => {
-    await request.post('/address').then((response) => {
-      dispatch({
-        type: "SET_PROFILE_ADDRESS",
-        payload: response.data
-      })
-    })
-  }
-}
-
-export const updateUserAddresses = (addressId) => {
-  return async(dispatch) => {
-    await request.patch(`/address/${addressId}`).then((response) => {
-      dispatch({
-        type: "UPDATE_PROFILE_ADDRESS",
         payload: response.data
       })
     })

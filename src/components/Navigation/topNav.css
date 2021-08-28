@@ -1,5 +1,6 @@
 .fixed {
 	position: fixed;
+	width: 100%;
 	top: 0;
 	height: 50px;
 	z-index: 1;

@@ -5,7 +5,9 @@
 body {
 	background: url(//subtlepatterns.com/patterns/scribble_light.png);
   font-family: Calluna, Arial, sans-serif;
-  min-height: 1000px;
+  max-width: 1000px;
+  overflow-x: hidden; 
+  align-content: center;
 }
 #wrap{
 	width: 90%;
@@ -114,13 +116,28 @@ div#columns figure figcaption {
 }
 @media screen and (max-width: 960px) { 
   #columns figure { width: 24%; }
+  .body {
+    overflow-x: hidden;
+  }
 }
 @media screen and (max-width: 767px) {
   #columns figure { width:32%;}
+  .body {
+    overflow-x: hidden;
+  }
 }
 @media screen and (max-width: 600px) {
   #columns figure { width: 49%;}
+  .body {
+    overflow-x: hidden;
+  }
 }
 @media screen and (max-width: 500px) {
   #columns figure { width: 100%;}
+  #wrap {
+    margin: 20px;
+  }
+  .body {
+    overflow-x: hidden;
+  }
 }

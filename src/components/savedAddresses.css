@@ -1,0 +1,16 @@
+.addresses {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 17px;
+  text-align: left;
+}
+
+.data {
+  background-color: #f1f1f1;
+  list-style-type: none;
+  padding: 5px;
+  height: 115px;
+  flex: 100%;
+  margin-top: 1%;
+  overflow-y: scroll;
+}

@@ -1,6 +1,7 @@
 import {React, useEffect, useState} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {Link} from "react-router-dom";
+import { Button } from "reactstrap";
 import $ from 'jquery'
 import AccountCircleOutlinedIcon from '@material-ui/icons/AccountCircleOutlined';
 import SearchIcon from '@material-ui/icons/Search';
@@ -60,7 +61,7 @@ const HideTop = () => {
           </Box>
         </Box>
       </header>
-      <p><Link to = "/">A For Australia</Link></p>
+      <p><Link to = "/"><Button>A For Australia</Button></Link></p>
     </>
   )
 }

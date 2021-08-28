@@ -57,7 +57,7 @@ div.cartprod {
   overflow-x: hidden;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1370px) {
   .order {
     width: 100%;
     height: auto;
@@ -67,7 +67,7 @@ div.cartprod {
   div.cartprod {margin-left: 0;}
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 1370px) {
   .order {
     margin-left: 10%;
     width: 80%;
