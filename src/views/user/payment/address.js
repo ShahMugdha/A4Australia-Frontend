@@ -9,18 +9,21 @@ import "../../../components/address.css"
 
 const Address = () => {
   const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getMyAddress())
+  }, [dispatch])
   const user = useSelector(state => state.auth)
   const addressData = useSelector(state => state.address.myAddress)
   const count = addressData && addressData.addresses ? addressData.addresses.length: null
 
   const [shipping, setShipping] = useState({
-    name: addressData && addressData.addresses && addressData.addresses.length>0 ? addressData.addresses[count-1].name : '',
-    addressLine1: addressData && addressData.addresses ? addressData.addresses[0].addressLine1 : '',
-    addressLine2: addressData && addressData.addresses ? addressData.addresses[0].addressLine2 : '',
-    postalCode: addressData && addressData.addresses ? addressData.addresses[0].postalCode : '',
-    city: addressData && addressData.addresses ? addressData.addresses[0].city : '',
-    state: addressData && addressData.addresses ? addressData.addresses[0].state : '',
-    country: addressData && addressData.addresses ? addressData.addresses[0].country : ''
+    name: addressData && addressData.addresses? addressData.addresses[count-1].name : '',
+    addressLine1: addressData && addressData.addresses ? addressData.addresses[count-1].addressLine1 : '',
+    addressLine2: addressData && addressData.addresses ? addressData.addresses[count-1].addressLine2 : '',
+    postalCode: addressData && addressData.addresses ? addressData.addresses[count-1].postalCode : '',
+    city: addressData && addressData.addresses ? addressData.addresses[count-1].city : '',
+    state: addressData && addressData.addresses ? addressData.addresses[count-1].state : '',
+    country: addressData && addressData.addresses ? addressData.addresses[count-1].country : ''
   })
   console.log(shipping, "add data")
 
@@ -32,12 +35,10 @@ const Address = () => {
     else dispatch(addAddress(shipping))
   }
 
-  useEffect(() => {
-    dispatch(getMyAddress())
-  }, [dispatch])
   return(
     <>
       { user.isAuth ? null : <Link to="/login" /> }
+      {count ? null : <div>loading</div>}
       <HideTop/>
       <form action="#" method="post" style={{marginTop: "7%"}}>
         <div className="row shipping">

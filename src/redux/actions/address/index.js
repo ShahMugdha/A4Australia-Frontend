@@ -33,9 +33,9 @@ export const getMyAddress = () => {
   };
 }
 
-export const updateAddress = () => {
+export const updateAddress = (addressId, address) => {
   return async(dispatch) => {
-    await request.patch(`/address/my-address`).then((response) => {
+    await request.patch(`/address/my-address/update/${addressId}`, address).then((response) => {
       dispatch({
         type: "UPDATE_ADDRESS",
         payload: response.data
@@ -44,13 +44,16 @@ export const updateAddress = () => {
   };
 }
 
-export const removeAddress = () => {
-  return async(dispatch) => {
-    await request.patch(`/address/my-address`).then((response) => {
+export const removeAddress = (addressId) => {
+  console.log(addressId, "id")
+  return async(dispatch, getState) => {
+    await request.patch(`/address/my-address/remove/${addressId}`).then((response) => {
       dispatch({
         type: "REMOVE_ADDRESS",
         payload: response.data
       });
-    })
+    })/* .then(dispatch(getMyAddress(getState().address.myAddress.addresses))); */
   };
 }
+
+export const selectAddress = (address) => (dispatch) => dispatch({ type: "SELECT_ADDRESS", payload: address });

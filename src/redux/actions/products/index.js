@@ -13,7 +13,7 @@ export const getProductList = () => {
 
 export const getParticularProduct = (productId) => {
   return async(dispatch) => {
-    await request.get(`/product/collection/${productId}`).then((response) => {
+    await request.get(`/product/collection/particular/${productId}`).then((response) => {
       dispatch({
         type: "GET_PARTICULAR_PRODUCT",
         payload: response.data

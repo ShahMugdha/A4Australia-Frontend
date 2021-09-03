@@ -2,8 +2,14 @@ import React from "react";
 import Home from './views/user/home.js';
 import Profile from "./views/user/profile/accountDisplay.js";
 import EditAccount from "./views/user/profile/editAccount.js";
+import EditAddress from "./views/user/profile/editAddress.js";
 import SavedAddresses from "./views/user/profile/savedAddresses.js";
 import Login from "./views/authentication/login.js";
+import AdminLogin from "./views/admin/adminLogin.js"
+import AllProducts from "./views/admin/products.js";
+import Dashboard from "./views/admin/dashboard.js";
+import AddProduct from "./views/admin/addProduct.js";
+import SingleProduct from "./views/admin/singleProduct.js";
 import ProductDetail from "./views/user/productDetail.js";
 import ProductsByCategory from "./views/user/productsByCategory.js";
 import ProductsBySubCategory from "./views/user/productsBySubCategory.js";
@@ -26,6 +32,24 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
+        <Route exact path="/admin">
+          <AdminLogin />
+        </Route>
+        <Route path="/admin/dashboard">
+          <Dashboard />
+        </Route>
+        <Route path="/admin/all-products">
+          <AllProducts />
+        </Route>
+        <Route path="/admin/add-new-product">
+          <AddProduct />
+        </Route>
+        <Route path="/admin/single-product">
+          <SingleProduct />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
         <Route path="/collection/product/:productId">
           <ProductDetail/>
         </Route> 
@@ -37,6 +61,9 @@ function App() {
         </Route>
         <Route path="/saved-addresses">
           <SavedAddresses />
+        </Route>
+        <Route path="/edit-address">
+          <EditAddress />
         </Route>
         <Route path="/product/category/:category">
           <ProductsByCategory />
@@ -56,9 +83,6 @@ function App() {
         <Elements stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
-        <Route path="/login">
-          <Login />
-        </Route>
       </Switch>
     </BrowserRouter>
   );

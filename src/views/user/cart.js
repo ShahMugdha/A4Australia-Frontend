@@ -26,15 +26,10 @@ const Cart = () => {
     dispatch(deleteProductFromCart())
   }
 
-  const moveToWishList = () => {
-    dispatch(moveProductToWishList())
+  const moveToWishList = (productId, Size) => {
+    dispatch(moveProductToWishList(productId, Size))
+    window.location.reload();
   }
-
-  const sizeOptions = [
-    { value: 'Small', label: 'Small' },
-    { value: 'Medium', label: 'Medium' },
-    { value: 'Large', label: 'Large' },
-  ];
 
   useEffect(()=> {
     dispatch(getCartList())
@@ -42,7 +37,7 @@ const Cart = () => {
 
   return(
     <>
-      { user.isAuth ? null : <Link to="/login" /> }
+      { user.isAuth ? null : <Link to="/login"></Link> }
       <HideTop/>
       <div className="cartprod">
       
@@ -91,9 +86,9 @@ const Cart = () => {
                         <button className="left">
                           Remove
                         </button>
-                        <button role="complementary" style={{marginLeft: "0.5rem"}}>
+                        <Button style={{marginLeft: "0.5rem", cursor: "pointer"}} onClick={() => moveToWishList(cartProd.product._id, cartProd.size)}>
                           Move back to wishlist
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </p>          

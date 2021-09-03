@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
 import { getUserProfile } from "../../../redux/actions/profile/index.js";
+import { logOut } from "../../../redux/actions/auth/index.js";
 import "../../../components/profileHome.css"
 import { Button } from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
@@ -11,13 +12,18 @@ const Profile = () => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth)
   const profile = useSelector(state => state.profile)
+
+  const handleLogOut = () => {
+    logOut()
+  }
+
   useEffect(()=> {
     dispatch(getUserProfile())
   }, [dispatch])
 
   return(
     <>
-      { user.isAuth ? null : <Link to="/login" /> }
+      { user.isAuth ? null : <Link to="/login">Please Log In</Link> }
       <HideTop/>
       <div style={{marginTop: "10%"}}>
         <div className="column1" style={{backgroundColor: "#aaa"}}>
@@ -38,7 +44,8 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <Button>Logout</Button>
+      <div className="Logout-button" onClick={() => handleLogOut()}><Link to = "/"><Button style={{backgroundColor: "lavender", marginTop: "5%"}}>Logout</Button></Link></div>
+      
     </>
   );
 }

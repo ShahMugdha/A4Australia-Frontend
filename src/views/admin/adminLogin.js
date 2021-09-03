@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { React, useState } from "react";
 import { Link, Redirect, useHistory, Route } from "react-router-dom";
 import { Facebook, Twitter, Mail, Linkedin, Coffee } from "react-feather";
 import {
@@ -14,16 +14,15 @@ import {
   Button,
 } from "reactstrap";
 
-import {login} from "../../redux/actions/auth/index.js";
+import {adminLogin} from "../../redux/actions/auth/index.js";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const handleSubmit = (event) => {
-    //event.preventDefault();
-    dispatch(login({ email, password, role: "CUSTOMER" }))
+  const handleSubmit = () => {
+    dispatch(adminLogin({ email, password, role: "ADMIN" }))
   }
   return (
     <div className='auth-wrapper auth-v2'>
@@ -63,13 +62,13 @@ const Login = () => {
                 </Label>
                 <Input
                   type='password'
-                  id='login-email'
-                  name='login-email'
+                  id='login-password'
+                  name='login-password'
                   value = {password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </FormGroup>
-              <Link to = '/profile' color='primary' block onClick={e => handleSubmit(e)}>
+              <Link to = "/admin/dashboard" color='primary' onClick={(e) => handleSubmit(e)}>
                 Sign In
               </Link>
             </Form>

@@ -1,5 +1,5 @@
 .column1 {
-  margin-left: 20%;
+  margin-left: 10%;
   float: left;
   width: 25%;
   padding: 10px;
@@ -23,6 +23,12 @@
   text-align: center;
   list-style-type: none;
 }
+
+.Logout-button {
+  width: 500px;
+  margin-left: 35%;
+}
+
 @media screen and (max-width: 960px) { 
   .column1 {
     width: 80%;
@@ -32,12 +38,42 @@
     margin-top: 10px;
     width: 80%;
     height: 500px;
-    margin-left: 20%;
+    margin-left: 10%;
   } 
   .list {
     margin-top: 10px;
     margin-left: 12%;
     float: left;
+  }
+  .Logout-button {
+    width: 500px;
+    margin-left: 8%;
+    
+  }
+}
+
+@media screen and (max-width: 708px) {
+  .column1 {
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+  .unordered {
+    text-align: justify; 
+    width: 30em; 
+  } 
+  .unordered:after { 
+    content: '';
+    display: inline-block;
+    width: 100%;
+  } 
+  .list {
+    margin-top: 0;
+    margin-left: 30px;
+    display: inline-block;
+  }
+  .Logout-button {
+    width: 500px;
+    margin-left: 8%;
   }
 }
 
@@ -58,5 +94,10 @@
   .list {
     margin-top: 0;
     display: inline-block;
+  }
+
+  .Logout-button {
+    width: 500px;
+    margin-left: 5%;
   }
 }

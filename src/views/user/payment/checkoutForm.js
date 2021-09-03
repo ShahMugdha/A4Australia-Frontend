@@ -1,28 +1,71 @@
-import {React, useEffect} from 'react';
+import {React, useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {useStripe, useElements, CardElement} from '@stripe/react-stripe-js';
+import {useStripe, useElements, CardElement, PaymentRequestButtonElement} from '@stripe/react-stripe-js';
 import CardSection from './cardSection.js';
 import { getCartList } from '../../../redux/actions/cart/index.js';
 import { getMyAddress } from '../../../redux/actions/address/index.js';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
+  const [paymentRequest, setPaymentRequest] = useState(null);
   const elements = useElements();
-  const cart = useSelector(state => state.cart.cartData)
+  const cart = useSelector(state => state.cart.cartData[0])
   const address = useSelector(state => state.address.myAddress.addresses)
   const count = address ? address.length: null
   const orderAddress = address ? address[count-1] : ''
+  console.log(cart && cart.user ? cart.user: null, "email")
   console.log(orderAddress, "final")
   console.log(count, "count")
+
+  const options = {
+    paymentRequest,
+    style: {
+      paymentRequestButton: {
+        type: 'default',
+        // One of 'default', 'book', 'buy', or 'donate'
+        // Defaults to 'default'
+  
+        theme: 'dark',
+        // One of 'dark', 'light', or 'light-outline'
+        // Defaults to 'dark'
+  
+        height: '64px',
+        // Defaults to '40px'. The width is always '100%'.
+      },
+    }
+  }
   const dispatch = useDispatch()
 
   useEffect(() => {
+    if (stripe) {
+      const pr = stripe.paymentRequest({
+        country: 'IN',
+        currency: 'inr',
+        total: {
+          label: 'Demo total',
+          amount: cart ? cart.totalPrice : 0
+        },
+        requestPayerName: true,
+        requestPayerEmail: true,
+      });
+      pr.canMakePayment().then(result => {
+        if (result) {
+          setPaymentRequest(pr);
+        }
+      });
+      console.log(pr, "pr")
+    }
     dispatch(getCartList())
     dispatch(getMyAddress())
     if (!stripe || !elements) {
       return;
     }
   }, [stripe, elements, dispatch])
+
+  if (paymentRequest) {
+    return <PaymentRequestButtonElement options={options} />
+  }
+  console.log(paymentRequest, "req")
 
   function handleServerResponse(response) {
     if (response.error) {
@@ -89,9 +132,17 @@ export default function CheckoutForm() {
       card: elements.getElement(CardElement),
       billing_details: {
         // Include any additional collected billing details.
-        email: cart.user.email,
-        name: cart.user.name,
-        phone: cart.user.mobile
+        //city: orderAddress.city,
+        address: {
+          city: orderAddress.city,
+          //country: orderAddress.country,
+          line1: orderAddress.addressLine1,
+          line2: orderAddress.addressLine2,
+          state: orderAddress.state
+        },
+        email: cart && cart.user ? cart.user.email: null,
+        name: cart && cart.user ? cart.user.name: null,
+        phone: cart && cart.user ? cart.user.mobile: null
       },
     });
 
@@ -100,11 +151,11 @@ export default function CheckoutForm() {
   
   return (
     <>
-      <form><div style={{boxSizing: "border-box", padding: "20px", border: "5px solid blue"}}>Total Amount: {cart && cart[0] ? cart[0].totalPrice : 0} &nbsp; Total Quantity: {cart && cart[0] ? cart[0].totalQuantity : 0} </div></form>
+      <form><div style={{boxSizing: "border-box", padding: "20px", border: "5px solid blue"}}>Total Amount: {cart ? cart.totalPrice : 0} &nbsp; Total Quantity: {cart ? cart.totalQuantity : 0} </div></form>
       <form onSubmit={e => handleSubmit(e)} >
         <CardSection />
         <button type="submit" disabled={!stripe}>
-          Pay {cart && cart[0] ? cart[0].totalPrice: null}
+          Pay {cart ? cart.totalPrice: null}
         </button>
       </form>
     </>

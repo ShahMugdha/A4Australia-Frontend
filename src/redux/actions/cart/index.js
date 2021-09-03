@@ -46,7 +46,7 @@ export const updateProductSize = (productId, originalSize, updatedSize) => {
 
 export const moveProductToWishList = (productId, size) => {
   return async(dispatch) => {
-    await request.post(`/cart/move-to-wishlist/${productId, size}`).then((response) => {
+    await request.patch(`/cart/move-to-wishlist/${productId}/${size}`).then((response) => {
       dispatch({
         type: "MOVE_TO_WISHLIST",
         payload: response.data
@@ -57,7 +57,7 @@ export const moveProductToWishList = (productId, size) => {
 
 export const deleteProductFromCart = (productId, size) => {
   return async(dispatch) => {
-    await request.patch(`/cart/${productId, size}`).then((response) => {
+    await request.patch(`/cart/${productId}/${size}`).then((response) => {
       dispatch({
         type: "REMOVE_FROM_CART",
         payload: response.data

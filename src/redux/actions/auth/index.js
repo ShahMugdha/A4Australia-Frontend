@@ -6,7 +6,32 @@ export const login = ({email, password}) => {
     if (response.data.success) {
     await dispatch({
       type: "LOGIN_SUCCESS",
-      payload: response.data.result
+      payload: response.data.result.userData[0]
+    })
+    
+    localStorage.setItem('token', response.data.result.token);
+    localStorage.setItem('user', JSON.stringify(response.data.result));
+    } else {
+      dispatch({
+        type:"LOGIN_FAILED",
+        payload:response.data
+      })
+    }
+    if (response.data.success) {
+    window.location.reload();
+    }
+    return response.data;
+  }
+}
+
+export const adminLogin = ({email, password, role}) => {
+  return async (dispatch) => {
+    const response = await request.post('/auth/login', {email, password, role});
+    console.log(response.data, "USERINFORMATION");
+    if (response.data.success) {
+    await dispatch({
+      type: "LOGIN_SUCCESS",
+      payload: response.data.result.userData[0]
     })
     
     localStorage.setItem('token', response.data.result.token);

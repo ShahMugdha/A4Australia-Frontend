@@ -3,7 +3,8 @@ const initialState = {
   myAddress: {},
   updatedAddress: {},
   addresses: [],
-  removedAddress: {}
+  removedAddress: {},
+  selectedAddress: {}
 };
  
 const AddressReducer = (state = initialState, action) => {
@@ -19,6 +20,8 @@ const AddressReducer = (state = initialState, action) => {
       return { ...state, addresses: action.payload.result };
     case "REMOVE_ADDRESS":
       return { ...state, removedAddress: action.payload.result };
+    case 'SELECT_ADDRESS':
+      return { ...state, selectedAddress: action.payload }
     default:
       return state;
   }

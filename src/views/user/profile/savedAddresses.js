@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
-import { getMyAddress } from "../../../redux/actions/address/index.js";
+import { getMyAddress, removeAddress, selectAddress } from "../../../redux/actions/address/index.js";
 import "../../../components/savedAddresses.css"
 import { Button } from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
@@ -15,6 +15,18 @@ const SavedAddresses = () => {
   useEffect(()=> {
     dispatch(getMyAddress())
   }, [dispatch])
+
+  const handleClick = (data) => {
+    console.log(data, data._id, "data")
+    dispatch(removeAddress(data._id))
+    document.location.reload();
+  }
+
+  const handleEdit = (data) => {
+    console.log(data, data._id, "data")
+    localStorage.setItem("address", JSON.stringify(data));
+    dispatch(selectAddress(data))
+  }
 
   return(
     <>
@@ -34,8 +46,8 @@ const SavedAddresses = () => {
             return(
               <div className="addresses">
                 <li key={addressData._id} className = "data">
-                  <div style={{float: "right", color: "black", cursor: "pointer"}}><DeleteIcon/></div>
-                  <Link to = "/edit-address"><div style={{float: "right", color: "black"}}><EditIcon/></div></Link>
+                  <div style={{float: "right", color: "black", cursor: "pointer"}} onClick={() => handleClick(addressData)}><DeleteIcon/></div>
+                  <Link to = "/edit-address"><div style={{float: "right", color: "black"}} onClick={() => handleEdit(addressData)}><EditIcon/></div></Link>
                   <div>Name: {addressData.name}</div>
                   <div>Address Line 1: {addressData.addressLine1}</div>
                   <div>Address Line 2: {addressData.addressLine2}</div>

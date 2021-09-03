@@ -1,0 +1,27 @@
+.parent {
+  background: rgba(100,100,100, 0.5);
+  margin: 25px;
+  height: 150px;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.child {
+  flex: 0.1;
+  background: rgba(100,100,100, 0.5);
+  max-height: 170px;
+  margin: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.child2 {
+  flex: 0.9;
+  background: rgba(100,100,100, 0.5);
+  text-align: left;
+  max-height: 170px;
+  margin: 5px;
+  padding: 10px;
+  box-sizing: border-box;
+}
