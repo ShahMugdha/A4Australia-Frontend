@@ -12,8 +12,6 @@ const Inventory = () => {
   const user = useSelector(state => state.auth)
   const productData = useSelector(state => state.products.productData)
   const inventoryData = useSelector(state => state.inventory.inventoryData)
-  const key = 'title';
-  const productsUniqueByKey = [...new Map(productData.map(item => [item[key], item])).values()];
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getInventoryList())

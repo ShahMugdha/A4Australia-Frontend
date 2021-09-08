@@ -7,6 +7,7 @@ import wishlist from "./wishlist/index.js"
 import cart from "./cart/index.js"
 import address from "./address/index.js"
 import inventory from "./inventory/index.js"
+import transaction from "./transactions/index.js"
 import auth from "./auth/index.js"
 
 const rootReducer = combineReducers({
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   wishlist,
   cart,
   address,
-  inventory
+  inventory,
+  transaction
 });
 
 export default rootReducer;

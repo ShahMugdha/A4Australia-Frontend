@@ -12,7 +12,8 @@ import AddProduct from "./views/admin/addProduct.js";
 import SingleProduct from "./views/admin/singleProduct.js";
 import Inventory from "./views/admin/inventory/inventory.js";
 import AddInventory from "./views/admin/inventory/addInventory.js";
-import EditInventory from "./views/admin/inventory/editInventory.js"
+import EditInventory from "./views/admin/inventory/editInventory.js";
+import AllTransactions from "./views/admin/transactions.js";
 import ProductDetail from "./views/user/productDetail.js";
 import ProductsByCategory from "./views/user/productsByCategory.js";
 import ProductsBySubCategory from "./views/user/productsBySubCategory.js";
@@ -61,6 +62,9 @@ function App() {
         </Route>
         <Route path="/admin/edit-inventory/:productId">
           <EditInventory />
+        </Route>
+        <Route path="/admin/all-transactions">
+          <AllTransactions />
         </Route>
         <Route path="/login">
           <Login />

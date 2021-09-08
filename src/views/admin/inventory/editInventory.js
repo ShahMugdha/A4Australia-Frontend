@@ -1,7 +1,5 @@
 import { React, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { Facebook, Twitter, Mail, Linkedin, Coffee } from "react-feather";
-import Select from "react-select";
 import { updateInventoryStock } from "../../../redux/actions/inventory";
 import { getProductList } from "../../../redux/actions/products";
 import "../../../components/admin/addProduct.css"
@@ -10,7 +8,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const EditProductInventory = () => {
   const dispatch = useDispatch();
-  const products = useSelector(state => state.products.productData)
   const {productId} = useParams()
   const [size, setSize] = useState("");
   const [quantity, setQuantity] = useState(null);
