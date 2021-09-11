@@ -39,88 +39,91 @@ const EditAddress = () => {
 
   return(
     <>
-      { user.isAuth ? null : <Link to="/login" /> }
-      <HideTop/>
-      <div style={{marginTop: "10%"}}>
-        <div className="column1" style={{backgroundColor: "#aaa"}}>
-          <ul className="unordered">
-            <Link to = "/profile"><li className="list"><Button>Account</Button></li></Link>
-            <Link to = "/saved-addresses"><li className="list"><Button>Saved Addresses</Button></li></Link>
-            <Link to = "/orders"><li className="list"><Button>Orders</Button></li></Link>
-          </ul>
-        </div>
-        <div className="column2" style={{backgroundColor: "#bbb"}}>
-          <div className="edit-form" style={{marginTop: "5%", lineHeight: "150%"}}>
-            <div className="">
-              <form action=""  method="POST">	
+      { user.isAuth ? 
+        <>
+          <HideTop/>
+          <div style={{marginTop: "10%"}}>
+            <div className="column1" style={{backgroundColor: "#aaa"}}>
+              <ul className="unordered">
+                <Link to = "/profile"><li className="list"><Button>Account</Button></li></Link>
+                <Link to = "/saved-addresses"><li className="list"><Button>Saved Addresses</Button></li></Link>
+                <Link to = "/orders"><li className="list"><Button>Orders</Button></li></Link>
+              </ul>
+            </div>
+            <div className="column2" style={{backgroundColor: "#bbb"}}>
+              <div className="edit-form" style={{marginTop: "5%", lineHeight: "150%"}}>
                 <div className="">
-                  <div className="">
+                  <form action=""  method="POST">	
                     <div className="">
-                      <label className="">Name:</label>
-                      <input type="text" name="name" className="" value={address.name} onChange={e => setAddress({ ...address, name: e.target.value })} required />
+                      <div className="">
+                        <div className="">
+                          <label className="">Name:</label>
+                          <input type="text" name="name" className="" value={address.name} onChange={e => setAddress({ ...address, name: e.target.value })} required />
+                        </div>
+                      </div>
+                      <div className="">
+                        <div className="">
+                          <label className="">Address Line 1: </label>
+                          <input type="text" name="address_line_1" className="" value={address.addressLine1} onChange={e => setAddress({ ...address, addressLine1: e.target.value })} required/>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <div className="">
                     <div className="">
-                      <label className="">Address Line 1: </label>
-                      <input type="text" name="address_line_1" className="" value={address.addressLine1} onChange={e => setAddress({ ...address, addressLine1: e.target.value })} required/>
+                      <div className="">
+                        <div className="">
+                          <label className="">Address Line 2:</label>
+                          <input type="text" name="address_line_2" className="" value={address.addressLine2} onChange={e => setAddress({ ...address, addressLine2: e.target.value })} required/>
+                        </div>
+                      </div>
                     </div>
-                  </div>
+                    <div className="">
+                      <div className="">
+                        <div className="">
+                          <label className="">City:</label>
+                          <input type="text" name="city" className="" value={address.city} onChange={e => setAddress({ ...address, city: e.target.value })} required/>						
+                        </div>
+                      </div>
+                    </div>
+                    <div className="">
+                      <div className="">
+                        <div className="">
+                          <label className="">State:</label>
+                          <input type="text" name="state" className="" value={address.state} onChange={e => setAddress({ ...address, state: e.target.value })} required/>						
+                        </div>
+                      </div>
+                    </div>
+                    <div className="">
+                      <div className="">
+                        <div className="">
+                          <label className="">Country:</label>
+                          <input type="text" name="country" className="" value={address.country} onChange={e => setAddress({ ...address, country: e.target.value })} required/>						
+                        </div>
+                      </div>
+                    </div>
+                    <div className="">
+                      <div className="">
+                        <div className="">
+                          <label className="">Postal Code:</label>
+                          <input type="text" name="postal_code" className="" value={address.postalCode} onChange={e => setAddress({ ...address, postalCode: e.target.value })} required/>						
+                        </div>
+                      </div>
+                    </div>
+                    <br/>
+                    <div className="">
+                      <div className="">
+                        <div className="">
+                        <Link to = "/saved-addresses"><Button type="submit" onClick={(e) => handleClick(e)} style={{cursor: "pointer", width: "100%", height: "3em", backgroundColor: "steelblue"}}>SAVE</Button></Link>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-                <div className="">
-                  <div className="">
-                    <div className="">
-                      <label className="">Address Line 2:</label>
-                      <input type="text" name="address_line_2" className="" value={address.addressLine2} onChange={e => setAddress({ ...address, addressLine2: e.target.value })} required/>
-                    </div>
-                  </div>
-                </div>
-                <div className="">
-                  <div className="">
-                    <div className="">
-                      <label className="">City:</label>
-                      <input type="text" name="city" className="" value={address.city} onChange={e => setAddress({ ...address, city: e.target.value })} required/>						
-                    </div>
-                  </div>
-                </div>
-                <div className="">
-                  <div className="">
-                    <div className="">
-                      <label className="">State:</label>
-                      <input type="text" name="state" className="" value={address.state} onChange={e => setAddress({ ...address, state: e.target.value })} required/>						
-                    </div>
-                  </div>
-                </div>
-                <div className="">
-                  <div className="">
-                    <div className="">
-                      <label className="">Country:</label>
-                      <input type="text" name="country" className="" value={address.country} onChange={e => setAddress({ ...address, country: e.target.value })} required/>						
-                    </div>
-                  </div>
-                </div>
-                <div className="">
-                  <div className="">
-                    <div className="">
-                      <label className="">Postal Code:</label>
-                      <input type="text" name="postal_code" className="" value={address.postalCode} onChange={e => setAddress({ ...address, postalCode: e.target.value })} required/>						
-                    </div>
-                  </div>
-                </div>
-                <br/>
-                <div className="">
-                  <div className="">
-                    <div className="">
-                    <Link to = "/saved-addresses"><Button type="submit" onClick={(e) => handleClick(e)} style={{cursor: "pointer", width: "100%", height: "3em", backgroundColor: "steelblue"}}>SAVE</Button></Link>
-                    </div>
-                  </div>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <Button>Logout</Button>
+          <Button>Logout</Button>
+        </> 
+      : <Link to="/login">Please Log In</Link> }
     </>
   );
 }

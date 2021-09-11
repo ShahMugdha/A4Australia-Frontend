@@ -13,7 +13,7 @@ export const paymentIntentsList = () => {
 
 export const paymentIntentById = (paymentIntentId) => {
   return async(dispatch) => {
-    await request.get(`/transaction/${paymentIntentById}`).then((response) => {
+    await request.get(`/transaction/${paymentIntentId}`).then((response) => {
       dispatch({
         type: "GET_SINGLE_TRANSACTION",
         payload: response.data

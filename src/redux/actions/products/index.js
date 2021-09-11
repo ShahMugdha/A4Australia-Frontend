@@ -55,9 +55,9 @@ export const getProductBySubCategory = (category, subCategory) => {
   }
 }
 
-export const updateProduct = (productId) => {
+export const updateProduct = (productId, product) => {
   return async(dispatch) => {
-    await request.patch(`/product/${productId}`).then((response) => {
+    await request.patch(`/product/${productId}`, product).then((response) => {
       dispatch({
         type: "UPDATE_PRODUCT",
         payload: response.data

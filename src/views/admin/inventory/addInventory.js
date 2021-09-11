@@ -1,15 +1,17 @@
 import { React, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Facebook, Twitter, Mail, Linkedin, Coffee } from "react-feather";
+import { Link } from "react-router-dom";
 import Select from "react-select";
 import { addProductInventory } from "../../../redux/actions/inventory";
 import { getProductList } from "../../../redux/actions/products";
-import "../../../components/admin/addProduct.css"
+import { logOut } from "../../../redux/actions/auth";
+import "../../../components/admin/addProduct.css";
+import "../../../components/admin/navSide.css";
 import {Button} from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 const AddProductInventory = () => {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth)
   const products = useSelector(state => state.products.productData)
   const [productId, setProductId] = useState('')
   const [size, setSize] = useState("");
@@ -36,6 +38,16 @@ const AddProductInventory = () => {
     dispatch(addProductInventory(productId, addInvent))
   }
   return (
+    <>
+    { user.isAuth ? null : <Link to="/login"></Link> }
+    <div className="admin-sidenav">
+      <Link to ="/admin/dashboard">Dashboard</Link>
+      <Link to ="/admin/all-products">Products</Link>
+      <Link to ="/admin/inventory">Inventory</Link>
+      <Link to ="/admin/all-transactions">Transactions</Link>
+      <Link to ="/admin" onClick = {() => logOut()}>Logout</Link>
+    </div>
+    <div className="admin-main">
     <div className="uk-container">
       <div uk-grid>
         <div className="uk-width-1-2">
@@ -70,6 +82,8 @@ const AddProductInventory = () => {
         </div>
       </div>
     </div>
+    </div>
+    </>
   );
 };
 

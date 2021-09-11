@@ -1,10 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link} from "react-router-dom";
 import { getInventoryList, deleteProductInventory } from "../../../redux/actions/inventory";
-import "../../../components/admin/inventory/inventory.css"
+import { logOut } from "../../../redux/actions/auth/index.js";
+import "../../../components/admin/inventory/inventory.css";
+import "../../../components/admin/navSide.css";
 import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {Button} from "reactstrap";
 
@@ -24,7 +25,15 @@ const Inventory = () => {
   }
   return (
     <>
-      { user.isAuth ? null : <Link to="/login"></Link> }
+      { user.role && user.role === 'ADMIN' ? null : <Link to = "/admin">Please log in</Link> }
+      <div className="admin-sidenav">
+        <Link to ="/admin/dashboard">Dashboard</Link>
+        <Link to ="/admin/all-products">Products</Link>
+        <Link to ="/admin/inventory">Inventory</Link>
+        <Link to ="/admin/all-transactions">Transactions</Link>
+        <Link to ="/admin" onClick = {() => logOut()}>Logout</Link>
+      </div>
+      <div className="admin-main">
       <Link to = "/admin/add-inventory"><Button>Add new inventory</Button></Link>
       {inventoryData.length > 0 ? (  
           inventoryData.map((inventory) => {
@@ -73,6 +82,7 @@ const Inventory = () => {
       ) : (
         <h1> Inventories not available</h1>
       )}
+      </div>
     </>
   );
 };

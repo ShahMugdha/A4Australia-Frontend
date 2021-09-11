@@ -6,14 +6,15 @@ import EditAddress from "./views/user/profile/editAddress.js";
 import SavedAddresses from "./views/user/profile/savedAddresses.js";
 import Login from "./views/authentication/login.js";
 import AdminLogin from "./views/admin/adminLogin.js"
-import AllProducts from "./views/admin/products.js";
+import AllProducts from "./views/admin/products/products.js";
 import Dashboard from "./views/admin/dashboard.js";
-import AddProduct from "./views/admin/addProduct.js";
-import SingleProduct from "./views/admin/singleProduct.js";
+import AddProduct from "./views/admin/products/addProduct.js";
+import EditProduct from "./views/admin/products/editProduct.js";
 import Inventory from "./views/admin/inventory/inventory.js";
 import AddInventory from "./views/admin/inventory/addInventory.js";
 import EditInventory from "./views/admin/inventory/editInventory.js";
 import AllTransactions from "./views/admin/transactions.js";
+import SingleTransaction from "./views/admin/singleTransaction.js";
 import ProductDetail from "./views/user/productDetail.js";
 import ProductsByCategory from "./views/user/productsByCategory.js";
 import ProductsBySubCategory from "./views/user/productsBySubCategory.js";
@@ -25,7 +26,6 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 
 import {Elements} from '@stripe/react-stripe-js';
 import {loadStripe} from '@stripe/stripe-js';
-import { Edit } from "react-feather";
 
 const stripePromise = loadStripe('pk_test_51JL37MSIq5ANGvjea83Yo4FVR5XE1mHrrtU6E1qLyOJ3ct5fwMr36wq8bXm6GPos3wNtQ2DqhmUK0RrhZ9tgLnax00MyjOmoma');
 
@@ -49,10 +49,7 @@ function App() {
           <AddProduct />
         </Route>
         <Route path = "/admin/edit-product/:productId">
-          <AddProduct />
-        </Route>
-        <Route path="/admin/single-product">
-          <SingleProduct />
+          <EditProduct />
         </Route>
         <Route path="/admin/inventory">
           <Inventory />
@@ -65,6 +62,9 @@ function App() {
         </Route>
         <Route path="/admin/all-transactions">
           <AllTransactions />
+        </Route>
+        <Route path="/admin/transaction/:paymentIntentId">
+          <SingleTransaction />
         </Route>
         <Route path="/login">
           <Login />

@@ -1,29 +1,26 @@
-import { React, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { Facebook, Twitter, Mail, Linkedin, Coffee } from "react-feather";
-import { addProduct, selectProduct } from "../../redux/actions/products/index.js";
-import "../../components/admin/addProduct.css"
-import {Button} from "reactstrap";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { selectProduct, updateProduct } from "../../../redux/actions/products";
+import { logOut } from "../../../redux/actions/auth";
+import "../../../components/admin/addProduct.css";
+import { Link, useParams } from "react-router-dom";
+import {Button} from "reactstrap";
 
-const AddProduct = () => {
+const EditProduct = () => {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth)
   const {productId} = useParams();
   const productEdit = JSON.parse(localStorage.getItem("product"))
   useEffect(() => {
-    if(productId) {
-      dispatch(selectProduct(productEdit))
-    }
+    dispatch(selectProduct(productEdit))
   }, [dispatch])
   
-  const selectedProduct = useSelector(state => state.products)
-  
-  const [image, setImage] = useState(/* productEdit && productEdit.image ? productEdit.image :  */null)
-  const [title, setTitle] = useState(selectedProduct && selectedProduct.selectedProduct ? selectedProduct.selectedProduct.title : "");
-  const [description, setDescription] = useState(selectedProduct && selectedProduct.selectedProduct ? selectedProduct.selectedProduct.description : "");
-  const [subCategory, setSubCategory] = useState(selectedProduct && selectedProduct.selectedProduct ? selectedProduct.selectedProduct.subCategory : "");
-  const [category, setCategory] = useState(selectedProduct && selectedProduct.selectedProduct ? selectedProduct.selectedProduct.category : "");
-  const [price, setPrice] = useState(selectedProduct && selectedProduct.selectedProduct ? selectedProduct.selectedProduct.price : "");
+  const [image, setImage] = useState(productEdit && productEdit.image ? productEdit.image : "")
+  const [title, setTitle] = useState(productEdit? productEdit.title : "");
+  const [description, setDescription] = useState(productEdit ? productEdit.description : "");
+  const [subCategory, setSubCategory] = useState(productEdit ? productEdit.subCategory : "");
+  const [category, setCategory] = useState(productEdit ? productEdit.category : "");
+  const [price, setPrice] = useState(productEdit ? productEdit.price : "");
   
   const handleSave = (e) => {
     if(!image || !title || !description || !category || !subCategory || !price) {
@@ -37,16 +34,26 @@ const AddProduct = () => {
     formData.append("category", category);
     formData.append("subCategory", subCategory);
     formData.append("price", price);
-    dispatch(addProduct(formData))
+    dispatch(updateProduct(productId, formData))
   }
   return (
+    <>
+    { user.isAuth ? null : <Link to="/login"></Link> }
+    <div className="admin-sidenav">
+      <Link to ="/admin/dashboard">Dashboard</Link>
+      <Link to ="/admin/all-products">Products</Link>
+      <Link to ="/admin/inventory">Inventory</Link>
+      <Link to ="/admin/all-transactions">Transactions</Link>
+      <Link to ="/admin" onClick = {() => logOut()}>Logout</Link>
+    </div>
+    <div className="admin-main">
     <div className="uk-container">
       <div uk-grid>
         <div className="uk-width-1-2">
           <div className='uk-width-1-1@s'>
             <h2 className="uk-text-center">Main image</h2>
             <input type="file" id="txtMainImgID" name="txtMainImgID" onChange = {(e) => setImage(e.target.files[0])}/>
-            {image && (<div><img src = {URL.createObjectURL(image)} style={{height: "15rem", width: "12rem"}}/>{URL.createObjectURL(image)}</div>)} 
+            {/* {image && (<div><img src = {URL.createObjectURL(image)} style={{height: "15rem", width: "12rem"}}/>{URL.createObjectURL(image)}</div>)} */} 
           </div>
         </div>
         <div className="uk-width-1-2">
@@ -88,7 +95,9 @@ const AddProduct = () => {
         </div>
       </div>
     </div>
+    </div>
+    </>
   );
 };
 
-export default AddProduct;
+export default EditProduct;

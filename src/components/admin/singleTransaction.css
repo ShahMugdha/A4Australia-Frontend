@@ -1,0 +1,17 @@
+.payment_details {
+  float: left;
+  width: 15%;
+  padding: 10px;
+}
+
+.fields {
+  color: gray;
+  line-height: 30px;
+  text-align: left;
+}
+
+.fields:after {
+  content: "";
+  display: table;
+  clear: both;
+}

@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { paymentIntentsList } from "../../redux/actions/transactions";
+import { logOut } from "../../redux/actions/auth";
 import { Link } from "react-router-dom";
-import "../../components/admin/inventory/inventory.css"
+import "../../components/admin/inventory/inventory.css";
+import "../../components/admin/navSide.css";
 import SendIcon from '@material-ui/icons/Send';
+import DetailsIcon from '@material-ui/icons/Details';
 import {Button} from "reactstrap";
 
 const AllTransactions = () => {
@@ -17,39 +20,50 @@ const AllTransactions = () => {
   return (
     <>
       { user.isAuth ? null : <Link to="/login"></Link> }
+      <div className="admin-sidenav">
+        <Link to ="/admin/dashboard">Dashboard</Link>
+        <Link to ="/admin/all-products">Products</Link>
+        <Link to ="/admin/inventory">Inventory</Link>
+        <Link to ="/admin/all-transactions">Transactions</Link>
+        <Link to ="/admin" onClick = {() => logOut()}>Logout</Link>
+      </div>
+      <div className="admin-main">
       <div>Payments</div>
-      {transactionList.data ? (  
-          transactionList.data.map((transaction) => {
-            return (
-              <>
-                <div style={{padding: "0.02px"}}>
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Amount</th>
-                      <th>Status</th>
-                      <th>Description</th>
-                      <th>Customer</th>
-                      <th colSpan = "2">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{transaction.amount_received}</td>
+      <div style={{marginLeft: "4rem"}}>
+        <table>
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Description</th>
+              <th>Customer</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          {transactionList.data ? (  
+            transactionList.data.map((transaction) => {
+              return (
+                <>            
+                  <tbody>    
+                    <tr>    
+                      <td>{(transaction.amount_received / 100).toFixed(2)}</td> 
                       <td>{transaction.status}</td>
                       <td>{transaction.id}</td>
                       <td>{transaction.receipt_email}</td>
-                      <td>{transaction.created.toString()}</td>
+                      <td>{transaction.created}</td>
+                      <td><SendIcon style = {{fontSize: "14px", cursor: "pointer"}} /></td>
+                      <td><Link to = {`/admin/transaction/${transaction.id}`}><DetailsIcon style = {{fontSize: "14px", cursor: "pointer", color: "black"}} /></Link></td>
                     </tr>
                   </tbody>
-                </table>
-                </div>
-              </>
-            )
-          })
-      ) : (
-        <h3>No Payments Received</h3>
-      )} 
+                </>
+              )
+            })
+          ) : (
+            <h3>No Payments Received</h3>
+          )} 
+        </table>
+      </div>
+      </div>
     </>
   );
 };

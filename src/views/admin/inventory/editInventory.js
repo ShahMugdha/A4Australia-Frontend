@@ -2,11 +2,13 @@ import { React, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { updateInventoryStock } from "../../../redux/actions/inventory";
 import { getProductList } from "../../../redux/actions/products";
+import { logOut } from "../../../redux/actions/auth";
 import "../../../components/admin/addProduct.css"
 import {Button} from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 
 const EditProductInventory = () => {
+  const user = useSelector(state => state.auth)
   const dispatch = useDispatch();
   const {productId} = useParams()
   const [size, setSize] = useState("");
@@ -25,6 +27,16 @@ const EditProductInventory = () => {
     dispatch(updateInventoryStock(productId, editInvent))
   }
   return (
+    <>
+     { user.isAuth ? null : <Link to="/login"></Link> }
+     <div className="admin-sidenav">
+      <Link to ="/admin/dashboard">Dashboard</Link>
+      <Link to ="/admin/all-products">Products</Link>
+      <Link to ="/admin/inventory">Inventory</Link>
+      <Link to ="/admin/all-transactions">Transactions</Link>
+      <Link to ="/admin" onClick = {() => logOut()}>Logout</Link>
+    </div>
+      <div className="admin-main">
     <div className="uk-container">
       <div uk-grid>
         <div className="uk-width-1-2">
@@ -48,6 +60,8 @@ const EditProductInventory = () => {
         </div>
       </div>
     </div>
+    </div>
+    </>
   );
 };
 

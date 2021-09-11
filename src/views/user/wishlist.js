@@ -24,43 +24,46 @@ const Wishlist = () => {
 
   return(
     <>
-      { user.isAuth ? null : <Link to="/login" /> }
-      <HideTop/>
-      <Navigation/>
-      {wishlistData? (
-        <div className = "flex-container">
-          {wishlistData.map(wishlist => (       
-            wishlist.products.map(wishProd => {
-              return(
-                <> 
-                  <div class="flex-item">
-                    <div>{wishProd.title}</div>
-                    <div>{wishProd.description}</div>
-                    <FormGroup>
-                      <Label for="size">Size:</Label>
-                      <Input style={{marginLeft: "10px"}}
-                        type="select"
-                        name="size"
-                        value = {size}
-                        id={wishProd._id}
-                        placeholder="Small"
-                        onChange = {(e) => setSize(e.target.value)}
-                      >
-                        <option value="Small">Small</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Large">Large</option>
-                      </Input>
-                    </FormGroup>
-                    <Button onClick = {() => moveToCart(wishProd._id, size)}>Move to Cart</Button>
-                  </div>
-                </>
-              )
-            })
-          ))}
-        </div>
-      ): (
-        <h1>your wishlist is empty</h1>
-      )}
+      { user.isAuth ?
+        <>
+          <HideTop/>
+          <Navigation/>
+          {wishlistData? (
+            <div className = "flex-container">
+              {wishlistData.map(wishlist => (       
+                wishlist.products.map(wishProd => {
+                  return(
+                    <> 
+                      <div class="flex-item">
+                        <div>{wishProd.title}</div>
+                        <div>{wishProd.description}</div>
+                        <FormGroup>
+                          <Label for="size">Size:</Label>
+                          <Input style={{marginLeft: "10px"}}
+                            type="select"
+                            name="size"
+                            value = {size}
+                            id={wishProd._id}
+                            placeholder="Small"
+                            onChange = {(e) => setSize(e.target.value)}
+                          >
+                            <option value="Small">Small</option>
+                            <option value="Medium">Medium</option>
+                            <option value="Large">Large</option>
+                          </Input>
+                        </FormGroup>
+                        <Button onClick = {() => moveToCart(wishProd._id, size)}>Move to Cart</Button>
+                      </div>
+                    </>
+                  )
+                })
+              ))}
+            </div>
+          ): (
+            <h1>your wishlist is empty</h1>
+          )}
+        </>
+      : <Link to="/login">Please Log In</Link> }
     </>
   );
 }

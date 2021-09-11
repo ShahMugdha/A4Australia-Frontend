@@ -17,9 +17,9 @@ export const login = ({email, password}) => {
         payload:response.data
       })
     }
-    if (response.data.success) {
+    /* if (response.data.success) {
     window.location.reload();
-    }
+    } */
     return response.data;
   }
 }
@@ -42,9 +42,9 @@ export const adminLogin = ({email, password, role}) => {
         payload:response.data
       })
     }
-    if (response.data.success) {
+    /* if (response.data.success) {
     window.location.reload();
-    }
+    } */
     return response.data;
   }
 }

@@ -37,92 +37,93 @@ const Cart = () => {
 
   return(
     <>
-      { user.isAuth ? null : <Link to="/login"></Link> }
-      <HideTop/>
-      <div className="cartprod">
-      
-        {cartData? (
-          cartData.map(cart => (       
-            cart.cart.map(cartProd => {
-              return(
-                <div className="layout">
-                  <p className="col col-main">
-                    <div style={{display: "flex", flexDirection: "column", height: "100%", boxSizing: "border-box", border: "solid pink 1px", marginBottom: "20px", textAlign: "left", padding: "2rem"}}>
-                      <div>{cartProd.product.title}</div>
-                      <div>Rs. {cartProd.price}</div>
-                      <div>Size: {cartProd.size}</div>
-                      <div>Quantity: {cartProd.quantity}</div>
-                      {/* <div className="layout"> */}
-                        <FormGroup style = {{color: "black"}} className="left">
-                          <Label for="size" style={{color: "black"}}>Size: </Label>
-                          <Input
-                            type="select"
-                            name="size"
-                            value = {size}
-                            /* id={cartProd.product._id} */
-                            onChange = {(e) => setSize(e.target.value)}
-                          >
-                            <option value="Small">Small</option>
-                            <option value="Medium">Medium</option>
-                            <option value="Large">Large</option>
-                          </Input>
-                        </FormGroup>
-                        <FormGroup style = {{color: "black"}} role="complementary">
-                          <Label for="quantity" style={{color: "black"}}>Quantity: </Label>
-                          <Input
-                            type="select"
-                            name="quantity"
-                            value = {quantity}
-                            /* id={cartProd.product._id} */
-                            onChange = {(e) => setQuantity(e.target.value)}
-                          >
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                          </Input>
-                        </FormGroup>
-                      {/* </div> */}
-                      <div className="layout" style={{marginTop: "0.5rem"}}>
-                        <button className="left">
-                          Remove
-                        </button>
-                        <Button style={{marginLeft: "0.5rem", cursor: "pointer"}} onClick={() => moveToWishList(cartProd.product._id, cartProd.size)}>
-                          Move back to wishlist
-                        </Button>
-                      </div>
+      { user.isAuth ?
+        <>
+          <HideTop/>
+          <div className="cartprod">
+            {cartData? (
+              cartData.map(cart => (       
+                cart.cart.map(cartProd => {
+                  return(
+                    <div className="layout">
+                      <p className="col col-main">
+                        <div style={{display: "flex", flexDirection: "column", height: "100%", boxSizing: "border-box", border: "solid pink 1px", marginBottom: "20px", textAlign: "left", padding: "2rem"}}>
+                          <div>{cartProd.product.title}</div>
+                          <div>Rs. {cartProd.price}</div>
+                          <div>Size: {cartProd.size}</div>
+                          <div>Quantity: {cartProd.quantity}</div>
+                          {/* <div className="layout"> */}
+                            <FormGroup style = {{color: "black"}} className="left">
+                              <Label for="size" style={{color: "black"}}>Size: </Label>
+                              <Input
+                                type="select"
+                                name="size"
+                                value = {size}
+                                /* id={cartProd.product._id} */
+                                onChange = {(e) => setSize(e.target.value)}
+                              >
+                                <option value="Small">Small</option>
+                                <option value="Medium">Medium</option>
+                                <option value="Large">Large</option>
+                              </Input>
+                            </FormGroup>
+                            <FormGroup style = {{color: "black"}} role="complementary">
+                              <Label for="quantity" style={{color: "black"}}>Quantity: </Label>
+                              <Input
+                                type="select"
+                                name="quantity"
+                                value = {quantity}
+                                /* id={cartProd.product._id} */
+                                onChange = {(e) => setQuantity(e.target.value)}
+                              >
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                              </Input>
+                            </FormGroup>
+                          {/* </div> */}
+                          <div className="layout" style={{marginTop: "0.5rem"}}>
+                            <button className="left">
+                              Remove
+                            </button>
+                            <Button style={{marginLeft: "0.5rem", cursor: "pointer"}} onClick={() => moveToWishList(cartProd.product._id, cartProd.size)}>
+                              Move back to wishlist
+                            </Button>
+                          </div>
+                        </div>
+                      </p>          
+                    </div>  
+                  )
+                })
+              ))
+            ): (
+              <h1>your cart is empty</h1>
+            )}
+            
+            {cartData? (
+              cartData.map(cart => {
+                return(
+                  <>
+                    <div className = "order">
+                      Order Summary
+                      <div>Total Quantity: {cart.totalQuantity}</div>
+                      <div>Total Price: {cart.totalPrice}</div>
                     </div>
-                  </p>          
-                </div>  
-              )
-            })
-          ))
-        ): (
-          <h1>your cart is empty</h1>
-        )}
-        
-        {cartData? (
-          cartData.map(cart => {
-            return(
-              <>
-                <div className = "order">
-                  Order Summary
-                  <div>Total Quantity: {cart.totalQuantity}</div>
-                  <div>Total Price: {cart.totalPrice}</div>
-                </div>
-                <p>
-                  <div style={{height: "100%", marginBottom: "20px"}} className="col col-complementary" role="complementary">
-                    <Link to = "/wishlist"><Button>ADD MORE FROM WISHLIST</Button></Link>
-                    <Link to = "/address"><Button>CHECKOUT</Button></Link>
-                  </div>
-                </p>  
-              </> 
-            )
-          })
-        ): (
-          <h1></h1>
-        )}
-          
-      </div>
+                    <p>
+                      <div style={{height: "100%", marginBottom: "20px"}} className="col col-complementary" role="complementary">
+                        <Link to = "/wishlist"><Button>ADD MORE FROM WISHLIST</Button></Link>
+                        <Link to = "/address"><Button>CHECKOUT</Button></Link>
+                      </div>
+                    </p>  
+                  </> 
+                )
+              })
+            ): (
+              <h1></h1>
+            )}    
+          </div>
+        </> 
+      : <Link to="/login">Please Log In</Link> }
     </>
   );
 }
