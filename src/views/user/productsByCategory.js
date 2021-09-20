@@ -5,6 +5,7 @@ import HideTop from "../../components/Navigation/hideTop.js";
 import { getProductByCategory, getParticularProduct } from "../../redux/actions/products/index.js";
 import { addProductToWishList, getWishList } from "../../redux/actions/wishlist/index.js";
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import Footer from "../../components/footer.js";
 import { toast } from 'react-toastify'
 import { MoreVertical, Filter } from 'react-feather'
 import "../../components/products.css"
@@ -43,7 +44,7 @@ const ProductsByCategory = () => {
       <HideTop/>
       <TopNavigation/>
       {productData.length > 0 ? (
-        <div id="wrap">
+        <div id="wrap" style={{marginLeft: "14%", marginTop: "10%"}}>
         <div id="columns" className="columns_4">
           {productData.map((product) => {
             return (
@@ -65,9 +66,10 @@ const ProductsByCategory = () => {
         </div>
         </div>
       ) : (
-        <h1> Products not available</h1>
+        <h1 style={{marginTop: "10%"}}> Products not available</h1>
       )}
       <h3 className="made_by">Made with ♡</h3>
+      <Footer/>
     </>
   );
 };

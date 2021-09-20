@@ -4,34 +4,25 @@ import { Link, Redirect } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
 import Footer from "../../../components/footer.js";
 import { getMyAddress, removeAddress, selectAddress } from "../../../redux/actions/address/index.js";
-import { logOut } from "../../../redux/actions/auth/index.js";
+import { getMyOrder } from "../../../redux/actions/order/index.js";
 import "../../../components/savedAddresses.css"
 import { Button } from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const SavedAddresses = () => {
+const Orders = () => {
   const dispatch = useDispatch();
   const user = localStorage.getItem("token")
   const savedAddresses = useSelector(state => state.address)
   useEffect(()=> {
     dispatch(getMyAddress())
+    dispatch(getMyOrder())
   }, [dispatch])
-
-  const handleClick = (data) => {
-    console.log(data, data._id, "data")
-    dispatch(removeAddress(data._id))
-    document.location.reload();
-  }
 
   const handleEdit = (data) => {
     console.log(data, data._id, "data")
     localStorage.setItem("address", JSON.stringify(data));
     dispatch(selectAddress(data))
-  }
-
-  const handleLogOut = () => {
-    logOut()
   }
 
   return(
@@ -53,8 +44,6 @@ const SavedAddresses = () => {
                 return(
                   <div className="addresses">
                     <li key={addressData._id} className = "data">
-                      <div style={{float: "right", color: "black", cursor: "pointer"}} onClick={() => handleClick(addressData)}><DeleteIcon/></div>
-                      <Link to = "/edit-address"><div style={{float: "right", color: "black"}} onClick={() => handleEdit(addressData)}><EditIcon/></div></Link>
                       <div>Name: {addressData.name}</div>
                       <div>Address Line 1: {addressData.addressLine1}</div>
                       <div>Address Line 2: {addressData.addressLine2}</div>
@@ -71,8 +60,7 @@ const SavedAddresses = () => {
             )}
             </div>
           </div>  
-          <div className="Logout-button" onClick={() => handleLogOut()}><Link to = "/"><Button style={{backgroundColor: "lavender", marginTop: "5%"}}>Logout</Button></Link></div>
-          {/* <Button style={{backgroundColor: "lavender", marginTop: "5%"}}>Logout</Button> */}
+          <Button>Logout</Button>
         </> 
       : <Link to="/login"></Link> } 
       <Footer/>
@@ -80,4 +68,4 @@ const SavedAddresses = () => {
   );
 }
 
-export default SavedAddresses
+export default Orders

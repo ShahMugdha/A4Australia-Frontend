@@ -1,12 +1,3 @@
-.fixed {
-	position: fixed;
-	width: 100%;
-	top: 0;
-	height: 50px;
-	z-index: 1;
-  background-color: #333;
-}
-
 body {
 	font-family: 'open-sans-bold', AvenirNext-Medium, sans-serif;
 	font-size: 16px;
@@ -14,35 +5,31 @@ body {
 }
 
 /* Navigation Settings */
-nav {
+.top {
 	position: absolute;
-	top: 120;
+	top: 70px;
 	width: 100%;
 	height: 50px;
 	background-color: #333;
 }
 
-nav li {
+.top li {
 	display: inline-block;
 	padding: 24px 10px;
 }
 
-nav li a {
+.top li a {
 	color: #b6abab;
 	text-transform: uppercase;
 }
 
-section {
-	height: 100vh;
-}
-
 @media only screen and (max-width: 520px) {
 
-	nav li {
+	.top li {
 		padding: 24px 4px;
 	}
 
-	nav li a {
+	.top li a {
 		font-size: 14px;
 	}
 

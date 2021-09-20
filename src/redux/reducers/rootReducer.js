@@ -8,6 +8,7 @@ import cart from "./cart/index.js"
 import address from "./address/index.js"
 import inventory from "./inventory/index.js"
 import transaction from "./transactions/index.js"
+import order from "./order/index.js"
 import auth from "./auth/index.js"
 
 const rootReducer = combineReducers({
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   cart,
   address,
   inventory,
-  transaction
+  transaction,
+  order
 });
 
 export default rootReducer;

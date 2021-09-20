@@ -41,6 +41,7 @@ export const updateProductSize = (productId, originalSize, updatedSize) => {
         payload: response.data
       });
     })
+    document.location.reload()
   };
 }
 
@@ -57,9 +58,20 @@ export const moveProductToWishList = (productId, size) => {
 
 export const deleteProductFromCart = (productId, size) => {
   return async(dispatch) => {
-    await request.patch(`/cart/${productId}/${size}`).then((response) => {
+    await request.patch(`/cart/remove-product/${productId}/${size}`).then((response) => {
       dispatch({
         type: "REMOVE_FROM_CART",
+        payload: response.data
+      });
+    })
+  };
+}
+
+export const deleteCart = () => {
+  return async(dispatch) => {
+    await request.delete(`/cart`).then((response) => {
+      dispatch({
+        type: "REMOVE_CART",
         payload: response.data
       });
     })

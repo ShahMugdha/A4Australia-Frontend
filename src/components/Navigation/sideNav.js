@@ -79,9 +79,9 @@ const SideNav = () => {
                 <li className="menu-toggle">
                     <div className="menu-toggle-btns">
                         <Link to = "/product/category/Men" className="menu-link">Men</Link>
-                        <a href="#" className="menu-btn"><div onClick = {() => dispatch(getProductByCategory('Men'))}>+</div></a>
+                        {/* <a href="#" className="menu-btn"><div onClick = {() => dispatch(getProductByCategory('Men'))}>+</div></a> */}
                     </div>
-                    {productsUniqueByKey ? (
+                    {/* {productsUniqueByKey ? (
                     <ul className="menu-level2 submenu no-style">
                       {productsUniqueByKey.map((product) => {
                         return (
@@ -97,14 +97,14 @@ const SideNav = () => {
                       <div className='no-results show'>
                         <h5>No Items Found</h5>
                       </div>
-                    )}
+                    )} */}
                 </li>
                 <li className="menu-toggle">
                     <div className="menu-toggle-btns">
                         <Link to = "/product/category/Women" className="menu-link">Women</Link>
-                        <a href="#" className="menu-btn"><div onClick = {() => dispatch(getProductByCategory('Women'))}>+</div></a>
+                        {/* <a href="#" className="menu-btn"><div onClick = {() => dispatch(getProductByCategory('Women'))}>+</div></a> */}
                     </div>
-                    {productsUniqueByKey ? (
+                    {/* {productsUniqueByKey ? (
                     <ul className="menu-level2 submenu no-style">
                       {productsUniqueByKey.map((product) => {
                         return (
@@ -116,10 +116,16 @@ const SideNav = () => {
                       <div className='no-results show'>
                         <h5>No Items Found</h5>
                       </div>
-                    )}
+                    )} */}
                 </li>
                 <li>
-                    <a href="#" className="menu-link">Girls</a>
+                  <Link to = "/product/category/Girls" className="menu-link">Girls</Link>
+                </li>
+                <li>
+                  <Link to = "/product/category/Boys" className="menu-link">Boys</Link>
+                </li>
+                <li>
+                  <Link to = "/product/category/Unisex" className="menu-link">Unisex</Link>
                 </li>
             </ul>
         </div>

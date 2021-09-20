@@ -23,7 +23,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const handleSubmit = (event) => {
     //event.preventDefault();
-    dispatch(login({ email, password, role: "CUSTOMER" }))
+    const checkLogin = dispatch(login({ email, password, role: "CUSTOMER" }))
+    console.log(checkLogin, "log check")
   }
   return (
     <div className='auth-wrapper auth-v2'>
@@ -69,8 +70,14 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </FormGroup>
-              <Link to = '/profile' color='primary' block onClick={e => handleSubmit(e)}>
+              <Link to = '/' color='primary' block onClick={e => handleSubmit(e)}>
                 Sign In
+              </Link>
+              <Link to="/forgot-password" className="float-right">
+                  <small>Forgot Password?</small>
+                </Link>
+              <Link to = '/signup' color='primary'>
+                Don't have an account ? Sign up
               </Link>
             </Form>
           </Col>

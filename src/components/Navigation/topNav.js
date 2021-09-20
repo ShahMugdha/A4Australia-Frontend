@@ -17,30 +17,19 @@ const TopNavigation = () => {
   useEffect(() => {
     dispatch(getProductByCategory(category))
   }, [dispatch])
-  $(document).ready(function(){
-    $(window).bind('scroll', function() {
-    var navHeight = $( window ).height() - 70;
-      if ($(window).scrollTop() > navHeight) {
-        $('nav').addClass('fixed');
-      }
-      else {
-        $('nav').removeClass('fixed');
-      }
-   });
-  });
 
   return(
     <>
       {productsUniqueByKey ? (
-        <nav className="top">
+        <div className="top">
           <ul style={{marginTop: "-8px"}}>
             {productsUniqueByKey.map((product) => {
               return(
-                <li key={product._id}><Link to = {`/product/${product.category}/${product.subCategory}`}>{product.subCategory}</Link></li>    
+                <li key={product._id} onClick={() => window.location.reload()}><Link to = {`/product/${product.category}/${product.subCategory}`}>{product.subCategory}</Link></li>    
               )
             })}
           </ul>
-        </nav>
+        </div>
       ): (
         <div className='no-results show'>
           <h5>No Items Found</h5>

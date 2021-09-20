@@ -2,13 +2,13 @@
   box-sizing:border-box;
   -moz-box-sizing:border-box;
 }
-body {
+/* body {
 	background: url(//subtlepatterns.com/patterns/scribble_light.png);
   font-family: Calluna, Arial, sans-serif;
   max-width: 1000px;
-  overflow-x: hidden; 
+  overflow: hidden; 
   align-content: center;
-}
+} */
 #wrap{
 	width: 90%;
 	max-width: 1100px;
@@ -135,7 +135,7 @@ div#columns figure figcaption {
 @media screen and (max-width: 500px) {
   #columns figure { width: 100%;}
   #wrap {
-    margin: 20px;
+    margin: 15px;
   }
   .body {
     overflow-x: hidden;

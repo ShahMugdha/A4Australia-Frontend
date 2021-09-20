@@ -27,49 +27,21 @@ const Navigation = () => {
 
   return(
     <>
-      {/* <HideTop/> */}
-      {/* <section id="screen1"> */}
-        {/* <div id="mobileNav">
-          <input type="checkbox" id="top-nav" />
-          <span style={{marginTop: "20px", marginLeft: "20px"}} className="hamburgerspan"></span>
-          <span style={{marginTop: "4px", marginLeft: "20px"}} className="hamburgerspan"></span>
-          <span style={{marginTop: "4px", marginLeft: "20px"}} className="hamburgerspan"></span>
-          <div id="menu-cont-1">
-            <ul className="menu-ul">
-              <li className="nav-item"> item 1</li>
-              <li className="nav-item sub-menu"> Women
-                <input type="checkbox" id="menu-1"/>
-                <div id="menu-cont-2">
-                  <ul className="menu-ul">
-                    <label className="menu-label" for="menu-1">Women</label>
-                    <li className="nav-item">Tops</li>
-                    <li className="nav-item">Jeans</li>
-                    <li className="nav-item">Boots</li>
-                    <li className="nav-item">Mufflers</li>
-                  </ul>
-                </div>
-              </li>
-              <li className="nav-item"> item 3</li>
-              <li className="nav-item"> item 4</li>
-              <li className="nav-item"> item 5</li>
-            </ul>
-          </div>  
-        </div> */}
-        {productsUniqueByKey ? (
-          <nav>
-            <ul style={{marginTop: "-8px"}}>
-              {productsUniqueByKey.map((product) => {
-                return(
-                  <li key={product._id}><Link to = {`/product/category/${product.category}`}>{product.category}</Link></li>    
-                )
-              })}
-            </ul>
-          </nav>
-        ): (
-          <div className='no-results show'>
-            <h5>No Items Found</h5>
-          </div>
-        )}
+      {productsUniqueByKey ? (
+        <nav>
+          <ul style={{marginTop: "-8px"}}>
+            {productsUniqueByKey.map((product) => {
+              return(
+                <li key={product._id}><Link to = {`/product/category/${product.category}`}>{product.category}</Link></li>    
+              )
+            })}
+          </ul>
+        </nav>
+      ): (
+        <div className='no-results show'>
+          <h5>No Items Found</h5>
+        </div>
+      )}
       <section/>
     </>
   )

@@ -30,6 +30,7 @@ export const moveProductToCart = (productId, size) => {
         payload: response.data
       });
     })
+    document.location.reload()
   };
 }
 

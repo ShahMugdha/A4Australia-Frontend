@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
+import Footer from "../../../components/footer.js";
 import { getMyAddress, updateAddress, selectAddress } from "../../../redux/actions/address/index.js";
 import "../../../components/profileHome.css"
 import { Button } from "@material-ui/core";
 
 const EditAddress = () => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.auth)
+  const user = localStorage.getItem("token")
   const addressData = useSelector(state => state.address)
   const [address, setAddress] = useState({
     name: addressData && addressData.selectedAddress ? addressData.selectedAddress.name : "",
@@ -39,8 +40,8 @@ const EditAddress = () => {
 
   return(
     <>
-      { user.isAuth ? 
-        <>
+      { user ? 
+        <> 
           <HideTop/>
           <div style={{marginTop: "10%"}}>
             <div className="column1" style={{backgroundColor: "#aaa"}}>
@@ -123,7 +124,8 @@ const EditAddress = () => {
           </div>
           <Button>Logout</Button>
         </> 
-      : <Link to="/login">Please Log In</Link> }
+      : <Link to="/login">Please Log In</Link> } 
+      <Footer/>
     </>
   );
 }

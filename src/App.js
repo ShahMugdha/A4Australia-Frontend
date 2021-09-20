@@ -4,7 +4,11 @@ import Profile from "./views/user/profile/accountDisplay.js";
 import EditAccount from "./views/user/profile/editAccount.js";
 import EditAddress from "./views/user/profile/editAddress.js";
 import SavedAddresses from "./views/user/profile/savedAddresses.js";
+import Orders from "./views/user/profile/orders.js";
 import Login from "./views/authentication/login.js";
+import SignUp from "./views/authentication/signUp";
+import VerifyEmail from "./views/authentication/verifyEmail.js";
+import ForgotPassword from "./views/authentication/forgotPassword.js";
 import AdminLogin from "./views/admin/adminLogin.js"
 import AllProducts from "./views/admin/products/products.js";
 import Dashboard from "./views/admin/dashboard.js";
@@ -23,11 +27,12 @@ import Cart from "./views/user/cart.js";
 import Address from "./views/user/payment/address.js";
 import CheckoutForm from "./views/user/payment/checkoutForm.js"
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-
 import {Elements} from '@stripe/react-stripe-js';
+import NotFound from "./components/error-pages/notFound.js"
 import {loadStripe} from '@stripe/stripe-js';
-
-const stripePromise = loadStripe('pk_test_51JL37MSIq5ANGvjea83Yo4FVR5XE1mHrrtU6E1qLyOJ3ct5fwMr36wq8bXm6GPos3wNtQ2DqhmUK0RrhZ9tgLnax00MyjOmoma');
+//dotenv.config();
+const stripePromise = loadStripe("pk_test_51JL37MSIq5ANGvjea83Yo4FVR5XE1mHrrtU6E1qLyOJ3ct5fwMr36wq8bXm6GPos3wNtQ2DqhmUK0RrhZ9tgLnax00MyjOmoma")
+//console.log(process.env.REACT_APP_STRIPE_PUBLIC_KEY, "kkey")
 
 function App() {
   return (
@@ -69,6 +74,15 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
+        <Route path="/verify-email/:userId">
+          <VerifyEmail />
+        </Route>
+        <Route path="/forgot-password">
+          <ForgotPassword />
+        </Route>
         <Route path="/collection/product/:productId">
           <ProductDetail/>
         </Route> 
@@ -83,6 +97,9 @@ function App() {
         </Route>
         <Route path="/edit-address">
           <EditAddress />
+        </Route>
+        <Route path="/orders/my-orders">
+          <Orders />
         </Route>
         <Route path="/product/category/:category">
           <ProductsByCategory />
@@ -99,9 +116,10 @@ function App() {
         <Route path="/address">
           <Address />
         </Route>
-        <Elements stripe={stripePromise}>
+        <Elements stripe={stripePromise} path="/pay">
           <CheckoutForm />
         </Elements>
+        <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
   );

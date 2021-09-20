@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
+import Footer from "../../../components/footer.js";
 import { getUserProfile, updateUserAccountDetails } from "../../../redux/actions/profile/index.js";
 import "../../../components/profileHome.css"
 import "../../../components/editAccount.css"
@@ -9,7 +10,7 @@ import { Button } from "@material-ui/core";
 
 const EditAccount = () => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.auth)
+  const user = localStorage.getItem("token")
   const profile = useSelector(state => state.profile)
   const [account, setAccount] = useState({
     firstName: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.firstName : "",
@@ -34,8 +35,8 @@ const EditAccount = () => {
 
   return(
     <>
-      { user.isAuth ?
-        <>
+      { user ?
+        <> 
           <HideTop/>
           <div style={{marginTop: "10%"}}>
             <div className="column1" style={{backgroundColor: "#aaa"}}>
@@ -105,7 +106,8 @@ const EditAccount = () => {
           </div>
           <Button>Logout</Button>
         </> 
-      : <Link to="/login">Please Log In</Link> }
+      : <Link to="/login">Please Log In</Link> } 
+      <Footer/>
     </>
   );
 }

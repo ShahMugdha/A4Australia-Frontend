@@ -2,6 +2,7 @@ const initialState = {
   setCartData: {},
   removedProduct: {},
   updatedProduct: {},
+  deletedCart: {},
   cartData: []
 };
  
@@ -20,6 +21,8 @@ const CartReducer = (state = initialState, action) => {
       return { ...state, cartData: action.payload.result };
     case "REMOVE_FROM_CART":
       return { ...state, removedProduct: action.payload.result };
+    case "REMOVE_CART":
+      return { ...state, deletedCart: action.payload.result };
     default:
       return state;
   }

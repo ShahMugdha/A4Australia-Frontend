@@ -2,12 +2,16 @@ import {React, useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useStripe, useElements, CardElement, PaymentRequestButtonElement} from '@stripe/react-stripe-js';
 import CardSection from './cardSection.js';
-import { getCartList } from '../../../redux/actions/cart/index.js';
+import { Link } from "react-router-dom";
+import { getCartList, deleteCart } from '../../../redux/actions/cart/index.js';
 import { getMyAddress } from '../../../redux/actions/address/index.js';
+import { createOrder } from '../../../redux/actions/order/index.js';
+import { Button } from 'reactstrap';
 
 export default function CheckoutForm() {
   const stripe = useStripe();
   const [paymentRequest, setPaymentRequest] = useState(null);
+  const user = localStorage.getItem("token")
   const elements = useElements();
   const cart = useSelector(state => state.cart.cartData[0])
   const address = useSelector(state => state.address.myAddress.addresses)
@@ -76,7 +80,8 @@ export default function CheckoutForm() {
         response.payment_intent_client_secret
       ).then(handleStripeJsResult);
     } else {
-      // Show success message
+      dispatch(createOrder())
+      dispatch(deleteCart())
     }
   }
   
@@ -151,13 +156,18 @@ export default function CheckoutForm() {
   
   return (
     <>
-      <form><div style={{boxSizing: "border-box", padding: "20px", border: "5px solid blue"}}>Total Amount: {cart ? cart.totalPrice : 0} &nbsp; Total Quantity: {cart ? cart.totalQuantity : 0} </div></form>
-      <form onSubmit={e => handleSubmit(e)} >
-        <CardSection />
-        <button type="submit" disabled={!stripe}>
-          Pay {cart ? cart.totalPrice: null}
-        </button>
-      </form>
+      { user ? 
+        <> 
+          <form><div style={{boxSizing: "border-box", padding: "20px", border: "5px solid blue"}}>Total Amount: {cart ? cart.totalPrice : 0} &nbsp; Total Quantity: {cart ? cart.totalQuantity : 0} </div></form>
+          <form onSubmit={e => handleSubmit(e)} >
+            <CardSection />
+            <button type="submit" disabled={!stripe}>
+              Pay {cart ? cart.totalPrice: null}
+            </button>
+          </form>
+          <Link to ="/cart"><Button>Go back to cart</Button></Link>
+        </>
+      : <Link to = "/login">Please Log In</Link> } 
     </>
   );
 } 

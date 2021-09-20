@@ -12,21 +12,6 @@ import SideNav from "./sideNav.js";
 import "./hideTop.css"
 
 const HideTop = () => {
-  /* const [position, setPosition] = useState(window.pageYOffset)
-    const [visible, setVisible] = useState(true) 
-    useEffect(()=> {
-        const handleScroll = () => {
-           let moving = window.pageYOffset
-           
-           setVisible(position > moving);
-           setPosition(moving)
-        };
-        window.addEventListener("scroll", handleScroll());
-        return(() => {
-           window.removeEventListener("scroll", handleScroll());
-        })
-    })
-  const cls = visible ? "visible" : "hidden"; */
   $(document).ready(function(){
     $(window).bind('scroll', function() {
     var navHeight = $( window ).height() - 70;

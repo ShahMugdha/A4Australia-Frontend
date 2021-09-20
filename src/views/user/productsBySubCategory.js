@@ -1,24 +1,15 @@
 import { React, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import TopNavigation from "../../components/Navigation/topNav.js";
+import Footer from "../../components/footer.js";
 import HideTop from "../../components/Navigation/hideTop.js";
 import { getProductBySubCategory, getParticularProduct } from "../../redux/actions/products/index.js";
 import { addProductToWishList, getWishList } from "../../redux/actions/wishlist/index.js";
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import { toast } from 'react-toastify'
-import { MoreVertical, Filter } from 'react-feather'
 import "../../components/products.css"
 import { Link, useParams } from 'react-router-dom';
-import { 
-  Button, 
-  Label, 
-  Input, 
-  FormGroup, 
-  Modal, 
-  ModalBody, 
-  ModalHeader, 
-  ModalFooter 
-} from 'reactstrap';
+import { Button } from 'reactstrap';
 const ProductsBySubCategory = () => {
   const [formModal, setFormModal] = useState(false);
   const {category, subCategory} = useParams()
@@ -42,7 +33,7 @@ const ProductsBySubCategory = () => {
       <HideTop/>
       <TopNavigation/>
       {productData.length > 0 ? (
-        <div id="wrap">
+        <div id="wrap" style={{marginLeft: "14%", marginTop: "10%"}}>
         <div id="columns" className="columns_4">
           {productData.map((product) => {
             return (
@@ -64,9 +55,10 @@ const ProductsBySubCategory = () => {
         </div>
         </div>
       ) : (
-        <h1> Products not available</h1>
+        <h1 style={{marginTop: "10%"}}> Products not available</h1>
       )}
       <h3 className="made_by">Made with ♡</h3>
+      <Footer/>
     </>
   );
 };
