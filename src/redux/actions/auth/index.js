@@ -87,7 +87,7 @@ export const adminLogin = ({email, password, role}) => {
 export const otp = ({email}) => {
   return async (dispatch) => {    
     console.log("forgot pass");
-    const response = await request.patch('/v1/auth/forgot-password', {email})
+    const response = await request.patch(`/auth/forgot-password`, {email})
     return response.data;
   }
 }

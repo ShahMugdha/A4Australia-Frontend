@@ -16,7 +16,9 @@ const InventoryReducer = (state = initialState, action) => {
     case "GET_INVENTORY_LIST":
       return { ...state, inventoryData: action.payload.result };
     case "UPDATE_INVENTORY_STOCK":
-        return { ...state, updatedInventory: action.payload.result };
+      return { ...state, updatedInventory: action.payload.result };
+    case "REMOVE_STOCK":
+      return { ...state, updatedInventory: action.payload.result };
     case "REMOVE_INVENTORY":
       return { ...state, removedInventory: action.payload.result };
     default:

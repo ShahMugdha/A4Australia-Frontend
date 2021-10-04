@@ -1,5 +1,8 @@
 import { ChevronLeft } from "react-feather";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { otp, verifyOtp } from "../../redux/actions/auth";
 import "../../components/forgotPassword.css"
 import {
   Row,
@@ -13,10 +16,6 @@ import {
   Button,
 } from "reactstrap";
 
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { otp, verifyOtp } from "../../redux/actions/auth";
-
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
@@ -24,11 +23,13 @@ const ForgotPassword = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    const otpSent = dispatch(otp({email}));
-    if(otpSent.success){
+    /* const otpSent =  */dispatch(otp({email}));
+    /* if(otpSent.success){
       setSent(true);
     }
+    else {
+      event.preventDefault();
+    } */
   }
 
   const verifyOTP = async (event) => {
@@ -48,11 +49,17 @@ const ForgotPassword = () => {
     <div className="forgot">
       <h1>Forgot Password</h1>
       <h6 className="information-text">Enter your registered email to reset your password.</h6>
-      <div className="form-group">
-        <input type="email" name="user_email" id="user_email"/>
+      <FormGroup>
+        <Input
+          type='email'
+          id='login-email'
+          name='login-email'
+          value = {email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <p><label for="username">Email</label></p>
-        <Link to = '/reset-password'><button onClick="showSpinner()">Reset Password</button></Link>
-      </div>
+        <Link to = '/reset-password'><button onClick={(e) => handleSubmit(e)}>Reset Password</button></Link>
+      </FormGroup>
       <div className="forgot-footer">
         <h5>New here? <Link to = '/signup'>Sign Up.</Link></h5>
         <h5>Already have an account? <Link to = '/login'>Sign In.</Link></h5>

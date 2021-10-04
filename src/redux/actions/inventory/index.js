@@ -44,6 +44,18 @@ export const updateInventoryStock = (productId, editInvent) => {
   };
 }
 
+export const deleteProductQuantity = (productId, size, quantity) => {
+  const invent = {size, quantity}
+  return async(dispatch) => {
+    await request.patch(`/inventory/remove-stock/${productId}`, invent).then((response) => {
+      dispatch({
+        type: "REMOVE_STOCK",
+        payload: response.data
+      });
+    })
+  };
+}
+
 export const deleteProductInventory = (productId) => {
   return async(dispatch) => {
     await request.delete(`/inventory/${productId}`).then((response) => {

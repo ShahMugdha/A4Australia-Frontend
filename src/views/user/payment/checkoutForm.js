@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { getCartList, deleteCart } from '../../../redux/actions/cart/index.js';
 import { getMyAddress } from '../../../redux/actions/address/index.js';
 import { createOrder } from '../../../redux/actions/order/index.js';
+import { deleteProductQuantity, getInventoryList } from '../../../redux/actions/inventory/index.js';
 import { Button } from 'reactstrap';
 
 export default function CheckoutForm() {
@@ -15,6 +16,7 @@ export default function CheckoutForm() {
   const elements = useElements();
   const cart = useSelector(state => state.cart.cartData[0])
   const address = useSelector(state => state.address.myAddress.addresses)
+  const inventoryList = useSelector(state => state.inventory.inventoryData)
   const count = address ? address.length: null
   const orderAddress = address ? address[count-1] : ''
   console.log(cart && cart.user ? cart.user: null, "email")
@@ -61,6 +63,7 @@ export default function CheckoutForm() {
     }
     dispatch(getCartList())
     dispatch(getMyAddress())
+    //dispatch(getInventoryList())
     if (!stripe || !elements) {
       return;
     }
@@ -82,6 +85,9 @@ export default function CheckoutForm() {
     } else {
       dispatch(createOrder())
       dispatch(deleteCart())
+      if(cart && cart.cart) {
+        (cart.cart.map(cartData => dispatch(deleteProductQuantity(cartData.product._id, cartData.size, cartData.quantity), console.log(cartData.quantity, "quantity"))))
+      }
     }
   }
   

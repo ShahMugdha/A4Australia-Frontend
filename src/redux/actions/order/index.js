@@ -13,7 +13,7 @@ export const createOrder = () => {
 
 export const getMyOrder = () => {
   return async(dispatch) => {
-    await request.get(`/order/my-order`).then((response) => {
+    await request.get('/order/my-order').then((response) => {
       dispatch({
         type: "GET_MY_ORDER",
         payload: response.data

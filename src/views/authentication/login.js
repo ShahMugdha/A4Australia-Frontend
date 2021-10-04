@@ -51,7 +51,7 @@ const Login = () => {
                   email id
                 </Label>
                 <Input
-                  type='name'
+                  type='email'
                   id='login-email'
                   name='login-email'
                   value = {email}

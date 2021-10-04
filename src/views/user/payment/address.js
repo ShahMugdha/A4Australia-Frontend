@@ -14,7 +14,10 @@ const Address = () => {
   }, [dispatch])
   const user = localStorage.getItem("token")
   const addressData = useSelector(state => state.address.myAddress)
-  const count = addressData && addressData.addresses ? addressData.addresses.length: null
+  let count
+  if(addressData) {
+    count = addressData && addressData.addresses ? addressData.addresses.length: null
+  }
 
   const [shipping, setShipping] = useState({
     name: addressData && addressData.addresses? addressData.addresses[count-1].name : '',

@@ -7,8 +7,6 @@ import { getMyAddress, removeAddress, selectAddress } from "../../../redux/actio
 import { getMyOrder } from "../../../redux/actions/order/index.js";
 import "../../../components/savedAddresses.css"
 import { Button } from "@material-ui/core";
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 
 const Orders = () => {
   const dispatch = useDispatch();
@@ -38,7 +36,7 @@ const Orders = () => {
                 <Link to = "/orders"><li className="list"><Button>Orders</Button></li></Link>
               </ul>
             </div>
-            <div className="column2" style={{backgroundColor: "#bbb"}}>
+            <div className="column2" >
               {savedAddresses && savedAddresses.myAddress && savedAddresses.myAddress.addresses? (
               savedAddresses.myAddress.addresses.map(addressData => {
                 return(
