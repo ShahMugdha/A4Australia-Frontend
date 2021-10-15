@@ -34,7 +34,7 @@ export const moveProductToCart = (productId, size) => {
   };
 }
 
-export const deleteProductfromWishList = (productId) => {
+export const deleteProductFromWishList = (productId) => {
   return async(dispatch) => {
     await request.patch(`/wishlist/${productId}`).then((response) => {
       dispatch({

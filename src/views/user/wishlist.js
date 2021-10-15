@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { getWishList, moveProductToCart, deleteProductfromWishList } from "../../redux/actions/wishlist";
+import { getWishList, moveProductToCart, deleteProductFromWishList } from "../../redux/actions/wishlist";
 import "../../components/wishlist.css"
 import { Link, Redirect } from "react-router-dom";
 import { FormGroup, Label, Input, Button } from "reactstrap";
@@ -25,7 +25,7 @@ const Wishlist = () => {
     dispatch(moveProductToCart(productId, Size))
   }
   const handleDelete = (productId) => {
-    dispatch(deleteProductfromWishList(productId))
+    dispatch(deleteProductFromWishList(productId))
     document.location.reload()
   }
 

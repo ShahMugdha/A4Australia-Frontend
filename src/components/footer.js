@@ -9,7 +9,7 @@ const Footer = () => {
     <>
       <footer className="footer">
         <div className="footer__addr">
-          <h1 className="footer__logo">Something</h1>
+          <h1 className="footer__logo">A4AUSTRALIA</h1>
               
           <h2>Contact</h2>
           
@@ -22,24 +22,31 @@ const Footer = () => {
         
         <ul className="footer__nav">
           <li className="nav__item">
-            <h2 className="nav__title">Media</h2>
+            <h2 className="nav__title">Category</h2>
 
             <ul className="nav__ul">
               <li>
-                <a href="#">Online</a>
+                <a href="#">Men</a>
               </li>
 
               <li>
-                <a href="#">Print</a>
+                <a href="#">Women</a>
               </li>
                   
               <li>
-                <a href="#">Alternative Ads</a>
+                <a href="#">Boys</a>
+              </li>
+  
+              <li>
+                <a href="#">Girls</a>
+              </li>
+              <li>
+                <a href="#">Unisex</a>
               </li>
             </ul>
           </li>
           
-          <li className="nav__item nav__item--extra">
+          {/* <li className="nav__item nav__item--extra">
             <h2 className="nav__title">Technology</h2>
             
             <ul className="nav__ul nav__ul--extra">
@@ -67,7 +74,7 @@ const Footer = () => {
                 <a href="#">IoT</a>
               </li>
             </ul>
-          </li>
+          </li> */}
           
           <li className="nav__item">
             <h2 className="nav__title">Legal</h2>

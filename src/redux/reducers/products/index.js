@@ -14,6 +14,8 @@ switch (action.type) {
     return { ...state, addProduct: action.payload.result };
   case "GET_PRODUCTS":
     return { ...state, productData: action.payload.result };
+  case 'GET_SEARCHED_DATA':
+    return {...state, productData: state.productData.filter(products => products.title.toLowerCase().includes(action.payload.toLowerCase()))}
   case "GET_PARTICULAR_PRODUCT":
     return {...state, particularProduct: action.payload.result};
   case "GET_PRODUCT_BY_CATEGORY":

@@ -11,7 +11,7 @@ import { Button } from "@material-ui/core";
 const Orders = () => {
   const dispatch = useDispatch();
   const user = localStorage.getItem("token")
-  const savedAddresses = useSelector(state => state.address)
+  const orderData = useSelector(state => state.order.getMyOrder)
   useEffect(()=> {
     dispatch(getMyAddress())
     dispatch(getMyOrder())
@@ -37,25 +37,28 @@ const Orders = () => {
               </ul>
             </div>
             <div className="column2" >
-              {savedAddresses && savedAddresses.myAddress && savedAddresses.myAddress.addresses? (
-              savedAddresses.myAddress.addresses.map(addressData => {
-                return(
-                  <div className="addresses">
-                    <li key={addressData._id} className = "data">
-                      <div>Name: {addressData.name}</div>
-                      <div>Address Line 1: {addressData.addressLine1}</div>
-                      <div>Address Line 2: {addressData.addressLine2}</div>
-                      <div>City: {addressData.city}</div>
-                      <div>State: {addressData.state}</div>
-                      <div>Country: {addressData.country}</div>
-                      <div>Postal Code: {addressData.postalCode} </div>
-                    </li>
-                  </div> 
+              {orderData && orderData.orderHistory? (
+                orderData.orderHistory.map(history => (
+                  history.order.map(orderInfo => {
+                    return(
+                      <>
+                        <div style={{height: "190px"}}>
+                          <img src={`http://localhost:5000/${orderInfo.product.image}`} style={{width: "170px", height: "170px", marginRight: "15px", float: "left"}}/>
+                          <div>{orderInfo.product.title}</div> 
+                          <div>{orderInfo.product.description}</div>
+                          <div>{orderInfo.size}</div>
+                          <div>{orderInfo.quantity}</div>
+                          <div>{orderInfo.price}</div>
+                        </div>
+                      </>
+                    )
+                  })
+                  /* (<>line brek</>) */
                 )
-              })
-            ): (
-              <h1></h1>
-            )}
+              )
+              ): (
+                <h1>No Orders Placed</h1>
+              )}
             </div>
           </div>  
           <Button>Logout</Button>

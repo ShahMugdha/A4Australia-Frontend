@@ -78,3 +78,12 @@ export const deleteProduct = (productId) => {
 }
 
 export const selectProduct = (product) => (dispatch) => dispatch({ type: "SELECT_PRODUCT", payload: product });
+
+export const searchProducts = (params) => {
+  return (dispatch) => {
+    dispatch({
+      type: "GET_SEARCHED_DATA",
+      payload: params,
+    });
+  };
+};
