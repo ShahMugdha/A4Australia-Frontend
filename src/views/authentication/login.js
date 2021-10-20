@@ -64,8 +64,8 @@ const Login = () => {
                 </Label>
                 <Input
                   type='password'
-                  id='login-email'
-                  name='login-email'
+                  /* id='login-email'
+                  name='login-email' */
                   value = {password}
                   onChange={(e) => setPassword(e.target.value)}
                 />

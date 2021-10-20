@@ -9,6 +9,7 @@ import Login from "./views/authentication/login.js";
 import SignUp from "./views/authentication/signUp";
 import VerifyEmail from "./views/authentication/verifyEmail.js";
 import ForgotPassword from "./views/authentication/forgotPassword.js";
+import ResetPassword from  "./views/authentication/resetPassword.js";
 import AdminLogin from "./views/admin/adminLogin.js"
 import AllProducts from "./views/admin/products/products.js";
 import Dashboard from "./views/admin/dashboard.js";
@@ -82,6 +83,9 @@ function App() {
         </Route>
         <Route path="/forgot-password">
           <ForgotPassword />
+        </Route>
+        <Route path="/reset-password">
+          <ResetPassword />
         </Route>
         <Route path="/collection/product/:productId">
           <ProductDetail/>

@@ -88,6 +88,7 @@ export const otp = ({email}) => {
   return async (dispatch) => {    
     console.log("forgot pass");
     const response = await request.patch(`/auth/forgot-password`, {email})
+    console.log(response.data, "fhfgg")
     return response.data;
   }
 }

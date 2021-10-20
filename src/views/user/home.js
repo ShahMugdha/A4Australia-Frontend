@@ -85,7 +85,7 @@ const Home = () => {
       <HideTop/>
       <Navigation/>
       {productsUniqueByKey.length > 0 ? (
-        <div id="wrap" style={{marginLeft: "13%"}}>
+        <div id="wrap" style={{marginLeft: "12%"}}>
           <div id="columns" className="columns_4">
           {productsUniqueByKey.map((product) => {
             return (

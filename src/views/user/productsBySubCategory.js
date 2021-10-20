@@ -33,7 +33,7 @@ const ProductsBySubCategory = () => {
       <HideTop/>
       <TopNavigation/>
       {productData.length > 0 ? (
-        <div id="wrap" style={{marginLeft: "14%", marginTop: "10%"}}>
+        <div id="wrap" style={{marginLeft: "8%", marginTop: "10%"}}>
         <div id="columns" className="columns_4">
           {productData.map((product) => {
             return (
