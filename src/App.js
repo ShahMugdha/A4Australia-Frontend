@@ -9,6 +9,7 @@ import Login from "./views/authentication/login.js";
 import SignUp from "./views/authentication/signUp";
 import VerifyEmail from "./views/authentication/verifyEmail.js";
 import ForgotPassword from "./views/authentication/forgotPassword.js";
+import VerifyOtp from "./views/authentication/verifyOtp.js";
 import ResetPassword from  "./views/authentication/resetPassword.js";
 import AdminLogin from "./views/admin/adminLogin.js"
 import AllProducts from "./views/admin/products/products.js";
@@ -31,9 +32,8 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {Elements} from '@stripe/react-stripe-js';
 import NotFound from "./components/error-pages/notFound.js"
 import {loadStripe} from '@stripe/stripe-js';
-//dotenv.config();
+
 const stripePromise = loadStripe("pk_test_51JL37MSIq5ANGvjea83Yo4FVR5XE1mHrrtU6E1qLyOJ3ct5fwMr36wq8bXm6GPos3wNtQ2DqhmUK0RrhZ9tgLnax00MyjOmoma")
-//console.log(process.env.REACT_APP_STRIPE_PUBLIC_KEY, "kkey")
 
 function App() {
   return (
@@ -83,6 +83,9 @@ function App() {
         </Route>
         <Route path="/forgot-password">
           <ForgotPassword />
+        </Route>
+        <Route path="/verify-otp">
+          <VerifyOtp />
         </Route>
         <Route path="/reset-password">
           <ResetPassword />

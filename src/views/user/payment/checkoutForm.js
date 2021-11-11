@@ -8,6 +8,9 @@ import { getMyAddress } from '../../../redux/actions/address/index.js';
 import { createOrder } from '../../../redux/actions/order/index.js';
 import { deleteProductQuantity, getInventoryList } from '../../../redux/actions/inventory/index.js';
 import { Button } from 'reactstrap';
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure() 
 
 export default function CheckoutForm() {
   const stripe = useStripe();
@@ -74,16 +77,20 @@ export default function CheckoutForm() {
   }
   console.log(paymentRequest, "req")
 
-  function handleServerResponse(response) {
+  function handleServerResponse(response, result) {
     if (response.error) {
+      toast.danger("Payment Unsuccessful!", {autoClose:2000})
       // Show error from server on payment form
     } else if (response.requires_action) {
       // Use Stripe.js to handle required card action
+      console.log("card needs action")
       stripe.handleCardAction(
         response.payment_intent_client_secret
       ).then(handleStripeJsResult);
     } else {
-      dispatch(createOrder())
+      console.log(result.paymentMethod.id, "intent")
+      dispatch(createOrder(result.paymentMethod.id))
+      toast.success("Payment Successful!", {autoClose:2000})
       dispatch(deleteCart())
       if(cart && cart.cart) {
         (cart.cart.map(cartData => dispatch(deleteProductQuantity(cartData.product._id, cartData.size, cartData.quantity), console.log(cartData.quantity, "quantity"))))
@@ -108,6 +115,7 @@ export default function CheckoutForm() {
   }
 
   function stripePaymentMethodHandler(result, userId) {
+    const res = result
     if (result.error) {
       // Show error in payment form
     } else {
@@ -121,7 +129,7 @@ export default function CheckoutForm() {
       }).then(function(result) {
         // Handle server response (see Step 4)
         result.json().then(function(json) {
-          handleServerResponse(json);
+          handleServerResponse(json, res);
         })
       });
     }
@@ -156,7 +164,6 @@ export default function CheckoutForm() {
         phone: cart && cart.user ? cart.user.mobile: null
       },
     });
-
     stripePaymentMethodHandler(result, cart.user._id);
   };
   

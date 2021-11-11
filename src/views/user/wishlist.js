@@ -8,13 +8,11 @@ import Footer from "../../components/footer";
 import Navigation from "../../components/Navigation/navigation";
 import CloseIcon from '@material-ui/icons/Close';
 import HideTop from "../../components/Navigation/hideTop";
-import { toast } from 'react-toastify';
 
 const Wishlist = () => {
   const [size, setSize] = useState("Small")
   const dispatch = useDispatch();
   const user = localStorage.getItem("token")
-  //console.log(jwt_decode(user), "jwt decode")
   const wishlistData = useSelector(state => state.wishlist.wishlistData)
 
   useEffect(()=> {
@@ -26,7 +24,9 @@ const Wishlist = () => {
   }
   const handleDelete = (productId) => {
     dispatch(deleteProductFromWishList(productId))
-    document.location.reload()
+    setTimeout(function() {
+      window.location.reload();
+    }, 5000);
   }
 
   return(

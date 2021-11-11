@@ -25,17 +25,20 @@ const Cart = () => {
   const changeQuantity = (event, productId, Size, Quantity) => {
     setQuantity(event.target.value)
     dispatch(updateProductQuantity(productId, Size, Quantity))
-    document.location.reload()
   }
 
   const removeFromCart = (productId, Size) => {
     dispatch(deleteProductFromCart(productId, Size))
-    document.location.reload()
+    setTimeout(function() {
+      window.location.reload();
+    }, 3000);
   }
 
   const moveToWishList = (productId, Size) => {
     dispatch(moveProductToWishList(productId, Size))
-    document.location.reload();
+    setTimeout(function() {
+      window.location.reload();
+    }, 3000);
   }
 
   useEffect(()=> {

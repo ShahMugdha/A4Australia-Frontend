@@ -1,8 +1,8 @@
 import request from "../../../services/request";
 
-export const createOrder = () => {
+export const createOrder = (paymentIntentId) => {
   return async(dispatch) => {
-    await request.post(`/order`).then((response) => {
+    await request.post(`/order/:${paymentIntentId}`).then((response) => {
       dispatch({
         type: "CREATE_ORDER",
         payload: response.data

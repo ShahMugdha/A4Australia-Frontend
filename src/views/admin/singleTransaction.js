@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { paymentIntentById } from "../../redux/actions/transactions";
 import { getCartList } from "../../redux/actions/cart";
+import {getCustomerOrder} from "../../redux/actions/order";
 import { logOut } from "../../redux/actions/auth";
 import { Link, useParams } from "react-router-dom";
 import "../../components/admin/singleTransaction.css";

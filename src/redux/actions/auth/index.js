@@ -1,26 +1,32 @@
 import request from "../../../services/request";
-export const login = ({email, password}) => {
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure() 
+
+export const login = ({email, password}, event) => {
   return async (dispatch) => {
     const response = await request.post('/auth/login', {email, password, role:"CUSTOMER"});
-    console.log(response.data, "USERINFORMATION");
-    if (response.data.success) {
-    await dispatch({
-      type: "LOGIN_SUCCESS",
-      payload: response.data.result.userData[0]
-    })
+    if (response.data.success === true) {
+      console.log(response, "response data");
+      await dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: response.data.result.userData[0]
+      })
     
-    localStorage.setItem('token', response.data.result.token);
-    localStorage.setItem('user', JSON.stringify(response.data.result));
-    } else {
+      toast.success("Login Successful!", {autoClose:2000})
+      localStorage.setItem('token', response.data.result.token);
+      localStorage.setItem('user', JSON.stringify(response.data.result));
+    } else if (response.status === 403){
+      console.log(response.data, "response data");
+      console.log("login fail")
+      event.preventDefault();
+      toast.danger("Either the email or password is incorrect", {autoClose:2000})
       dispatch({
         type:"LOGIN_FAILED",
         payload:response.data
       })
     }
-    /* if (response.data.success) {
-    window.location.reload();
-    } */
-    return response.data;
+    //return response.data;
   }
 }
 
@@ -42,9 +48,6 @@ export const signup = ({firstName, lastName, email, mobile, password}) => {
         payload:response.data
       })
     }
-    /* if (response.data.success) {
-    window.location.reload();
-    } */
     return response.data;
   }
 }
@@ -77,9 +80,6 @@ export const adminLogin = ({email, password, role}) => {
         payload:response.data
       })
     }
-    /* if (response.data.success) {
-    window.location.reload();
-    } */
     return response.data;
   }
 }
@@ -93,17 +93,17 @@ export const otp = ({email}) => {
   }
 }
 
-export const verifyOtp = ({email, otpVal}) => {
+export const verifyOtp = ({email, otp}) => {
   return async (dispatch) => {
-    const response = await request.patch('/v1/auth/verify-Otp', {email, otp:otpVal})
+    const response = await request.patch('/auth/verify-Otp', {email, otp})
     return response.data;
   }
 }
 
-export const resetPassword = ({password, locationId, userId}) => {
-  console.log(password, locationId, userId)
+export const resetPassword = ({password, userId}) => {
+  console.log(password, userId)
   return async (dispatch) => {
-    const response = await request.put('/v1/auth/register', {password, locationId, userId});
+    const response = await request.put('/auth/register', {password, userId});
     console.log(response.status, "response")
     return response.data;
   }
@@ -112,6 +112,7 @@ export const resetPassword = ({password, locationId, userId}) => {
 export const logOut = () => {
   localStorage.clear();
   console.log("Logging out")
+  toast.success("Logged Out Successfully", {autoClose:2000})
   if (localStorage.length === 0) return true;
   return false;
 }

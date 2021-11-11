@@ -1,4 +1,7 @@
 import request from "../../../services/request";
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure() 
 
 export const addProductToWishList = (productId) => {
   return async(dispatch) => {
@@ -7,6 +10,12 @@ export const addProductToWishList = (productId) => {
         type: "ADD_PRODUCT_TO_WISHLIST",
         payload: response.data
       });
+      if(response.data.success === true){
+        toast.success(response.data.message, {autoClose:2000})
+      }
+      else if(response.data.success === false){
+        toast.error(response.data.message)
+      }
     })
   };
 }
@@ -29,8 +38,18 @@ export const moveProductToCart = (productId, size) => {
         type: "MOVE_PRODUCT_TO_CART",
         payload: response.data
       });
+      if(response.data.success === true){
+        console.log("suc")
+        toast.success(response.data.message, {autoClose:2000})
+      }
+      else {
+        console.log("err")
+        toast.error(response.data.message)
+      }
     })
-    document.location.reload()
+    setTimeout(function() {
+      window.location.reload();
+    }, 3000);
   };
 }
 
@@ -41,6 +60,12 @@ export const deleteProductFromWishList = (productId) => {
         type: "DELETE_PRODUCT_FROM_WISHLIST",
         payload: response.data
       });
+      if(response.data.success === true){
+        toast.success(response.data.message, {autoClose:2000})
+      }
+      else {
+        toast.error(response.data.message)
+      }
     })
   };
 }

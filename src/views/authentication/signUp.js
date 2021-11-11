@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link, Redirect, useHistory, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {signup} from "../../redux/actions/auth/index.js";
 import { useDispatch } from "react-redux";
+import "../../components/signIn.css"
 import {
   Row,
   Col,
@@ -36,108 +37,41 @@ const SignUp = () => {
   }
 
   return (
-    <div className='auth-wrapper auth-v2'>
-      <Row className='auth-inner m-0'>
-        <Col
-          className='d-flex align-items-center auth-bg px-2 p-lg-5'
-          lg='4'
-          sm='12'
-        >
-          <Col className='px-xl-2 mx-auto' sm='8' md='6' lg='12'>
-            <CardTitle
-              tag='h2'
-              className='mb-1'
-              style={{
-                fontFamily: 'Encode Sans, sans-serif',
-                fontWeight: '600',
-              }}
-            >
-              Please sign up 
-            </CardTitle>
-            <Form className='auth-login-form mt-2'>
-              <FormGroup>
-                <Label className='form-label' for='login-firstname'>
-                  First Name
-                </Label>
-                <Input
-                  type='name'
-                  id='login-firstname'
-                  name='login-firstname'
-                  value = {firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label className='form-label' for='login-lastname'>
-                  Last Name
-                </Label>
-                <Input
-                  type='name'
-                  id='login-lasttname'
-                  name='login-lasttname'
-                  value = {lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label className='form-label' for='login-email'>
-                  email id
-                </Label>
-                <Input
-                  type='name'
-                  id='login-email'
-                  name='login-email'
-                  value = {email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label className='form-label' for='login-mobile'>
-                  Mobile
-                </Label>
-                <Input
-                  type="tel"
-                  id='login-mobile'
-                  name='login-mobile'
-                  value = {mobile}
-                  onChange={(e) => setMobile(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label className='form-label' for='login-password'>
-                  Password
-                </Label>
-                <Input
-                  type="password"
-                  id='login-password'
-                  name='login-password'
-                  value = {password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label className='form-label' for='login-confirmPassword'>
-                  Confirm Password
-                </Label>
-                <Input
-                  type="password"
-                  id='login-confirmPassword'
-                  name='login-confirmPassword'
-                  value = {confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                />
-              </FormGroup>
-              <Button color='primary' onClick={(e) => handleSignUp(e)}>
-                Sign Up
-              </Button>
-              <Link to = '/login' color='primary'>
-                Already have an account ? sign in
-              </Link>
-            </Form>
-          </Col>
-        </Col>
-      </Row>
-    </div>
+    <>
+      <div className="outer">
+        <div className="sign-up-card">
+          <h3>Please Sign Up</h3>
+          <div className="input-div">
+            <label for="FirstName">First Name</label>
+            <input type="name" placeholder="First Name" value = {firstName} onChange={(e) => setFirstName(e.target.value)}/>
+          </div>
+          <div className="input-div">
+            <label for="LastName">Last Name</label>
+            <input type="name" placeholder="Last Name" value = {lastName} onChange={(e) => setLastName(e.target.value)}/>
+          </div>
+          <div className="input-div">
+            <label for="Email">Email</label>
+            <input type="email" placeholder="Email" value = {email} onChange={(e) => setEmail(e.target.value)}/>
+          </div>
+          <div className="input-div">
+            <label for="Mobile">Mobile</label>
+            <input type="tel" placeholder="Mobile Number" value = {mobile} onChange={(e) => setMobile(e.target.value)}/>
+          </div>
+          <div className="input-div">
+            <label for="Password">Password</label>
+            <input type="password" placeholder="Password" value = {password} onChange={(e) => setPassword(e.target.value)}/>
+          </div>
+          <div className="input-div">
+            <label for="password">Confirm Password</label>
+            <input type="password" placeholder="Confirm Password" value = {confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}/>
+          </div>
+          <Button color='primary' onClick={(e) => handleSignUp(e)}>
+            Sign Up
+          </Button>
+          <p>Already have an account ?<Link to = '/login' color='primary'>Sign in</Link></p>
+        </div>
+      </div>
+    </>
   );
 };
 

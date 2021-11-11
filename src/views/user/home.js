@@ -8,7 +8,6 @@ import { addProductToWishList, getWishList, deleteProductFromWishList } from "..
 import { addProductToCart } from "../../redux/actions/cart/index.js";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
-import { toast } from 'react-toastify'
 import "../../components/products.css"
 import "../../components/Navigation/sideNav.css"
 import "../../components/addToCartPopUp.css"
@@ -76,7 +75,9 @@ const Home = () => {
       unMarkWishlisted(productId)
       dispatch(deleteProductFromWishList(productId))
     }
-    window.location.reload()
+    setTimeout(function() {
+      window.location.reload();
+    }, 3000);
   }
   console.log(wishlistedProducts, "wihsprod ob")
 
@@ -119,7 +120,7 @@ const Home = () => {
                 </figcaption>
                 <div style={{float: "left", color: "GrayText"}}>{product.description}</div><br/>
                 <span style={{float: "left", height: "35px"}} className="price">Rs.{product.price}</span>
-                <div className="dropdown">
+                {/* <div className="dropdown">
                   <Button
                     className="button"
                     onClick={() => addToCart(product._id)}
@@ -135,7 +136,7 @@ const Home = () => {
                       </div>
                     </div>
                   </div>  
-                </div>
+                </div> */}
               </figure>   
             )
           })}
