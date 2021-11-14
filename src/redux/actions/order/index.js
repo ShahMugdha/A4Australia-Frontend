@@ -2,7 +2,7 @@ import request from "../../../services/request";
 
 export const createOrder = (paymentIntentId) => {
   return async(dispatch) => {
-    await request.post(`/order/:${paymentIntentId}`).then((response) => {
+    await request.post(`/order/${paymentIntentId}`).then((response) => {
       dispatch({
         type: "CREATE_ORDER",
         payload: response.data
@@ -22,9 +22,9 @@ export const getMyOrder = () => {
   };
 }
 
-export const getCustomerOrder = (userId) => {
+export const getCustomerOrder = (paymentIntentId) => {
   return async(dispatch) => {
-    await request.get(`/order/${userId}`).then((response) => {
+    await request.get(`/order/${paymentIntentId}`).then((response) => {
       dispatch({
         type: "GET_CUSTOMER_ORDER",
         payload: response.data

@@ -12,6 +12,8 @@ import EditIcon from '@material-ui/icons/Edit';
 const Profile = () => {
   const dispatch = useDispatch();
   const user = localStorage.getItem("token")
+  const userDetails = JSON.parse(localStorage.getItem('user'))
+  const userData = userDetails && userDetails.userData ? userDetails.userData[0] : ''
   const profile = useSelector(state => state.profile)
 
   const handleLogOut = () => {
@@ -38,11 +40,11 @@ const Profile = () => {
             <div className="column2" style={{backgroundColor: "#bbb"}}>
               <Link to = "/edit-account"><div style={{float: "right", color: "black"}}><EditIcon/></div></Link>
               <div className = "profile-data">
-                <div>First Name: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.firstName : ""}</div>
-                <div>Last Name: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.lastName : ""}</div>
-                <div>Full Name: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.name : ""}</div>
-                <div>Email Id: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.email : ""}</div>
-                <div>mobile: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.mobile : ""}</div>
+                <div>First Name: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.firstName : userData.firstName}</div>
+                <div>Last Name: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.lastName : userData.lastName}</div>
+                <div>Full Name: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.name : userData.name}</div>
+                <div>Email Id: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.email : userData.email}</div>
+                <div>mobile: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.mobile : userData.mobile}</div>
               </div>
             </div>
           </div>

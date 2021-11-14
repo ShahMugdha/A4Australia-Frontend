@@ -11,13 +11,15 @@ import { Button } from "@material-ui/core";
 const EditAccount = () => {
   const dispatch = useDispatch();
   const user = localStorage.getItem("token")
+  const userDetails = JSON.parse(localStorage.getItem('user'))
+  const userData = userDetails && userDetails.userData ? userDetails.userData[0] : ''
   const profile = useSelector(state => state.profile)
   const [account, setAccount] = useState({
-    firstName: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.firstName : "",
-    lastName: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.lastName : "",
-    name: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.name : "",
-    email: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.email : "",
-    mobile: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.mobile : "",
+    firstName: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.firstName : userData.firstName,
+    lastName: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.lastName : userData.lastName,
+    name: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.name : userData.name,
+    email: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.email : userData.email,
+    mobile: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.mobile : userData.mobile,
   })
   useEffect(()=> {
     dispatch(getUserProfile())

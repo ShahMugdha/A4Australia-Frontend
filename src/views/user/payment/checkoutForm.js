@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { getCartList, deleteCart } from '../../../redux/actions/cart/index.js';
 import { getMyAddress } from '../../../redux/actions/address/index.js';
 import { createOrder } from '../../../redux/actions/order/index.js';
-import { deleteProductQuantity, getInventoryList } from '../../../redux/actions/inventory/index.js';
+import { deleteProductQuantity } from '../../../redux/actions/inventory/index.js';
 import { Button } from 'reactstrap';
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'; 
@@ -19,7 +19,6 @@ export default function CheckoutForm() {
   const elements = useElements();
   const cart = useSelector(state => state.cart.cartData[0])
   const address = useSelector(state => state.address.myAddress.addresses)
-  const inventoryList = useSelector(state => state.inventory.inventoryData)
   const count = address ? address.length: null
   const orderAddress = address ? address[count-1] : ''
   console.log(cart && cart.user ? cart.user: null, "email")
@@ -66,7 +65,6 @@ export default function CheckoutForm() {
     }
     dispatch(getCartList())
     dispatch(getMyAddress())
-    //dispatch(getInventoryList())
     if (!stripe || !elements) {
       return;
     }
@@ -80,21 +78,26 @@ export default function CheckoutForm() {
   function handleServerResponse(response, result) {
     if (response.error) {
       toast.danger("Payment Unsuccessful!", {autoClose:2000})
-      // Show error from server on payment form
-    } else if (response.requires_action) {
-      // Use Stripe.js to handle required card action
+    } 
+    
+    else if (response.requires_action) {
       console.log("card needs action")
       stripe.handleCardAction(
         response.payment_intent_client_secret
       ).then(handleStripeJsResult);
-    } else {
-      console.log(result.paymentMethod.id, "intent")
-      dispatch(createOrder(result.paymentMethod.id))
+    } 
+    
+    else {
+      const paymentIntentId = localStorage.getItem("paymentIntentId")
+      //dispatch(createOrder(result.paymentMethod.id))
+      dispatch(createOrder(paymentIntentId))
       toast.success("Payment Successful!", {autoClose:2000})
-      dispatch(deleteCart())
       if(cart && cart.cart) {
-        (cart.cart.map(cartData => dispatch(deleteProductQuantity(cartData.product._id, cartData.size, cartData.quantity), console.log(cartData.quantity, "quantity"))))
+        (cart.cart.map(
+          cartData => dispatch(deleteProductQuantity(cartData.product._id, cartData.size, cartData.quantity))
+        ))
       }
+      dispatch(deleteCart())
     }
   }
   
@@ -116,19 +119,20 @@ export default function CheckoutForm() {
 
   function stripePaymentMethodHandler(result, userId) {
     const res = result
-    if (result.error) {
-      // Show error in payment form
-    } else {
-      // Otherwise send paymentMethod.id to your server (see Step 4)
+    if (result.error) {} 
+    else {
       fetch(`http://localhost:5000/pay/${userId}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           payment_method_id: result.paymentMethod.id,
         })
-      }).then(function(result) {
-        // Handle server response (see Step 4)
+      })
+      .then(function(result) {
+        //localStorage.setItem('paymentIntentId', result.paymentMethod.id);
         result.json().then(function(json) {
+          console.log(json, "intent json")
+          localStorage.setItem('paymentIntentId', json.paymentIntentId);
           handleServerResponse(json, res);
         })
       });
@@ -153,11 +157,11 @@ export default function CheckoutForm() {
         // Include any additional collected billing details.
         //city: orderAddress.city,
         address: {
-          city: orderAddress.city,
+          city: orderAddress.city? orderAddress.city: null,
           //country: orderAddress.country,
-          line1: orderAddress.addressLine1,
-          line2: orderAddress.addressLine2,
-          state: orderAddress.state
+          line1: orderAddress.addressLine1? orderAddress.addressLine1: null,
+          line2: orderAddress.addressLine2? orderAddress.addressLine2: null,
+          state: orderAddress.state? orderAddress.state: null
         },
         email: cart && cart.user ? cart.user.email: null,
         name: cart && cart.user ? cart.user.name: null,

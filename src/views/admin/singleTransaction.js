@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { paymentIntentById } from "../../redux/actions/transactions";
-import { getCartList } from "../../redux/actions/cart";
 import {getCustomerOrder} from "../../redux/actions/order";
 import { logOut } from "../../redux/actions/auth";
 import { Link, useParams } from "react-router-dom";
@@ -22,9 +21,12 @@ const SingleTransaction = () => {
   }
   const {paymentIntentId} = useParams()
   const transaction = useSelector(state => state.transaction.singleTransaction)
+  const order = useSelector(state => state.order.getCustomerOrder)
+  const count = order && order.orderHistory ? order.orderHistory.length : 0
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(paymentIntentById(paymentIntentId))
+    dispatch(getCustomerOrder(paymentIntentId))
   }, [dispatch])
   
   return (
@@ -62,26 +64,34 @@ const SingleTransaction = () => {
           <br/>
           <h2 style={{float: "left"}}>Order Details</h2>
           <br/>
-          <table style={{width: "40%", marginLeft: "0px"}}>
-            <tr style={{fontSize: "5px"}}>
-              <td style={{padding: "1px"}}>Products</td>
-              {/* <td style={{padding: "1px"}}>Customer</td> */}
-              <td style={{padding: "1px"}}>Payment method</td>
-              <td style={{padding: "1px"}}>Risk evaluation</td>
-            </tr>
-            <tr style={{fontSize: "5px"}}>
-              <td style={{padding: "1px"}}>Size</td>
-              {/* <td style={{padding: "1px"}}>Tobias</td> */}
-              <td style={{padding: "1px"}}>....{transaction&&transaction.charges? transaction.charges.data[0].payment_method_details.card.last4: ""}</td>
-              <td style={{padding: "1px"}}><Pill color="green" style={{marginRight: "5px"}}>{transaction&&transaction.charges ? transaction.charges.data[0].outcome.risk_score : ""}</Pill>{transaction&&transaction.charges ? transaction.charges.data[0].outcome.risk_level : ""}</td>
-            </tr>
-            <tr style={{fontSize: "5px"}}>
-              <td style={{padding: "1px"}}>Qty</td>
-              {/* <td style={{padding: "1px"}}>Tobias</td> */}
-              <td style={{padding: "1px"}}>....{transaction&&transaction.charges? transaction.charges.data[0].payment_method_details.card.last4: ""}</td>
-              <td style={{padding: "1px"}}><Pill color="green" style={{marginRight: "5px"}}>{transaction&&transaction.charges ? transaction.charges.data[0].outcome.risk_score : ""}</Pill>{transaction&&transaction.charges ? transaction.charges.data[0].outcome.risk_level : ""}</td>
-            </tr>
-          </table>
+          {order && order.orderHistory ? (
+            order.orderHistory[count-1].order.map(orderData => {
+              return(
+                <>
+                  <table style={{width: "40%", marginLeft: "0px"}}>
+                    <tr style={{fontSize: "5px"}}>
+                      <td style={{padding: "1px"}}>Product</td>
+                      <td style={{padding: "1px"}}>{orderData.product.title}</td>
+                    </tr>
+                    <tr style={{fontSize: "5px"}}>
+                      <td style={{padding: "1px"}}>Size</td>
+                      <td style={{padding: "1px"}}>{orderData.size}</td>
+                    </tr>
+                    <tr style={{fontSize: "5px"}}>
+                      <td style={{padding: "1px"}}>Qty</td>
+                      <td style={{padding: "1px"}}>{orderData.quantity}</td>
+                    </tr>
+                    <tr style={{fontSize: "5px"}}>
+                      <td style={{padding: "1px"}}>Price</td>
+                      <td style={{padding: "1px"}}>{orderData.price}</td>
+                    </tr>
+                  </table>
+                </>
+              )
+            })
+          ) : (
+            <h1> Order not available</h1>
+          )}
           <br/>
           <h2 style={{float: "left"}}>Payment Details</h2>
           <br/>
@@ -115,19 +125,19 @@ const SingleTransaction = () => {
               <p>ZIP check</p>
             </div>
             <div className="payment_details">
-              <p>{transaction && transaction.charges ? transaction.charges.data[0].billing_details.name : ""}</p>
-              <p>{transaction && transaction.charges ? transaction.charges.data[0].billing_details.email : ""}</p>
-              <p>{transaction && transaction.charges ? transaction.charges.data[0].billing_details.address.line1 : ""}</p>
-              <p>{transaction && transaction.charges ? transaction.charges.data[0].billing_details.address.line2 : ""}</p>
+              <p>{transaction && transaction.shipping ? transaction.shipping.name : ""}</p>
+              <p>{transaction && transaction.shipping ? transaction.receipt_email : ""}</p>
+              <p>{transaction && transaction.shipping ? transaction.shipping.address.line1 : ""}</p>
+              <p>{transaction && transaction.shipping ? transaction.shipping.address.line2 : ""}</p>
               <p>
-                {transaction && transaction.charges ? transaction.charges.data[0].billing_details.address.city : ""},  
-                {transaction && transaction.charges ? transaction.charges.data[0].billing_details.address.state : ""}, 
-                {transaction && transaction.charges ? transaction.charges.data[0].billing_details.address.postal_code : ""}
+                {transaction && transaction.shipping ? transaction.shipping.address.city : ""},  
+                {transaction && transaction.shipping ? transaction.shipping.address.state : ""}, 
+                {transaction && transaction.shipping ? transaction.shipping.address.postal_code : ""}
               </p>
-              <p>{transaction && transaction.charges ? transaction.charges.data[0].billing_details.address.country : ""}abc</p>
-              <p>{transaction && transaction.charges ? transaction.charges.data[0].payment_method_details.card.checks.address_line1_check : ""}</p>
-              <p>{transaction && transaction.charges ? transaction.charges.data[0].payment_method_details.card.checks.cvc_check : ""}</p>
-              <p>{transaction && transaction.charges ? transaction.charges.data[0].payment_method_details.card.checks.address_postal_code_check : ""}</p>
+              <p>{transaction && transaction.shipping ? transaction.shipping.address.country : ""}abc</p>
+              <p>{transaction && transaction.shipping ? transaction.charges.data[0].payment_method_details.card.checks.address_line1_check : ""}</p>
+              <p>{transaction && transaction.shipping ? transaction.charges.data[0].payment_method_details.card.checks.cvc_check : ""}</p>
+              <p>{transaction && transaction.shipping ? transaction.charges.data[0].payment_method_details.card.checks.address_postal_code_check : ""}</p>
             </div>
           </div>
           <br/> 
