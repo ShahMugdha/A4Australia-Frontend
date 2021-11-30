@@ -11,26 +11,13 @@ import {
 
 const VerifyOtp = () => {
   const [otp, setOtp] = useState(0)
-  const email = localStorage.getItem("email")
+  const email = JSON.parse(localStorage.getItem("email"))
   console.log(email, "email")
   const dispatch= useDispatch()
 
   const handleChange = (e) => {
-    const result = dispatch(verifyOtp({email, otp}));
-    console.log(result, "result otp")
-    if(result.success){
-      console.log("otp verified")
-      
-    }
-    else{
-      e.preventDefault()
-      console.log("OTP verification failed");
-    }
+    dispatch(verifyOtp({email, otp}));
   }
-
- /*  useEffect(() => {
-    dispatch(verifyEmail(userId))
-  }, [dispatch]) */
 
   return (
     <>

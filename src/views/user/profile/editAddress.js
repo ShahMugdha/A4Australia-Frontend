@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
 import Footer from "../../../components/footer.js";
+import { logOut } from "../../../redux/actions/auth/index.js";
 import { getMyAddress, updateAddress, selectAddress } from "../../../redux/actions/address/index.js";
 import "../../../components/profileHome.css"
 import { Button } from "@material-ui/core";
@@ -23,6 +24,10 @@ const EditAddress = () => {
 
   const addressEdit = JSON.parse(localStorage.getItem("address"))
   console.log(address, "address")
+
+  const handleLogOut = () => {
+    logOut()
+  }
 
   useEffect(()=> {
     dispatch(selectAddress(addressEdit))
@@ -48,7 +53,7 @@ const EditAddress = () => {
               <ul className="unordered">
                 <Link to = "/profile"><li className="list"><Button>Account</Button></li></Link>
                 <Link to = "/saved-addresses"><li className="list"><Button>Saved Addresses</Button></li></Link>
-                <Link to = "/orders"><li className="list"><Button>Orders</Button></li></Link>
+                <Link to = "/orders/my-orders"><li className="list"><Button>Orders</Button></li></Link>
               </ul>
             </div>
             <div className="column2" style={{backgroundColor: "#bbb"}}>
@@ -122,7 +127,7 @@ const EditAddress = () => {
               </div>
             </div>
           </div>
-          <Button>Logout</Button>
+          <div className="Logout-button" onClick={() => handleLogOut()}><Link to = "/"><Button style={{backgroundColor: "lavender", marginTop: "5%"}}>Logout</Button></Link></div>
         </> 
       : <Link to="/login">Please Log In</Link> } 
       <Footer/>

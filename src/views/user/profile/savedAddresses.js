@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
@@ -44,10 +44,10 @@ const SavedAddresses = () => {
               <ul className="unordered">
                 <Link to = "/profile"><li className="list"><Button>Account</Button></li></Link>
                 <Link to = "/saved-addresses"><li className="list"><Button>Saved Addresses</Button></li></Link>
-                <Link to = "/orders"><li className="list"><Button>Orders</Button></li></Link>
+                <Link to = "/orders/my-orders"><li className="list"><Button>Orders</Button></li></Link>
               </ul>
             </div>
-            <div className="column2" style={{backgroundColor: "#bbb"}}>
+            <div className="column2" style={{backgroundColor: "#bbb", overflowY: "auto"}}>
               {savedAddresses && savedAddresses.myAddress && savedAddresses.myAddress.addresses? (
               savedAddresses.myAddress.addresses.map(addressData => {
                 return(
@@ -72,7 +72,6 @@ const SavedAddresses = () => {
             </div>
           </div>  
           <div className="Logout-button" onClick={() => handleLogOut()}><Link to = "/"><Button style={{backgroundColor: "lavender", marginTop: "5%"}}>Logout</Button></Link></div>
-          {/* <Button style={{backgroundColor: "lavender", marginTop: "5%"}}>Logout</Button> */}
         </> 
       : <Link to="/login"></Link> } 
       <Footer/>

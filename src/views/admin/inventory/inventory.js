@@ -47,7 +47,7 @@ const Inventory = () => {
                 return (
                   <>
                     <div style={{padding: "0.02px"}}>
-                    <DeleteIcon style={{float: "right", fontSize: "23px", marginRight: "5%"}} onClick={() => handleDelete(inventory.product._id)}/>
+                    <DeleteIcon style={{float: "right", fontSize: "23px", marginRight: "5%", cursor: "pointer"}} onClick={() => handleDelete(inventory.product._id)}/>
                     <Link to = {`/admin/edit-inventory/${inventory.product._id}`}><EditIcon style={{float: "right", color: "black", fontSize: "23px"}} onClick={() => handleEdit(inventory.product)}/></Link>
                     <table>
                       <thead>

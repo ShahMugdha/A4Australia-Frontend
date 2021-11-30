@@ -3,17 +3,7 @@ import { Link } from "react-router-dom";
 import {signup} from "../../redux/actions/auth/index.js";
 import { useDispatch } from "react-redux";
 import "../../components/signIn.css"
-import {
-  Row,
-  Col,
-  CardTitle,
-  Form,
-  Input,
-  FormGroup,
-  Label,
-  Button
-} from "reactstrap";
-
+import {Button} from "reactstrap";
 
 const SignUp = () => {
   const dispatch = useDispatch()

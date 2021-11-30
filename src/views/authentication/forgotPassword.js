@@ -1,19 +1,15 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { otp, verifyOtp } from "../../redux/actions/auth";
+import { otp } from "../../redux/actions/auth";
 import "../../components/forgotPassword.css"
-import {
-  FormGroup,
-  Input,
-  Button,
-} from "reactstrap";
+import {FormGroup, Input} from "reactstrap";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async () => {
     const res = dispatch(otp({email}))
     console.log(res, "res")
     localStorage.setItem('email', JSON.stringify(email));

@@ -48,7 +48,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="Logout-button" onClick={() => handleLogOut()}><Link to = "/"><Button style={{backgroundColor: "lavender", marginTop: "5%"}}>Logout</Button></Link></div></> : <p>You have no profile</p>}
+          <div className="Logout-button" onClick={() => handleLogOut()}><Link to = "/"><Button style={{backgroundColor: "lavender", marginTop: "5%", marginLeft: "27%"}}>Logout</Button></Link></div></> : <p>You have no profile</p>}
           
         </>
       : <Link to="/login"> Please Log In</Link> }  

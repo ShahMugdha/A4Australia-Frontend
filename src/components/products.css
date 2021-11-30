@@ -2,13 +2,7 @@
   box-sizing:border-box;
   -moz-box-sizing:border-box;
 }
-/* body {
-	background: url(//subtlepatterns.com/patterns/scribble_light.png);
-  font-family: Calluna, Arial, sans-serif;
-  max-width: 1000px;
-  overflow: hidden; 
-  align-content: center;
-} */
+
 #wrap{
 	width: 90%;
 	max-width: 1100px;
@@ -42,15 +36,7 @@
 .columns_5 figure:nth-child(5){
 	margin-right: 0;
 }
-/* #columns figure:hover{
-	-webkit-transform: scale(1.1);
-	-moz-transform:scale(1.1);
-	transform: scale(1.1);
 
-}
-#columns:hover figure:not(:hover) {
-	opacity: 0.4;
-} */
 div#columns figure {
 	display: inline-block;
 	background: #FEFEFE;
@@ -85,27 +71,6 @@ div#columns figure figcaption {
   height:40px;
   font-weight:600;
   text-overflow:ellipsis;
-}
-
-.button{
-  padding:10px;
-  width: 90%;
-  background:salmon;
-  margin:10px;
-  display:block;
-  text-align:center;
-  color:#fff;
-  transition:all 1s linear;
-  text-decoration:none;
-  text-shadow:1px 1px 3px rgba(0,0,0,0.3);
-  border-radius:3px;
-  border-bottom:3px solid #ff6536;
-  box-shadow:1px 1px 3px rgba(0,0,0,0.3);
-}
-.button:hover{
-  background:#ff6536;
-  border-bottom:3px solid salmon;
-  color:#f1f2f3;
 }
 
 .made_by{

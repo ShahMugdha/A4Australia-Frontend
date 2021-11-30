@@ -1,77 +1,88 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { getParticularProduct } from "../../redux/actions/products";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import { FormGroup, Label, Input, Button } from "reactstrap";
+import { addProductToWishList, getWishList, deleteProductFromWishList, moveProductToCart } from "../../redux/actions/wishlist/index.js";
 import { Link, Redirect, useParams } from "react-router-dom";
 import HideTop from "../../components/Navigation/hideTop";
 import Footer from "../../components/footer.js";
 import "../../components/productDetail.css"
 
 const ProductDetail = () => {
-  const imgs = document.querySelectorAll('.img-select a');
-  const imgBtns = [...imgs];
-  let imgId = 1;
+  const [size, setSize] = useState("Small")
+  const productData = useSelector(state => state.products.particularProduct)
+  const wishlistData = useSelector(state => state.wishlist.wishlistData)
+  let wishlistedProducts = []
+  let objToAdd = {}
+  var foundProduct
 
-  imgBtns.forEach((imgItem) => {
-      imgItem.addEventListener('click', (event) => {
-          event.preventDefault();
-          imgId = imgItem.dataset.id;
-          slideImage();
-      });
-  });
-
-  function slideImage(){
-      const displayWidth = document.querySelector('.img-showcase img:first-child').clientWidth;
-
-      document.querySelector('.img-showcase').style.transform = `translateX(${- (imgId - 1) * displayWidth}px)`;
+  if(wishlistData && wishlistData[0] && wishlistData[0].products) {
+    wishlistData[0].products.map(wishProd => {
+      if(wishProd._id === productData._id) {
+        objToAdd = {productId: productData._id, wishlisted: true}
+        wishlistedProducts = [...wishlistedProducts, objToAdd]
+      }
+    })
   }
 
-  window.addEventListener('resize', slideImage);
+  const markWishlisted = (productId) => {
+    objToAdd = {productId, wishlisted: true}
+    wishlistedProducts = [...wishlistedProducts, objToAdd]
+  }
+
+  const unMarkWishlisted = (productId) => {
+    for(var i = 0; i < wishlistedProducts.length; i++) {
+      if(wishlistedProducts[i].productId == productId) {
+        wishlistedProducts.splice(i, 1);
+        break;
+      }
+    }
+  }
+
+  const moveToCart = (productId, Size) => {
+    dispatch(moveProductToCart(productId, Size))
+  }
+
   const dispatch = useDispatch();
   const {productId} = useParams()
   console.log(productId, "id")
   useEffect(()=> {
     dispatch(getParticularProduct(productId))
+    dispatch(getWishList())
   }, [dispatch])
 
   const product = useSelector(state => state.products.particularProduct)
+
+  const addRemoveWishlist = (productId) => {
+    wishlistedProducts.forEach(prod => {
+      if(prod.productId === productId) {
+        foundProduct = productId
+      }
+    }) 
+    if(foundProduct !== productId) {
+      console.log(foundProduct, "add")
+      markWishlisted(productId)
+      dispatch(addProductToWishList(productId))
+    }
+    else if(foundProduct === productId) {
+      console.log(foundProduct, "delete")
+      unMarkWishlisted(productId)
+      dispatch(deleteProductFromWishList(productId))
+    }
+    setTimeout(function() {
+      window.location.reload();
+    }, 3000);
+  }
 
   return(
     <>
       <HideTop/>
       <div className = "card-wrapper">
-        <div className = "card">
-          <div className = "product-imgs">
-            <div className = "img-display">
-              <div className = "img-showcase">
-                <img src = "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg" alt = "shoe image"/>
-                <img src = "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg" alt = "shoe image"/>
-                <img src = "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg" alt = "shoe image"/>
-                <img src = "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg" alt = "shoe image"/>
-              </div>
-            </div>
-            <div className = "img-select">
-              <div className = "img-item">
-                <a href = "#" data-id = "1">
-                  <img src = "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_1.jpg" alt = "shoe image"/>
-                </a>
-              </div>
-              <div className = "img-item">
-                <a href = "#" data-id = "2">
-                  <img src = "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_2.jpg" alt = "shoe image"/>
-                </a>
-              </div>
-              <div className = "img-item">
-                <a href = "#" data-id = "3">
-                  <img src = "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_3.jpg" alt = "shoe image"/>
-                </a>
-              </div>
-              <div className = "img-item">
-                <a href = "#" data-id = "4">
-                  <img src = "https://fadzrinmadu.github.io/hosted-assets/product-detail-page-design-with-image-slider-html-css-and-javascript/shoe_4.jpg" alt = "shoe image"/>
-                </a>
-              </div>
-            </div>
-          </div>
+        <div className = "card"> 
+          <img style={{height: "500px"}} src={`http://localhost:5000/${product.image}`}/>
           <div className = "product-content">
             <h2 className = "product-title">{product.title}</h2>
 
@@ -84,18 +95,50 @@ const ProductDetail = () => {
               <p>{product.description}</p>
               <ul>
                 <li>Color: <span>Black</span></li>
-                <li>Available: <span>in stock</span></li>
                 <li>Category: <span>{product.category}</span></li>
                 <li>Sub Category: <span>{product.subCategory}</span></li>
                 <li>Shipping Area: <span>All over the world</span></li>
                 <li>Shipping Fee: <span>Free</span></li>
               </ul>
             </div>
+            <FormGroup>
+              <Label for="size">Size:</Label>
+              <Input style={{marginLeft: "10px"}}
+                type="select"
+                name="size"
+                value = {size}
+                placeholder="Small"
+                onChange = {(e) => setSize(e.target.value)}
+              >
+                <option value="Small">Small</option>
+                <option value="Medium">Medium</option>
+                <option value="Large">Large</option>
+              </Input>
+            </FormGroup>
 
             <div className = "purchase-info">
               <button type = "button" className = "btn">
-                Add to Cart <i className = "fas fa-shopping-cart"></i>
+              {
+                wishlistedProducts.forEach(prod => {
+                  if(prod.productId === product._id) {
+                    foundProduct = prod.productId
+                  }
+                }) 
+              }
+              {
+                foundProduct === product._id? 
+                  <FavoriteIcon 
+                    style={{color: "#f40d30", cursor: "pointer"}} 
+                    onClick={() => addRemoveWishlist(product._id)}
+                  />
+                : 
+                <FavoriteBorderOutlinedIcon
+                  style={{cursor: "pointer"}} 
+                  onClick={() => addRemoveWishlist(product._id)}
+                />
+              }
               </button>
+              <button type = "button" className = "btn" onClick = {() => moveToCart(product._id, size)}><ShoppingCartOutlinedIcon/></button>
             </div>
           </div>
         </div>

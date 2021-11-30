@@ -9,20 +9,14 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import { toast } from 'react-toastify'
 import "../../components/products.css"
 import { Link, useParams } from 'react-router-dom';
-import { Button } from 'reactstrap';
+
 const ProductsBySubCategory = () => {
-  const [formModal, setFormModal] = useState(false);
   const {category, subCategory} = useParams()
   const productData = useSelector(state => state.products.productsBySubCategory)
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getProductBySubCategory(category, subCategory))
   }, [dispatch])
-
-  const addToCart = (productId) => {
-    setFormModal(!formModal)
-    dispatch(getParticularProduct(productId))
-  }
 
   const addToWishlist = (productId) => {
     dispatch(addProductToWishList(productId))
@@ -38,17 +32,10 @@ const ProductsBySubCategory = () => {
           {productData.map((product) => {
             return (
               <figure>
-                <Link to = {`/collection/product/${product._id}`}><img style={{height: "300px"}} src="https://picsum.photos/500/300/?image=10"/></Link>
+                <Link to = {`/collection/product/${product._id}`}><img style={{height: "300px"}} src={`http://localhost:5000/${product.image}`}/></Link>
                 <figcaption>{product.title} <FavoriteBorderOutlinedIcon style={{float: "right", fontSize: "23px"}} onClick={() => addToWishlist(product._id)}/></figcaption>
                 <div style={{float: "left", color: "GrayText"}}>{product.description}</div><br/>
                 <span style={{float: "left", height: "35px"}} className="price">Rs.{product.price}</span>
-                <Button
-                  className="button"
-                  color="primary"
-                  onClick={() => addToCart(product._id)}
-                >
-                  Add to Cart
-                </Button>
               </figure>  
             )
           })}

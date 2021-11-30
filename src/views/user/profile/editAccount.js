@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, Redirect } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
 import Footer from "../../../components/footer.js";
+import { logOut } from "../../../redux/actions/auth/index.js";
 import { getUserProfile, updateUserAccountDetails } from "../../../redux/actions/profile/index.js";
 import "../../../components/profileHome.css"
 import "../../../components/editAccount.css"
@@ -21,6 +22,11 @@ const EditAccount = () => {
     email: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.email : userData.email,
     mobile: profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.mobile : userData.mobile,
   })
+
+  const handleLogOut = () => {
+    logOut()
+  }
+
   useEffect(()=> {
     dispatch(getUserProfile())
   }, [dispatch])
@@ -45,7 +51,7 @@ const EditAccount = () => {
               <ul className="unordered">
                 <Link to = "/profile"><li className="list"><Button>Account</Button></li></Link>
                 <Link to = "/saved-addresses"><li className="list"><Button>Saved Addresses</Button></li></Link>
-                <Link to = "/orders"><li className="list"><Button>Orders</Button></li></Link>
+                <Link to = "/orders/my-orders"><li className="list"><Button>Orders</Button></li></Link>
               </ul>
             </div>
             <div className="column2" style={{backgroundColor: "#bbb"}}>
@@ -82,17 +88,6 @@ const EditAccount = () => {
                         </div>
                       </div>
                     </div>
-                    {/* <div className="">
-                      <div className="">
-                        <div className="">
-                          <label className="">Gender:</label>
-                          <select name="gender" className="" value="" required>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div> */}
                     <br/>
                     <div className="">
                       <div className="">
@@ -106,7 +101,7 @@ const EditAccount = () => {
               </div>
             </div>
           </div>
-          <Button>Logout</Button>
+          <div className="Logout-button" onClick={() => handleLogOut()}><Link to = "/"><Button style={{backgroundColor: "lavender", marginTop: "5%"}}>Logout</Button></Link></div>
         </> 
       : <Link to="/login">Please Log In</Link> } 
       <Footer/>

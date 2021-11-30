@@ -41,7 +41,7 @@ const HideTop = () => {
       </div>
       <header style={{position: "absolute", top: "5px", right: "-10px"}}>
         <Box display="flex" flexDirection="row" p={1} m={1}>
-          <Box p={1}>
+          {/* <Box p={1}>
             <div className="wrap">
               <div className="search">
                   <input type="text" className="searchTerm" placeholder="What are you looking for?" value={query} onChange={e => handleSearch(e.target.value)}/>
@@ -50,7 +50,7 @@ const HideTop = () => {
                   </button>
               </div>
             </div>
-          </Box>
+          </Box> */}
           <Box p={1}>
             <Link to = "/profile"><AccountCircleOutlinedIcon style={{color: "#333", fontSize: "25px"}}/></Link>
           </Box>
@@ -62,7 +62,7 @@ const HideTop = () => {
           </Box>
         </Box>
       </header>
-      <p><Link to = "/"><Button>A For Australia</Button></Link></p>
+      <p><Link to = "/"><Button style={{cursor: "pointer"}}>DRJ</Button></Link></p>
     </>
   )
 }

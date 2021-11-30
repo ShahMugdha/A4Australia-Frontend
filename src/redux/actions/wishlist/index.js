@@ -44,7 +44,7 @@ export const moveProductToCart = (productId, size) => {
       }
       else {
         console.log("err")
-        toast.error(response.data.message)
+        toast.error(response.data.message, {autoClose:2000})
       }
     })
     setTimeout(function() {

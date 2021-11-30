@@ -26,7 +26,6 @@ export const login = ({email, password}, event) => {
         payload:response.data
       })
     }
-    //return response.data;
   }
 }
 
@@ -100,10 +99,10 @@ export const verifyOtp = ({email, otp}) => {
   }
 }
 
-export const resetPassword = ({password, userId}) => {
-  console.log(password, userId)
-  return async (dispatch) => {
-    const response = await request.put('/auth/register', {password, userId});
+export const resetPassword = ({email, password}) => {
+  console.log(password, email)
+  return async () => {
+    const response = await request.patch('/auth/password', {email, password});
     console.log(response.status, "response")
     return response.data;
   }

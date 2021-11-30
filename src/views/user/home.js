@@ -3,21 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Navigation from "../../components/Navigation/navigation.js";
 import HideTop from "../../components/Navigation/hideTop.js";
 import Footer from "../../components/footer.js";
-import { getProductList, getParticularProduct, selectProduct } from "../../redux/actions/products/index.js";
+import { getProductList, getParticularProduct } from "../../redux/actions/products/index.js";
 import { addProductToWishList, getWishList, deleteProductFromWishList } from "../../redux/actions/wishlist/index.js";
-import { addProductToCart } from "../../redux/actions/cart/index.js";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import "../../components/products.css"
 import "../../components/Navigation/sideNav.css"
-import "../../components/addToCartPopUp.css"
 import { Link } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import image from "../../components/image.jpg"
 
 const Home = () => {
-  const [size, setSize] = useState("Small")
   const productData = useSelector(state => state.products.productData)
-  const particularProduct = useSelector(state => state.products.particularProduct)
   const key = 'title';
   const productsUniqueByKey = [...new Map(productData.map(item => [item[key], item])).values()];
   const wishlistData = useSelector(state => state.wishlist.wishlistData)
@@ -55,10 +51,6 @@ const Home = () => {
     dispatch(getWishList())
   }, [dispatch])
 
-  const addToCart = (productId, Size) => {
-    dispatch(getParticularProduct(productId, Size))
-  }
-
   const addRemoveWishlist = (productId) => {
     wishlistedProducts.forEach(prod => {
       if(prod.productId === productId) {
@@ -84,6 +76,7 @@ const Home = () => {
   return(
     <>
       <HideTop/>
+      {/* <img src={image} /> */}
       <Navigation/>
       {productsUniqueByKey.length > 0 ? (
         <div id="wrap" style={{marginLeft: "12%"}}>
@@ -120,23 +113,6 @@ const Home = () => {
                 </figcaption>
                 <div style={{float: "left", color: "GrayText"}}>{product.description}</div><br/>
                 <span style={{float: "left", height: "35px"}} className="price">Rs.{product.price}</span>
-                {/* <div className="dropdown">
-                  <Button
-                    className="button"
-                    onClick={() => addToCart(product._id)}
-                  >
-                    Add to Cart
-                  </Button>
-                  <div id="popup1" className="overlay">
-                    <div className="popup">
-                      <h2>Here i am</h2>
-                      <a className="close" href="#">&times;</a>
-                      <div className="content">
-                        Thank to pop me out of that button, but now i'm done so you can close this window.
-                      </div>
-                    </div>
-                  </div>  
-                </div> */}
               </figure>   
             )
           })}

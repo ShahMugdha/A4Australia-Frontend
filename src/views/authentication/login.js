@@ -1,15 +1,21 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../../components/signIn.css"
 import {login} from "../../redux/actions/auth/index.js";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const handleSubmit = async (event) => {
+    if(!email || !password) {
+      event.preventDefault()
+      alert("Please enter all the fields")
+    }
     dispatch(login({ email, password, role: "CUSTOMER" }, event))
+    history.push()
   }
   return (
     <>
