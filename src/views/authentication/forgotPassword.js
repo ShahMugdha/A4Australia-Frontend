@@ -4,14 +4,25 @@ import { useDispatch } from "react-redux";
 import { otp } from "../../redux/actions/auth";
 import "../../components/forgotPassword.css"
 import {FormGroup, Input} from "reactstrap";
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure() 
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
+  let pattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/
 
-  const handleSubmit = async () => {
-    const res = dispatch(otp({email}))
-    console.log(res, "res")
+  const handleSubmit = async (e) => {
+    if(!email) {
+      e.preventDefault()
+      toast.error("Please enter your email", {autoClose:2000})
+    }
+    else if (email && !email.match(pattern)) {
+      e.preventDefault()
+      toast.error("Please enter a valid email", {autoClose:2000})
+    } 
+    dispatch(otp({email}))
     localStorage.setItem('email', JSON.stringify(email));
   }
 

@@ -7,7 +7,7 @@ import "../../../components/admin/navSide.css";
 import AccessDenied from "../../../components/error-pages/accessDenied.js"
 import {Button} from "reactstrap";
 import jwt_decode from 'jwt-decode';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const AddProduct = () => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const AddProduct = () => {
   if(adminToken) {
     role = jwt_decode(adminToken).role
   }
-  const [image, setImage] = useState(/* productEdit && productEdit.image ? productEdit.image :  */null)
+  const [image, setImage] = useState(null)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subCategory, setSubCategory] = useState("");
@@ -55,7 +55,7 @@ const AddProduct = () => {
                 <div className='uk-width-1-1@s'>
                   <h2 className="uk-text-center">Main image</h2>
                   <input type="file" id="txtMainImgID" name="txtMainImgID" onChange = {(e) => setImage(e.target.files[0])}/>
-                  {image && (<div><img src = {URL.createObjectURL(image)} style={{height: "15rem", width: "12rem"}}/>{URL.createObjectURL(image)}</div>)} 
+                  {image && (<div><img src = {URL.createObjectURL(image)} style={{height: "15rem", width: "12rem"}} alt=""/>{URL.createObjectURL(image)}</div>)} 
                 </div>
               </div>
               <div className="uk-width-1-2">

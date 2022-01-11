@@ -17,7 +17,6 @@ const Inventory = () => {
   if(adminToken) {
     role = jwt_decode(adminToken).role
   }
-  const productData = useSelector(state => state.products.productData)
   const inventoryData = useSelector(state => state.inventory.inventoryData)
   const dispatch = useDispatch();
   useEffect(() => {

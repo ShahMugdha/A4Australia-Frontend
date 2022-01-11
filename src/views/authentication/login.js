@@ -14,8 +14,9 @@ const Login = () => {
       event.preventDefault()
       alert("Please enter all the fields")
     }
-    dispatch(login({ email, password, role: "CUSTOMER" }, event))
-    history.push()
+    const a = dispatch(login({ email, password, role: "CUSTOMER" }, event))
+    console.log(a, "doapcth")
+    history.push('/')
   }
   return (
     <>
@@ -30,9 +31,9 @@ const Login = () => {
             <label for="Password">Password</label>
             <input type="password" placeholder="Password" value = {password} onChange={(e) => setPassword(e.target.value)}/>
           </div>
-          <Link to = '/' color='primary'  className="btn" block onClick={e => handleSubmit(e)}>
+          <div color='primary'  className="btn" style={{cursor: "pointer"}} block onClick={e => handleSubmit(e)}>
             Sign In
-          </Link>
+          </div>
           <p>
           <Link to="/forgot-password" className="float-right">
             <small>Forgot Password?</small>

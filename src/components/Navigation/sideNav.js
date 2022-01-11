@@ -1,15 +1,9 @@
 import {React} from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductByCategory } from "../../redux/actions/products";
 import $ from 'jquery'
 import {Link} from "react-router-dom";
 import "./sideNav.css"
 
 const SideNav = () => {
-  const productData = useSelector(state => state.products.productsByCategory)
-  const key = 'subCategory';
-  const productsUniqueByKey = [...new Map(productData.map(item => [item[key], item])).values()];
-  const dispatch = useDispatch()
   var sidebar = (() => {
     "use strict";
 

@@ -2,7 +2,7 @@ import {React, useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useStripe, useElements, CardElement, PaymentRequestButtonElement} from '@stripe/react-stripe-js';
 import CardSection from './cardSection.js';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { getCartList, deleteCart } from '../../../redux/actions/cart/index.js';
 import { getMyAddress } from '../../../redux/actions/address/index.js';
 import { createOrder } from '../../../redux/actions/order/index.js';
@@ -13,6 +13,7 @@ import 'react-toastify/dist/ReactToastify.css';
 toast.configure() 
 
 export default function CheckoutForm() {
+  const history = useHistory()
   const stripe = useStripe();
   const [paymentRequest, setPaymentRequest] = useState(null);
   const user = localStorage.getItem("token")
@@ -98,6 +99,7 @@ export default function CheckoutForm() {
         ))
       }
       dispatch(deleteCart())
+      history.push('/payment-successful')
     }
   }
   

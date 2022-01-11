@@ -13,7 +13,7 @@ const Profile = () => {
   const dispatch = useDispatch();
   const user = localStorage.getItem("token")
   const userDetails = JSON.parse(localStorage.getItem('user'))
-  const userData = userDetails && userDetails.userData ? userDetails.userData[0] : ''
+  const userData = userDetails && userDetails.userData ? userDetails.userData : ''
   const profile = useSelector(state => state.profile)
 
   const handleLogOut = () => {

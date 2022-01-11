@@ -53,7 +53,7 @@ const AllProducts = () => {
                     <Link to = {`/admin/product/${product._id}`}>
                       <div className="parent">
                         <div className="child">
-                          <img src={product.image}/>
+                          <img src={product.image} alt=""/>
                         </div>
                         <div className="child2">
                           <DeleteIcon style={{float: "right"}} onClick={() => handleDelete(product._id)}/>

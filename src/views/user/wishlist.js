@@ -2,10 +2,9 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
 import { getWishList, moveProductToCart, deleteProductFromWishList } from "../../redux/actions/wishlist";
 import "../../components/wishlist.css"
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FormGroup, Label, Input, Button } from "reactstrap";
 import Footer from "../../components/footer";
-import Navigation from "../../components/Navigation/navigation";
 import CloseIcon from '@material-ui/icons/Close';
 import HideTop from "../../components/Navigation/hideTop";
 
@@ -34,8 +33,7 @@ const Wishlist = () => {
       { user ?
         <> 
           <HideTop/>
-         {/*  <Navigation/> */}
-          {wishlistData? (
+          {wishlistData && wishlistData.length > 0? (
             <div className = "flex-container" style={{marginTop: "5%"}}>
               {wishlistData.map(wishlist => (       
                 wishlist.products.map(wishProd => {

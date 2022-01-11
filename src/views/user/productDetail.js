@@ -9,10 +9,14 @@ import { addProductToWishList, getWishList, deleteProductFromWishList, moveProdu
 import { Link, Redirect, useParams } from "react-router-dom";
 import HideTop from "../../components/Navigation/hideTop";
 import Footer from "../../components/footer.js";
-import "../../components/productDetail.css"
+import "../../components/productDetail.css";
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure() 
 
 const ProductDetail = () => {
   const [size, setSize] = useState("Small")
+  const user = localStorage.getItem("token")
   const productData = useSelector(state => state.products.particularProduct)
   const wishlistData = useSelector(state => state.wishlist.wishlistData)
   let wishlistedProducts = []
@@ -44,6 +48,9 @@ const ProductDetail = () => {
 
   const moveToCart = (productId, Size) => {
     dispatch(moveProductToCart(productId, Size))
+    if(!user){
+      toast.error("Please login!", {autoClose:2000})
+    }
   }
 
   const dispatch = useDispatch();
@@ -57,6 +64,9 @@ const ProductDetail = () => {
   const product = useSelector(state => state.products.particularProduct)
 
   const addRemoveWishlist = (productId) => {
+    if(!user){
+      toast.error("Please login!", {autoClose:2000})
+    }
     wishlistedProducts.forEach(prod => {
       if(prod.productId === productId) {
         foundProduct = productId

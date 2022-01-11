@@ -27,7 +27,8 @@ import ProductsBySubCategory from "./views/user/productsBySubCategory.js";
 import Wishlist from "./views/user/wishlist.js";
 import Cart from "./views/user/cart.js";
 import Address from "./views/user/payment/address.js";
-import CheckoutForm from "./views/user/payment/checkoutForm.js"
+import CheckoutForm from "./views/user/payment/checkoutForm.js";
+import SuccessfulPayment from "./views/user/payment/successfulPayment.js";
 import {BrowserRouter, Route, Switch} from "react-router-dom";
 import {Elements} from '@stripe/react-stripe-js';
 import NotFound from "./components/error-pages/notFound.js"
@@ -126,6 +127,9 @@ function App() {
         <Elements stripe={stripePromise} path="/pay">
           <CheckoutForm />
         </Elements>
+        <Route path="/payment-successful">
+          <SuccessfulPayment />
+        </Route>
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>

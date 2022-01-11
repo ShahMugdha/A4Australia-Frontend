@@ -7,7 +7,7 @@ import "../../../components/admin/addProduct.css";
 import AccessDenied from "../../../components/error-pages/accessDenied.js"
 import {Button} from "reactstrap";
 import jwt_decode from 'jwt-decode';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const EditProductInventory = () => {
   const adminToken = localStorage.getItem("token")
