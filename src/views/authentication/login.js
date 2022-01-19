@@ -9,14 +9,14 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     if(!email || !password) {
       event.preventDefault()
       alert("Please enter all the fields")
     }
     const a = dispatch(login({ email, password, role: "CUSTOMER" }, event))
     console.log(a, "doapcth")
-    history.push('/')
+    //history.push('/')
   }
   return (
     <>

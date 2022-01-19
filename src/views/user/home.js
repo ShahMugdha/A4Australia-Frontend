@@ -10,7 +10,7 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import "../../components/products.css"
 import "../../components/Navigation/sideNav.css"
 import { Link } from 'react-router-dom';
-import image from "../../components/image.jpg"
+import image from "../../components/cover.jpg"
 
 const Home = () => {
   const productData = useSelector(state => state.products.productData)
@@ -76,44 +76,46 @@ const Home = () => {
   return(
     <>
       <HideTop/>
-      {/* <img src={image} /> */}
+      <img style={{height: "80vh", width: "100%"}} src={image} />
       <Navigation/>
       {productsUniqueByKey.length > 0 ? (
-        <div id="wrap" style={{marginLeft: "12%"}}>
+        <div id="wrap" style={{marginLeft: "12%", marginTop: "10rem"}}>
           <div id="columns" className="columns_4">
           {productsUniqueByKey.map((product) => {
             return (
-              <figure>
-                <Link to = {`/collection/product/${product._id}`}>
-                  <img style={{height: "300px"}} src={`http://localhost:5000/${product.image}`}/>
-                </Link>
+              <>
+                <figure>
+                  <Link to = {`/collection/product/${product._id}`}>
+                    <img style={{height: "300px"}} src={`http://localhost:5000/${product.image}`}/>
+                  </Link>
 
-                <figcaption>
-                  {product.title} 
-                  {
-                    wishlistedProducts.forEach(prod => {
-                      if(prod.productId === product._id) {
-                        foundProduct = prod.productId
-                      }
-                    }) 
-                  }
-                  {
-                    foundProduct === product._id? 
-                      <FavoriteIcon 
-                        style={{float: "right", fontSize: "23px", color: "#f40d30", cursor: "pointer"}} 
+                  <figcaption>
+                    {product.title} 
+                    {
+                      wishlistedProducts.forEach(prod => {
+                        if(prod.productId === product._id) {
+                          foundProduct = prod.productId
+                        }
+                      }) 
+                    }
+                    {
+                      foundProduct === product._id? 
+                        <FavoriteIcon 
+                          style={{float: "right", fontSize: "23px", color: "#f40d30", cursor: "pointer"}} 
+                          onClick={() => addRemoveWishlist(product._id)}
+                        />
+                      : 
+                      <FavoriteBorderOutlinedIcon
+                        style={{float: "right", fontSize: "23px", cursor: "pointer"}} 
                         onClick={() => addRemoveWishlist(product._id)}
                       />
-                    : 
-                    <FavoriteBorderOutlinedIcon
-                      style={{float: "right", fontSize: "23px", cursor: "pointer"}} 
-                      onClick={() => addRemoveWishlist(product._id)}
-                    />
-                  }
-                  
-                </figcaption>
-                <div style={{float: "left", color: "GrayText"}}>{product.description}</div><br/>
-                <span style={{float: "left", height: "35px"}} className="price">Rs.{product.price}</span>
-              </figure>   
+                    }
+                    
+                  </figcaption>
+                  <div style={{float: "left", color: "GrayText"}}>{product.description}</div><br/>
+                  <span style={{float: "left", height: "35px"}} className="price">Rs.{product.price}</span>
+                </figure>   
+              </>
             )
           })}
           </div>

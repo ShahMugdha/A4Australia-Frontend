@@ -30,14 +30,14 @@ const Profile = () => {
         <> 
           {profile ? <><HideTop/>
           <div style={{marginTop: "10%"}}>
-            <div className="column1" style={{backgroundColor: "#aaa"}}>
+            <div className="column1" style={{backgroundColor: "#f1f1f1"}}>
               <ul className="unordered">
                 <Link to = "/profile"><li className="list"><Button>Account</Button></li></Link>
                 <Link to = "/saved-addresses"><li className="list"><Button>Saved Addresses</Button></li></Link>
                 <Link to = "/orders/my-orders"><li className="list"><Button>Orders</Button></li></Link>
               </ul>
             </div>
-            <div className="column2" style={{backgroundColor: "#bbb"}}>
+            <div className="column2" style={{backgroundColor: "#f1f1f1"}}>
               <Link to = "/edit-account"><div style={{float: "right", color: "black"}}><EditIcon/></div></Link>
               <div className = "profile-data">
                 <div>First Name: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.firstName : userData.firstName}</div>

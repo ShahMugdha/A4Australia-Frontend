@@ -23,7 +23,7 @@ const SignUp = () => {
       e.preventDefault()
       alert("Passwords don't match")
     }
-    dispatch(signup({firstName, lastName, email, mobile, password}))
+    dispatch(signup({firstName, lastName, email, mobile, password}, e))
   }
 
   return (

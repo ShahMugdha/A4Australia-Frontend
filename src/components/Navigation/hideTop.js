@@ -41,7 +41,7 @@ const HideTop = () => {
           </Box>
         </Box>
       </header>
-      <p><Link to = "/"><Button style={{cursor: "pointer"}}>DRJ</Button></Link></p>
+      <p><Link to = "/"><Button style={{cursor: "pointer"}}>Home</Button></Link></p>
     </>
   )
 }

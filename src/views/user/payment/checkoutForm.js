@@ -90,7 +90,6 @@ export default function CheckoutForm() {
     
     else {
       const paymentIntentId = localStorage.getItem("paymentIntentId")
-      //dispatch(createOrder(result.paymentMethod.id))
       dispatch(createOrder(paymentIntentId))
       toast.success("Payment Successful!", {autoClose:2000})
       if(cart && cart.cart) {

@@ -11,8 +11,8 @@ const Dashboard = () => {
   var role
   if(adminToken) {
     role = jwt_decode(adminToken).role
+    console.log(role, "admin role")
   }
-  const dispatch = useDispatch();
   return (
     <>
       { adminToken && role === "ADMIN" ? 

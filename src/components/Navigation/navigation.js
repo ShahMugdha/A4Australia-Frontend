@@ -42,7 +42,7 @@ const Navigation = () => {
           <h5>No Items Found</h5>
         </div>
       )}
-      <section/>
+      {/* <section/> */}
     </>
   )
 }

@@ -1,4 +1,5 @@
 import request from "../../../services/request";
+import { history } from "../../../history";
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'; 
 toast.configure() 
@@ -6,62 +7,43 @@ toast.configure()
 export const login = ({email, password}, event) => {
   return async (dispatch) => {
     const response = await request.post('/auth/login', {email, password, role:"CUSTOMER"});
-    console.log(response, "message")
-    if (response.data.message === 'user Not found') {
-      console.log(response.data.message, "response data");
-      console.log("login fail")
+    if (response.data.success === false) {
       event.preventDefault();
-      toast.error("Either the email or password is incorrect", {autoClose:2000})
+      toast.error(response.data.message, {autoClose:2000})
       dispatch({
         type:"LOGIN_FAILED",
-        payload:response.data
+        payload:response.data.result
       })
-
-      /* console.log(response.data, "response data");
-      await dispatch({
-        type: "LOGIN_SUCCESS",
-        payload: response.data.result.userData
-      })
-    
-      toast.success("Login Successful!", {autoClose:2000})
-      localStorage.setItem('token', response.data.result.token);
-      localStorage.setItem('user', JSON.stringify(response.data.result)); */
     } else {
-      console.log(response.data, "response data");
       await dispatch({
         type: "LOGIN_SUCCESS",
         payload: response.data.result.userData
       })
-    
-      toast.success("Login Successful!", {autoClose:2000})
+      toast.success(response.data.message, {autoClose:2000})
       localStorage.setItem('token', response.data.result.token);
       localStorage.setItem('user', JSON.stringify(response.data.result));
-
-      /* console.log(response.data.message, "response data");
-      console.log("login fail")
-      event.preventDefault();
-      toast.error("Either the email or password is incorrect", {autoClose:2000})
-      dispatch({
-        type:"LOGIN_FAILED",
-        payload:response.data
-      }) */
+      history.push('/')
+      window.location.reload();
     } 
   }
 }
 
-export const signup = ({firstName, lastName, email, mobile, password}) => {
+export const signup = ({firstName, lastName, email, mobile, password}, event) => {
   return async (dispatch) => {
     const response = await request.post('/auth/signup', {firstName, lastName, email, mobile, name: firstName + ' ' + lastName, role:"CUSTOMER", password});
     console.log(response.data, "USERINFORMATION");
     if (response.data.success) {
     await dispatch({
       type: "SIGNUP_SUCCESS",
-      payload: response.data
+      payload: response.data.result
     })
-    
+    history.push('/login')
+    window.location.reload();
     localStorage.setItem('token', response.data.result.token);
     localStorage.setItem('user', JSON.stringify(response.data.result));
     } else {
+      event.preventDefault();
+      toast.error(response.data.message, {autoClose:2000})
       dispatch({
         type:"LOGIN_FAILED",
         payload:response.data
@@ -88,7 +70,7 @@ export const adminLogin = ({email, password, role}) => {
     if (response.data.success) {
     await dispatch({
       type: "LOGIN_SUCCESS",
-      payload: response.data.result.userData[0]
+      payload: response.data.result.userData
     })
     
     localStorage.setItem('token', response.data.result.token);

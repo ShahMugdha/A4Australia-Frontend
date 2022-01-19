@@ -39,7 +39,7 @@ const Wishlist = () => {
                 wishlist.products.map(wishProd => {
                   return(
                     <> 
-                      <div class="flex-item">
+                      <div className="flex-item">
                         <CloseIcon style={{float: "right", cursor: "pointer"}} onClick={() => handleDelete(wishProd._id)}/>
                         <div><img style={{height: "250px", width: "200px"}} src={`http://localhost:5000/${wishProd.image}`}/></div>
                         <div style={{fontSize: "20px"}}>{wishProd.title}</div>

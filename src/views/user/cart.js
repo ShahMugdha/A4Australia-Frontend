@@ -48,12 +48,14 @@ const Cart = () => {
         <> 
           <HideTop/>
           <div style={{marginTop: "5%"}}>
-            {cartData? (
+            {cartData[0] && cartData[0].cart && cartData[0].cart.length>0 ? (
               cartData.map(cart => (       
                 cart.cart.map(cartProd => {
                   return(
                     <div className="cart-container">
-                      <div className="cart-left"><img style={{height: "200px", width: "150px"}} src={`http://localhost:5000/${cartProd.product.image}`}/></div>
+                      <div className="cart-left">
+                        <img style={{height: "200px", width: "150px"}} src={`http://localhost:5000/${cartProd.product.image}`}/>
+                      </div>
                       <div className="cart-right">
                         <div>{cartProd.product.title}</div>
                         <div>Rs. {cartProd.price}</div>
@@ -101,10 +103,13 @@ const Cart = () => {
                 })
               ))
             ): (
-              <h1>your cart is empty</h1>
+              <>
+                <h1 style={{marginTop: "5rem"}}>your cart is empty</h1>
+                <Link to = "/wishlist"><Button>ADD FROM WISHLIST</Button></Link>
+              </>    
             )}
             
-            {cartData? (
+            {cartData[0] && cartData[0].cart && cartData[0].cart.length>0? (
               cartData.map(cart => {
                 return(
                   <>
