@@ -37,8 +37,7 @@ export const signup = ({firstName, lastName, email, mobile, password}, event) =>
       type: "SIGNUP_SUCCESS",
       payload: response.data.result
     })
-    history.push('/login')
-    window.location.reload();
+    toast.success(response.data.message, {autoClose:2000})
     localStorage.setItem('token', response.data.result.token);
     localStorage.setItem('user', JSON.stringify(response.data.result));
     } else {
@@ -53,13 +52,19 @@ export const signup = ({firstName, lastName, email, mobile, password}, event) =>
   }
 }
 
-export const verifyEmail = (userId) => {
+export const verifyEmail = (userId, e) => {
   return async (dispatch) => {
     const response = await request.get(`/auth/verify-email/${userId}`);
-    await dispatch({
-      type: "VERIFY_EMAIL",
-      payload: response.data
-    })
+    if (response.data.success === false) {
+      e.preventDefault()
+      toast.error(response.data.message, {autoClose:2000})
+    } else {
+      await dispatch({
+        type: "VERIFY_EMAIL",
+        payload: response.data
+      })
+      toast.success(response.data.message, {autoClose:2000})
+    }
   }
 }
 
@@ -87,12 +92,10 @@ export const adminLogin = ({email, password, role}) => {
 
 export const otp = ({email}) => {
   return async () => {    
-    console.log("forgot pass");
     const response = await request.patch(`/auth/forgot-password`, {email})
     if (response.data.success) {
       toast.success(response.data.message, {autoClose:2000})
     }
-    console.log(response.data, "fhfgg")
     return response.data;
   }
 }
@@ -101,22 +104,30 @@ export const verifyOtp = ({email, otpValue}, e) => {
   const otp = otpValue
   return async () => {
     const response = await request.patch('/auth/verify-Otp', {email, otp})
-    if (!response.data.success) {
+    if (response.data.success === false) {
       e.preventDefault()
       toast.error(response.data.message, {autoClose:2000})
+    } else {
+      toast.success(response.data.message, {autoClose:2000})
+      history.push('/reset-password')
+      window.location.reload();
+      return response.data;
     }
-    return response.data;
   }
 }
 
-export const resetPassword = ({email, password}) => {
+export const resetPassword = ({email, password}, e) => {
   console.log(password, email)
   return async () => {
     const response = await request.patch('/auth/password', {email, password});
     if (response.data.success) {
       toast.success(response.data.message, {autoClose:2000})
+      history.push('/login')
+      window.location.reload();
+    } else {
+      e.preventDefault()
+      toast.error(response.data.message, {autoClose:2000})
     }
-    console.log(response.status, "response")
     return response.data;
   }
 }

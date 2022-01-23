@@ -47,7 +47,7 @@
   }
   .Logout-button {
     width: 500px;
-    margin-left: 8%;
+    margin-left: 18%;
     
   }
 }
@@ -98,6 +98,13 @@
 
   .Logout-button {
     width: 500px;
-    margin-left: 5%;
+    margin-left: -27%;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .Logout-button {
+    width: 500px;
+    margin-left: -34%;
   }
 }

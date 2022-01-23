@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Navigation from "../../components/Navigation/navigation.js";
 import HideTop from "../../components/Navigation/hideTop.js";
 import Footer from "../../components/footer.js";
-import { getProductList, getParticularProduct } from "../../redux/actions/products/index.js";
+import { getProductList } from "../../redux/actions/products/index.js";
 import { addProductToWishList, getWishList, deleteProductFromWishList } from "../../redux/actions/wishlist/index.js";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
@@ -121,9 +121,8 @@ const Home = () => {
           </div>
         </div>
       ) : (
-        <h1> Products not available</h1>
+        <h1 style={{marginTop: "10rem"}}> Products not available</h1>
       )}
-      <h3 className="made_by">Made with ♡</h3>
       <Footer/>
     </>
   );

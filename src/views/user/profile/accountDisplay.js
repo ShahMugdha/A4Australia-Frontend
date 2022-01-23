@@ -37,7 +37,7 @@ const Profile = () => {
                 <Link to = "/orders/my-orders"><li className="list"><Button>Orders</Button></li></Link>
               </ul>
             </div>
-            <div className="column2" style={{backgroundColor: "#f1f1f1"}}>
+            <div className="column2" style={{backgroundColor: "#ddd"}}>
               <Link to = "/edit-account"><div style={{float: "right", color: "black"}}><EditIcon/></div></Link>
               <div className = "profile-data">
                 <div>First Name: {profile && profile.userProfileData && profile.userProfileData.user ? profile.userProfileData.user.firstName : userData.firstName}</div>
@@ -48,7 +48,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          <div className="Logout-button" onClick={() => handleLogOut()}><Link to = "/"><Button style={{backgroundColor: "lavender", marginTop: "5%", marginLeft: "27%"}}>Logout</Button></Link></div></> : <p>You have no profile</p>}
+          <div className="Logout-button" onClick={() => handleLogOut()}><Link to = "/"><Button style={{backgroundColor: "lavender", marginTop: "5%"}}>Logout</Button></Link></div></> : <p>You have no profile</p>}
           
         </>
       : <Link to="/login"> Please Log In</Link> }  

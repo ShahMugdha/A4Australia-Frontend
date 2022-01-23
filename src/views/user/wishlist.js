@@ -59,7 +59,7 @@ const Wishlist = () => {
                             <option value="Large">Large</option>
                           </Input>
                         </FormGroup>
-                        <Button onClick = {() => moveToCart(wishProd._id, size)}>Move to Cart</Button>
+                        <Button className="cart-button" onClick = {() => moveToCart(wishProd._id, size)}>Move to Cart</Button>
                       </div>
                     </>
                   )

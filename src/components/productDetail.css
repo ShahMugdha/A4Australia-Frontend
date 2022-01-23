@@ -128,3 +128,11 @@
     padding-top: 0;
   }
 }
+
+@media screen and (max-width: 992px){
+  .card-wrapper{
+    margin-top: 20%;
+    overflow-x: hidden;
+    width: 85%;
+  }
+}

@@ -22,7 +22,7 @@ const ResetPassword = () => {
       e.preventDefault()
       alert("Passwords don't match")
     }
-    dispatch(resetPassword({email, password}))
+    dispatch(resetPassword({email, password}, e))
   }
 
   return (
@@ -43,7 +43,7 @@ const ResetPassword = () => {
             onChange={(e) => setConfirmPassword(e.target.value)} 
           />
           <p><label for="confirm-password">Confirm Password</label></p>
-          <Link to = '/login'><button onClick={(e) => handleSubmit(e)}>Set New Password</button></Link>
+          <button onClick={(e) => handleSubmit(e)}>Set New Password</button>
         </FormGroup>
         <br/>
         <Link to="/login">

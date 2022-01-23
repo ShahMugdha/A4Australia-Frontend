@@ -8,8 +8,8 @@ const VerifyEmail = () => {
   const dispatch= useDispatch()
   const {userId} = useParams()
 
-  useEffect(() => {
-    dispatch(verifyEmail(userId))
+  useEffect((e) => {
+    dispatch(verifyEmail(userId, e))
   }, [dispatch])
 
   return (

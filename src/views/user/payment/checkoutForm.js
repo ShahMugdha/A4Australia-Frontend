@@ -176,14 +176,14 @@ export default function CheckoutForm() {
     <>
       { user ? 
         <> 
-          <form><div style={{boxSizing: "border-box", padding: "20px", border: "5px solid blue"}}>Total Amount: {cart ? cart.totalPrice : 0} &nbsp; Total Quantity: {cart ? cart.totalQuantity : 0} </div></form>
+          <form style={{marginTop: "13.5%"}}><div style={{padding: "20px"}}>Total Amount: {cart ? cart.totalPrice : 0} &nbsp; Total Quantity: {cart ? cart.totalQuantity : 0} </div></form>
           <form onSubmit={e => handleSubmit(e)} >
             <CardSection />
-            <button type="submit" disabled={!stripe}>
+            <Button type="submit" disabled={!stripe} style={{borderRadius: "7%", height: "2rem", marginTop: "1rem", width: "5rem", cursor: "pointer"}}>
               Pay {cart ? cart.totalPrice: null}
-            </button>
+            </Button>
           </form>
-          <Link to ="/cart"><Button>Go back to cart</Button></Link>
+          <Link to ="/cart"><Button style={{ borderRadius: "2%", width: "32%", height: "3rem", cursor: "pointer"}}>Go back to cart</Button></Link>
         </>
       : <Link to = "/login">Please Log In</Link> } 
     </>

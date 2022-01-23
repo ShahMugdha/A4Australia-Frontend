@@ -15,7 +15,6 @@ const VerifyOtp = () => {
 
   const handleSubmit = async () => {
     dispatch(otp({email}))
-    toast.success(`OTP sent to email id ${email}`, {autoClose:2000})
   }
 
   const handleChange = (e) => {
@@ -39,10 +38,10 @@ const VerifyOtp = () => {
         containerStyle={{justifyContent: "space-around", marginTop: "5rem", marginLeft: "1%"}}
         inputStyle={{width: "3rem", borderColor: "black", fontSize: "30px", textAlign: "center"}}
       />
-      <Link to ='/reset-password'><Button onClick={(e) => handleChange(e)} style={{marginTop: "10%", height: "3rem", width: "20rem", fontSize: "20px"}}>Reset Password</Button></Link>
+      <Button onClick={(e) => handleChange(e)} style={{marginTop: "10%", height: "3rem", width: "20rem", fontSize: "20px"}}>Reset Password</Button>
       <div style={{marginTop: "1%"}}>
         Didn't receive the OTP?
-        <Link to = '/verify-otp'><span onClick={(e) => handleSubmit(e)} style={{marginLeft: "0.5rem"}}>Send Again</span></Link>
+        <span onClick={(e) => handleSubmit(e)} style={{marginLeft: "0.5rem", cursor: "pointer"}}>Send Again</span>
       </div>
     </>
   );

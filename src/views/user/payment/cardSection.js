@@ -1,5 +1,5 @@
 import React from 'react';
-import {CardElement, CardNumberElement, CardExpiryElement, CardCvcElement, PaymentRequestButtonElement} from '@stripe/react-stripe-js'; 
+import {CardElement} from '@stripe/react-stripe-js'; 
 //import "../../../components/checkout.css"
 
 const CARD_ELEMENT_OPTIONS = {
@@ -23,10 +23,7 @@ function CardSection() {
   return (
     <label>
       Card details
-      <CardElement options={CARD_ELEMENT_OPTIONS} />
-      {/* <CardExpiryElement options={CARD_ELEMENT_OPTIONS} />
-      <CardCvcElement options={CARD_ELEMENT_OPTIONS} />
-      <PaymentRequestButtonElement options={CARD_ELEMENT_OPTIONS} /> */}
+      <CardElement options={CARD_ELEMENT_OPTIONS}  />
     </label>
   );
 };

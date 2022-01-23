@@ -47,7 +47,7 @@ const Cart = () => {
       { user ?
         <> 
           <HideTop/>
-          <div style={{marginTop: "5%"}}>
+          <div style={{marginTop: "8%"}}>
             {cartData[0] && cartData[0].cart && cartData[0].cart.length>0 ? (
               cartData.map(cart => (       
                 cart.cart.map(cartProd => {
@@ -57,13 +57,14 @@ const Cart = () => {
                         <img style={{height: "200px", width: "150px"}} src={`http://localhost:5000/${cartProd.product.image}`}/>
                       </div>
                       <div className="cart-right">
-                        <div>{cartProd.product.title}</div>
+                        <div style={{marginTop: "1.5em"}}>{cartProd.product.title}</div>
                         <div>Rs. {cartProd.price}</div>
                         <div>Size: {cartProd.size}</div>
                         <div>Quantity: {cartProd.quantity}</div>
                         <FormGroup style = {{color: "black"}}>
-                          <Label for="size" style={{color: "black"}}>Size: </Label>
+                          <Label for="size" style={{color: "black", fontSize: "16px"}}>Size: </Label>
                           <select
+                            style={{height: "1.5rem", marginTop: "0.5rem"}}
                             type="select"
                             name="size"
                             value = {size}
@@ -76,8 +77,9 @@ const Cart = () => {
                           </select>
                         </FormGroup>
                         <FormGroup style = {{color: "black"}} role="complementary">
-                          <Label for="quantity" style={{color: "black"}}>Quantity: </Label>
+                          <Label for="quantity" style={{color: "black", fontSize: "16px"}}>Quantity: </Label>
                           <select
+                            style={{height: "1.5rem", marginTop: "0.5rem"}}
                             type="select"
                             name="quantity"
                             value = {quantity}
@@ -90,10 +92,11 @@ const Cart = () => {
                           </select>
                         </FormGroup>
                         <div style={{marginTop: "0.5rem"}}>
-                          <Button className="left" style={{marginLeft: "0.5rem", cursor: "pointer"}} onClick={() => removeFromCart(cartProd.product._id, cartProd.size)}>
+                          <Button className="left two-button" onClick={() => removeFromCart(cartProd.product._id, cartProd.size)}>
                             Remove
                           </Button>
-                          <Button style={{ cursor: "pointer"}} onClick={() => moveToWishList(cartProd.product._id, cartProd.size)}>
+                          <br/>
+                          <Button className="two-button" style={{ marginTop: "0.5rem"}} onClick={() => moveToWishList(cartProd.product._id, cartProd.size)}>
                             Move back to wishlist
                           </Button>  
                         </div>
@@ -113,14 +116,14 @@ const Cart = () => {
               cartData.map(cart => {
                 return(
                   <>
-                    <div className = "order">
+                    <div className = "order" style={{padding: "10px"}}>
                       Order Summary
                       <div>Total Quantity: {cart.totalQuantity}</div>
                       <div>Total Price: {cart.totalPrice}</div>
                       <p>
                         <div style={{height: "100%", marginBottom: "20px"}} className="col col-complementary" role="complementary">
-                          <Link to = "/wishlist"><Button>ADD MORE FROM WISHLIST</Button></Link>
-                          <Link to = "/address"><Button>CHECKOUT</Button></Link>
+                          <Link to = "/wishlist"><Button style={{height: "2rem", width: "13rem", marginTop: "1rem", cursor: "pointer"}}>ADD MORE FROM WISHLIST</Button></Link><br/>
+                          <Link to = "/address"><Button style={{height: "2rem", width: "13rem", marginTop: "1rem", cursor: "pointer"}}>CHECKOUT</Button></Link>
                         </div>
                       </p>  
                     </div>

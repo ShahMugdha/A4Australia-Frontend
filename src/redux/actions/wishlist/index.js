@@ -41,15 +41,15 @@ export const moveProductToCart = (productId, size) => {
       if(response.data.success === true){
         console.log("suc")
         toast.success(response.data.message, {autoClose:2000})
+        setTimeout(function() {
+          window.location.reload();
+        }, 3000);
       }
       else {
         console.log("err")
         toast.error(response.data.message, {autoClose:2000})
       }
     })
-    setTimeout(function() {
-      window.location.reload();
-    }, 3000);
   };
 }
 

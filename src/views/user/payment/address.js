@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Redirect } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import { FormGroup, Label, Button, Input} from "reactstrap";
+import { Link } from "react-router-dom";
+import {Button} from "reactstrap";
 import HideTop from "../../../components/Navigation/hideTop.js";
 import { getMyAddress, addAddress } from "../../../redux/actions/address/index.js";
 import "../../../components/address.css"
@@ -94,7 +93,7 @@ const Address = () => {
 
             <div className="row">
               <div className="col">
-                <Link to = "/pay"><Button type="submit" onClick={(e) => handleClick(e)} style={{cursor: "pointer", width: "100%", height: "2.5em", backgroundColor: "infoBackground"}}>CONTINUE</Button></Link>
+                <Link to = "/pay"><Button type="submit" onClick={(e) => handleClick(e)} style={{cursor: "pointer", width: "100%", height: "2.5em", backgroundColor: "rgb(252, 255, 211)"}}>CONTINUE</Button></Link>
               </div>
             </div>
           </form>
