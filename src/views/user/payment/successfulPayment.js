@@ -5,7 +5,7 @@ import { Link} from "react-router-dom";
 const SuccessfulPayment = () => {
   return (
     <>
-      <div>
+      <div style={{marginTop: "7rem"}}>
         <div className="container">
           <div className="printer-top"></div>   
           <div className="paper-container">
@@ -19,16 +19,17 @@ const SuccessfulPayment = () => {
                 <div className="success-description">
                   Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.
                 </div>
-                <div className="order-details">
+                {/* <div className="order-details">
                   <div className="order-number-label">Order Number</div>
                   <div className="order-number">123456789</div>
-                </div>
+                </div> */}
                 <div className="order-footer">Thank you!</div>
               </div>
               <div className="jagged-edge"></div>
             </div>
           </div>
         </div>
+        <Link to = '/'><button className='back'>Back to browsing</button></Link>
       </div>
     </>
   );

@@ -34,7 +34,8 @@ import {Elements} from '@stripe/react-stripe-js';
 import NotFound from "./components/error-pages/notFound.js"
 import {loadStripe} from '@stripe/stripe-js';
 
-const stripePromise = loadStripe("pk_test_51JL37MSIq5ANGvjea83Yo4FVR5XE1mHrrtU6E1qLyOJ3ct5fwMr36wq8bXm6GPos3wNtQ2DqhmUK0RrhZ9tgLnax00MyjOmoma")
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY)
+console.log(process.env.REACT_APP_STRIPE_PUBLIC_KEY, "stripe key")
 
 function App() {
   return (

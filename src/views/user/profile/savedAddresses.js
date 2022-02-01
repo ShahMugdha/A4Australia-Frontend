@@ -40,14 +40,14 @@ const SavedAddresses = () => {
         <>
           <HideTop/>
           <div style={{marginTop: "10%"}}>
-            <div className="column1" style={{backgroundColor: "#f1f1f1"}}>
+            <div className="column1" style={{backgroundColor: "#bdf", boxShadow: '0 4px 5px 0 rgba(0, 0, 0, 0.2)'}}>
               <ul className="unordered">
                 <Link to = "/profile"><li className="list"><Button>Account</Button></li></Link>
                 <Link to = "/saved-addresses"><li className="list"><Button>Saved Addresses</Button></li></Link>
                 <Link to = "/orders/my-orders"><li className="list"><Button>Orders</Button></li></Link>
               </ul>
             </div>
-            <div className="column2" style={{backgroundColor: "#ddd", overflowY: "auto"}}>
+            <div className="column2" style={{backgroundColor: "rgb(252, 255, 211)", overflowY: "auto", boxShadow: '0 4px 5px 0 rgba(0, 0, 0, 0.2)'}}>
               {savedAddresses && savedAddresses.myAddress && savedAddresses.myAddress.addresses? (
               savedAddresses.myAddress.addresses.map(addressData => {
                 return(

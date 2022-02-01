@@ -29,6 +29,18 @@
   margin-left: 35%;
 }
 
+.save {
+  cursor: pointer;
+  height: 2rem;
+  width: 100%;
+  border-radius: 3px;
+  background-color: #bdf;
+}
+
+.save:hover {
+  background-color: rgb(123, 191, 255);
+}
+
 @media screen and (max-width: 960px) { 
   .column1 {
     width: 80%;

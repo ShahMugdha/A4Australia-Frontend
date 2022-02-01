@@ -47,14 +47,14 @@ const EditAccount = () => {
         <> 
           <HideTop/>
           <div style={{marginTop: "10%"}}>
-            <div className="column1" style={{backgroundColor: "#f1f1f1"}}>
+            <div className="column1" style={{backgroundColor: "#bdf", boxShadow: '0 4px 5px 0 rgba(0, 0, 0, 0.2)'}}>
               <ul className="unordered">
                 <Link to = "/profile"><li className="list"><Button>Account</Button></li></Link>
                 <Link to = "/saved-addresses"><li className="list"><Button>Saved Addresses</Button></li></Link>
                 <Link to = "/orders/my-orders"><li className="list"><Button>Orders</Button></li></Link>
               </ul>
             </div>
-            <div className="column2" style={{backgroundColor: "#ddd"}}>
+            <div className="column2" style={{backgroundColor: "rgb(252, 255, 211)", boxShadow: '0 4px 5px 0 rgba(0, 0, 0, 0.2)'}}>
               <div className="edit-form">
                 <div className="">
                   <form action=""  method="POST">	
@@ -92,7 +92,7 @@ const EditAccount = () => {
                     <div className="">
                       <div className="">
                         <div className="">
-                        <Link to = "/profile"><Button type="submit" onClick={(e) => handleClick(e)} style={{cursor: "pointer", width: "100%", height: "3em", backgroundColor: "steelblue"}}>SAVE</Button></Link>
+                        <Link to = "/profile"><button type="submit" onClick={(e) => handleClick(e)} className="save" >SAVE</button></Link>
                         </div>
                       </div>
                     </div>

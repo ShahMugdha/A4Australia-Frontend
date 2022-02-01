@@ -119,6 +119,21 @@
   font-weight: bold;
   color: #999;
 }
+
+.back {
+  cursor: pointer;
+  /* margin-top: 8%; */
+  font-size: 20px;
+  height: 3rem;
+  width: 22rem;
+  border-radius: 3px;
+  background-color: #bdf;
+}
+
+.back:hover {
+  background-color: rgb(123, 191, 255);
+}
+
 @keyframes print {
   0% {
     transform: translateY(-90%);

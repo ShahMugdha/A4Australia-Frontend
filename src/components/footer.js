@@ -14,7 +14,7 @@ const Footer = () => {
           <address>
             5534 Somewhere In. The World 22193-10212<br/>
                 
-            <a className="footer__btn" href="mailto:example@gmail.com">Email Us</a>
+            <a className="footer__btn" href="mailto:pateljalpa181993@gmail.com">Email Us</a>
           </address>
         </div>
         

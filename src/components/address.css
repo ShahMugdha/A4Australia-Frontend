@@ -22,7 +22,7 @@ form {
 }
 
 .row:nth-child(1) {
-  background-color: #b09fff;
+  background-color: /* #b09fff */ rgb(123, 191, 255);
   color: #fff;
 }
 

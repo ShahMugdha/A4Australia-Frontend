@@ -96,7 +96,7 @@ const Cart = () => {
                             Remove
                           </Button>
                           <br/>
-                          <Button className="two-button" style={{ marginTop: "0.5rem"}} onClick={() => moveToWishList(cartProd.product._id, cartProd.size)}>
+                          <Button className="two-button" style={{ marginTop: "0.5rem", width: "12.5rem"}} onClick={() => moveToWishList(cartProd.product._id, cartProd.size)}>
                             Move back to wishlist
                           </Button>  
                         </div>

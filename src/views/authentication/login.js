@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../../components/signIn.css"
 import {login} from "../../redux/actions/auth/index.js";
 import { useDispatch } from "react-redux";
 
 const Login = () => {
-  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
@@ -14,9 +13,7 @@ const Login = () => {
       event.preventDefault()
       alert("Please enter all the fields")
     }
-    const a = dispatch(login({ email, password, role: "CUSTOMER" }, event))
-    console.log(a, "doapcth")
-    //history.push('/')
+    dispatch(login({ email, password, role: "CUSTOMER" }, event))
   }
   return (
     <>
