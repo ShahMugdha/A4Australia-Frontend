@@ -81,7 +81,7 @@ const ProductsByCategory = () => {
           {productData.map((product) => {
             return (
               <figure>
-                <Link to = {`/collection/product/${product._id}`}><img style={{height: "300px"}} src={`http://localhost:5000/${product.image}`}/></Link>
+                <Link to = {`/collection/product/${product._id}`}><img style={{height: "300px"}} src={`http://localhost:5000/${product.image}`} alt=''/></Link>
                 <figcaption>
                   {product.title} 
                   {

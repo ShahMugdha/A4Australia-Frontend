@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
 import Footer from '../../../components/footer.js';
 import { getUserProfile } from "../../../redux/actions/profile/index.js";

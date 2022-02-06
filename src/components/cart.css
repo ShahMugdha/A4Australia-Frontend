@@ -32,6 +32,20 @@
   background-color: rgb(123, 191, 255);
 }
 
+.setQuan {
+  margin-top: 0.5rem;
+  cursor: pointer;
+  background-color: rgb(255, 219, 153);
+  height: 2rem;
+  width: 12.5rem;
+  border-radius: 15px;
+}
+
+.setQuan:hover {
+  background-color: rgb(241, 198, 116);
+}
+
+
 @media screen and (max-width: 2000px) {
   .order {
     margin-left: 10%;

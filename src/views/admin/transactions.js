@@ -9,7 +9,6 @@ import AccessDenied from "../../components/error-pages/accessDenied.js"
 import SendIcon from '@material-ui/icons/Send';
 import DetailsIcon from '@material-ui/icons/Details';
 import jwt_decode from 'jwt-decode';
-import {Button} from "reactstrap";
 
 const AllTransactions = () => {
   const adminToken = localStorage.getItem("token")

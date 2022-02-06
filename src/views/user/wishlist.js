@@ -41,7 +41,7 @@ const Wishlist = () => {
                     <> 
                       <div className="flex-item">
                         <CloseIcon style={{float: "right", cursor: "pointer"}} onClick={() => handleDelete(wishProd._id)}/>
-                        <div><img style={{height: "250px", width: "200px"}} src={`http://localhost:5000/${wishProd.image}`}/></div>
+                        <div><img style={{height: "250px", width: "200px"}} src={`http://localhost:5000/${wishProd.image}`} alt=''/></div>
                         <div style={{fontSize: "20px"}}>{wishProd.title}</div>
                         <div style={{fontSize: "15px"}}>{wishProd.description}</div>
                         <FormGroup>
@@ -67,7 +67,7 @@ const Wishlist = () => {
               ))}
             </div>
           ): (
-            <h1>your wishlist is empty</h1>
+            <h1 style={{marginTop: "8rem"}}>your wishlist is empty</h1>
           )}
         </>
       : <Link to="/login">Please Log In</Link> } 

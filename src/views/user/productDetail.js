@@ -4,9 +4,9 @@ import { getParticularProduct } from "../../redux/actions/products";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import { FormGroup, Label, Input, Button } from "reactstrap";
+import { FormGroup, Label, Input } from "reactstrap";
 import { addProductToWishList, getWishList, deleteProductFromWishList, moveProductToCart } from "../../redux/actions/wishlist/index.js";
-import { Link, Redirect, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import HideTop from "../../components/Navigation/hideTop";
 import Footer from "../../components/footer.js";
 import "../../components/productDetail.css";
@@ -92,7 +92,7 @@ const ProductDetail = () => {
       <HideTop/>
       <div className = "card-wrapper">
         <div className = "card"> 
-          <img style={{height: "500px"}} src={`http://localhost:5000/${product.image}`}/>
+          <img style={{height: "500px"}} src={`http://localhost:5000/${product.image}`} alt=''/>
           <div className = "product-content">
             <h2 className = "product-title">{product.title}</h2>
 

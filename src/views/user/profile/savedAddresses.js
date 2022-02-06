@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
 import Footer from "../../../components/footer.js";
 import { getMyAddress, removeAddress, selectAddress } from "../../../redux/actions/address/index.js";

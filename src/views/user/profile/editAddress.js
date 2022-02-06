@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import HideTop from "../../../components/Navigation/hideTop.js";
 import Footer from "../../../components/footer.js";
 import { logOut } from "../../../redux/actions/auth/index.js";
-import { getMyAddress, updateAddress, selectAddress } from "../../../redux/actions/address/index.js";
+import { updateAddress, selectAddress } from "../../../redux/actions/address/index.js";
 import "../../../components/profileHome.css"
 import { Button } from "@material-ui/core";
 

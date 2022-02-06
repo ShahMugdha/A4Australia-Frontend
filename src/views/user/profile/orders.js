@@ -47,6 +47,7 @@ const Orders = () => {
                             <div>
                               <img src={`http://localhost:5000/${orderInfo && orderInfo.product ? orderInfo.product.image: null}`} 
                                 style={{width: "140px", height: "140px", marginRight: "20px", float: "left"}}
+                                alt=''
                               />
                             </div> 
                             <div>

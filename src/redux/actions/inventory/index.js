@@ -1,8 +1,8 @@
 import request from "../../../services/request";
 
-export const getParticularProductInventory = (productId) => {
+export const getParticularProductInventory = (productId, size) => {
   return async(dispatch) => {
-    await request.get(`/inventory/${productId}`).then((response) => {
+    await request.get(`/inventory/${productId}/${size}`).then((response) => {
       dispatch({
         type: "GET_PRODUCT_INVENTORY",
         payload: response.data

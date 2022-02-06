@@ -5,8 +5,6 @@ import "./sideNav.css"
 
 const SideNav = () => {
   var sidebar = (() => {
-    "use strict";
-
     var $contnet = $('#content'),
     $sidebar = $('#sidebar'),
     $sidebarBtn = $('#sidebar-btn'),
@@ -73,44 +71,12 @@ const SideNav = () => {
                 <li className="menu-toggle">
                     <div className="menu-toggle-btns">
                         <Link to = "/product/category/Men" className="menu-link">Men</Link>
-                        {/* <a href="#" className="menu-btn"><div onClick = {() => dispatch(getProductByCategory('Men'))}>+</div></a> */}
                     </div>
-                    {/* {productsUniqueByKey ? (
-                    <ul className="menu-level2 submenu no-style">
-                      {productsUniqueByKey.map((product) => {
-                        return (
-                          <li className="menu-toggle">
-                            <div className="menu-toggle-btns">
-                                <a href="#" className="menu-link">{product.subCategory}</a>
-                            </div>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                    ): (
-                      <div className='no-results show'>
-                        <h5>No Items Found</h5>
-                      </div>
-                    )} */}
                 </li>
                 <li className="menu-toggle">
                     <div className="menu-toggle-btns">
                         <Link to = "/product/category/Women" className="menu-link">Women</Link>
-                        {/* <a href="#" className="menu-btn"><div onClick = {() => dispatch(getProductByCategory('Women'))}>+</div></a> */}
                     </div>
-                    {/* {productsUniqueByKey ? (
-                    <ul className="menu-level2 submenu no-style">
-                      {productsUniqueByKey.map((product) => {
-                        return (
-                          <li><a href="#" className="menu-link">{product.subCategory}</a></li>
-                        )
-                      })}
-                    </ul>
-                    ): (
-                      <div className='no-results show'>
-                        <h5>No Items Found</h5>
-                      </div>
-                    )} */}
                 </li>
                 <li>
                   <Link to = "/product/category/Girls" className="menu-link">Girls</Link>

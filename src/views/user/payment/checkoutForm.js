@@ -18,7 +18,7 @@ export default function CheckoutForm() {
   const [paymentRequest, setPaymentRequest] = useState(null);
   const user = localStorage.getItem("token")
   const elements = useElements();
-  const cart = useSelector(state => state.cart.cartData[0])
+  const cart = useSelector(state => state.cart.cartData && state.cart.cartData[0] ? state.cart.cartData[0] : null)
   const address = useSelector(state => state.address.myAddress.addresses)
   const count = address ? address.length: null
   const orderAddress = address ? address[count-1] : ''

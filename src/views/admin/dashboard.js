@@ -1,5 +1,4 @@
 import { React } from "react";
-import { useDispatch } from "react-redux";
 import { logOut } from "../../redux/actions/auth";
 import "../../components/admin/navSide.css";
 import AccessDenied from "../../components/error-pages/accessDenied.js"
