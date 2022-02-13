@@ -5,7 +5,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
 import { FormGroup, Label, Input } from "reactstrap";
-import { addProductToWishList, getWishList, deleteProductFromWishList, moveProductToCart } from "../../redux/actions/wishlist/index.js";
+import { addProductToWishList, getWishList, deleteProductFromWishList } from "../../redux/actions/wishlist/index.js";
+import { addProductToCart } from "../../redux/actions/cart";
 import { useParams } from "react-router-dom";
 import HideTop from "../../components/Navigation/hideTop";
 import Footer from "../../components/footer.js";
@@ -18,6 +19,7 @@ const ProductDetail = () => {
   const [size, setSize] = useState("Small")
   const user = localStorage.getItem("token")
   const productData = useSelector(state => state.products.particularProduct)
+  const product = useSelector(state => state.products.particularProduct)
   const wishlistData = useSelector(state => state.wishlist.wishlistData)
   let wishlistedProducts = []
   let objToAdd = {}
@@ -46,8 +48,8 @@ const ProductDetail = () => {
     }
   }
 
-  const moveToCart = (productId, Size) => {
-    dispatch(moveProductToCart(productId, Size))
+  const addToCart = (productId, Size) => {
+    dispatch(addProductToCart(productId, Size))
     if(!user){
       toast.error("Please login!", {autoClose:2000})
     }
@@ -60,8 +62,6 @@ const ProductDetail = () => {
     dispatch(getParticularProduct(productId))
     dispatch(getWishList())
   }, [dispatch])
-
-  const product = useSelector(state => state.products.particularProduct)
 
   const addRemoveWishlist = (productId) => {
     if(!user){
@@ -148,7 +148,7 @@ const ProductDetail = () => {
                 />
               }
               </button>
-              <button type = "button" className = "btn" onClick = {() => moveToCart(product._id, size)}><ShoppingCartOutlinedIcon/></button>
+              <button type = "button" className = "btn" onClick = {() => addToCart(product._id, size)}><ShoppingCartOutlinedIcon/></button>
             </div>
           </div>
         </div>

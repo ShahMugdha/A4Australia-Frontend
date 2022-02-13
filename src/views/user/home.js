@@ -11,11 +11,15 @@ import "../../components/products.css"
 import "../../components/Navigation/sideNav.css"
 import { Link } from 'react-router-dom';
 import image from "../../components/cover.jpg"
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure() 
 
 const Home = () => {
   const productData = useSelector(state => state.products.productData)
   const key = 'title';
   const productsUniqueByKey = [...new Map(productData.map(item => [item[key], item])).values()];
+  const user = localStorage.getItem("token")
   const wishlistData = useSelector(state => state.wishlist.wishlistData)
   let wishlistedProducts = []
   let objToAdd = {}
@@ -52,6 +56,9 @@ const Home = () => {
   }, [dispatch])
 
   const addRemoveWishlist = (productId) => {
+    if(!user){
+      toast.error("Please login!", {autoClose:2000})
+    }
     wishlistedProducts.forEach(prod => {
       if(prod.productId === productId) {
         foundProduct = productId
@@ -67,9 +74,6 @@ const Home = () => {
       unMarkWishlisted(productId)
       dispatch(deleteProductFromWishList(productId))
     }
-    setTimeout(function() {
-      window.location.reload();
-    }, 3000);
   }
   console.log(wishlistedProducts, "wihsprod ob")
 

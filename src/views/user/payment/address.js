@@ -13,19 +13,22 @@ const Address = () => {
   }, [dispatch])
   const user = localStorage.getItem("token")
   const addressData = useSelector(state => state.address.myAddress)
-  let count
-  if(addressData) {
-    count = addressData && addressData.addresses ? addressData.addresses.length: 0
+  let count = 0
+  let userAddress = {}
+
+  if(addressData && addressData.addresses && addressData.addresses.length > 0) {
+    count = addressData.addresses.length
+    userAddress = addressData.addresses[count-1]
   }
 
   const [shipping, setShipping] = useState({
-    name: addressData && addressData.addresses && addressData.addresses[count-1].name ? addressData.addresses[count-1].name : '',
-    addressLine1: addressData && addressData.addresses && addressData.addresses[count-1].addressLine1 ? addressData.addresses[count-1].addressLine1 : '',
-    addressLine2: addressData && addressData.addresses && addressData.addresses[count-1].addressLine2 ? addressData.addresses[count-1].addressLine2 : '',
-    postalCode: addressData && addressData.addresses && addressData.addresses[count-1].postalCode ? addressData.addresses[count-1].postalCode : '',
-    city: addressData && addressData.addresses && addressData.addresses[count-1].city ? addressData.addresses[count-1].city : '',
-    state: addressData && addressData.addresses && addressData.addresses[count-1].state ? addressData.addresses[count-1].state : '',
-    country: addressData && addressData.addresses && addressData.addresses[count-1].country ? addressData.addresses[count-1].country : ''
+    name: userAddress.name,
+    addressLine1: userAddress.addressLine1,
+    addressLine2: userAddress.addressLine2,
+    postalCode: userAddress.postalCode,
+    city: userAddress.city,
+    state: userAddress.state,
+    country: userAddress.country
   })
   console.log(shipping, "add data")
 

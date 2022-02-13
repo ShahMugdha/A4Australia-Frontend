@@ -55,13 +55,15 @@ const SavedAddresses = () => {
                     <li key={addressData._id} className = "data">
                       <div style={{float: "right", color: "black", cursor: "pointer"}} onClick={() => handleClick(addressData)}><DeleteIcon/></div>
                       <Link to = "/edit-address"><div style={{float: "right", color: "black"}} onClick={() => handleEdit(addressData)}><EditIcon/></div></Link>
-                      <div>Name: {addressData.name}</div>
-                      <div>Address Line 1: {addressData.addressLine1}</div>
-                      <div>Address Line 2: {addressData.addressLine2}</div>
-                      <div>City: {addressData.city}</div>
-                      <div>State: {addressData.state}</div>
-                      <div>Country: {addressData.country}</div>
-                      <div>Postal Code: {addressData.postalCode} </div>
+                      <div style={{textAlign: "left", marginLeft: "2rem"}}>
+                        <div>Name: {addressData.name}</div>
+                        <div>Address Line 1: {addressData.addressLine1}</div>
+                        <div>Address Line 2: {addressData.addressLine2}</div>
+                        <div>City: {addressData.city}</div>
+                        <div>State: {addressData.state}</div>
+                        <div>Country: {addressData.country}</div>
+                        <div>Postal Code: {addressData.postalCode}</div>
+                      </div>
                     </li>
                   </div> 
                 )

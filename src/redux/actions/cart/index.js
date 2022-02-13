@@ -3,9 +3,9 @@ import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'; 
 toast.configure() 
 
-export const addProductToCart = (productId) => {
+export const addProductToCart = (productId, size) => {
   return async(dispatch) => {
-    await request.post(`/product/${productId}`).then((response) => {
+    await request.post(`cart/${productId}/${size}`).then((response) => {
       dispatch({
         type: "ADD_PRODUCT_TO_CART",
         payload: response.data
@@ -14,7 +14,7 @@ export const addProductToCart = (productId) => {
         toast.success(response.data.message, {autoClose:2000})
       }
       else {
-        toast.error(response.data.message)
+        toast.error(response.data.message, {autoClose:2000})
       }
     })
   };
@@ -42,7 +42,7 @@ export const updateProductQuantity = (productId, size, quantity) => {
         toast.success(response.data.message, {autoClose:2000})
       }
       else {
-        toast.error(response.data.message)
+        toast.error(response.data.message, {autoClose:2000})
       }
     })
     setTimeout(function() {
@@ -62,7 +62,7 @@ export const updateProductSize = (productId, originalSize, updatedSize) => {
         toast.success(response.data.message, {autoClose:2000})
       }
       else {
-        toast.error(response.data.message)
+        toast.error(response.data.message, {autoClose:2000})
       }
     })
     setTimeout(function() {
@@ -82,7 +82,7 @@ export const moveProductToWishList = (productId, size) => {
         toast.success(response.data.message, {autoClose:2000})
       }
       else {
-        toast.error(response.data.message)
+        toast.error(response.data.message, {autoClose:2000})
       }
     })
   };
@@ -99,7 +99,7 @@ export const deleteProductFromCart = (productId, size) => {
         toast.success(response.data.message, {autoClose:2000})
       }
       else {
-        toast.error(response.data.message)
+        toast.error(response.data.message, {autoClose:2000})
       }
     })
   };

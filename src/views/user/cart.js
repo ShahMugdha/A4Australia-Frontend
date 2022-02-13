@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { FormGroup, Label, Button } from "reactstrap";
 import HideTop from "../../components/Navigation/hideTop.js";
 import Footer from "../../components/footer.js";
-import { getParticularProductInventory } from "../../redux/actions/inventory/index.js";
+import { getParticularProductInventory, getInventoryList } from "../../redux/actions/inventory/index.js";
 import { getCartList, updateProductQuantity, updateProductSize, moveProductToWishList, deleteProductFromCart } from "../../redux/actions/cart/index.js";
 import "../../components/cart.css";
 import { toast } from 'react-toastify'
@@ -16,9 +16,28 @@ const Cart = () => {
   const history = useHistory()
   const user = localStorage.getItem("token")
   const cartData = useSelector(state => state.cart.cartData)
+  const inventoryData = useSelector(state => state.inventory.inventoryData)
   const productInventory = useSelector(state => state.inventory.productInventory && state.inventory.productInventory.stock? state.inventory.productInventory.stock: null )
   const [size, setSize] = useState("size")
   const [quantity, setQuantity] = useState(1)
+  let checkOutProducts = []
+  let objToAdd = {}
+
+  if(cartData && cartData[0] && cartData[0].cart) {
+    inventoryData.map(inventory => {
+      cartData[0].cart.map(cart => {
+        if(cart.product._id === inventory.product._id) {
+          inventory.stock.map(stock => {
+            if(cart.size === stock.size && cart.quantity <= stock.quantity) {
+              objToAdd = {productId: cart.product._id}
+              checkOutProducts = [...checkOutProducts, objToAdd]
+            }
+          })
+        }
+      })
+    })
+  }
+  console.log(checkOutProducts)
 
   const changeSize = (event, productId, originalSize, updatedSize) => {
     setSize(event.target.value)
@@ -58,23 +77,34 @@ const Cart = () => {
   }
 
   const checkInventory = (e) => {
-    var count = 0;
+    let count = 0, i=0;
     if(cartData && cartData[0] && cartData[0].cart) {
       cartData[0].cart.forEach(cartProd => {
-        dispatch(getParticularProductInventory(cartProd.productCart._id, cartProd.size))
-        if(productInventory && productInventory[0] && productInventory[0].quantity && productInventory[0].quantity >= cartProd.quantity) {
-          count++;
+        if(checkOutProducts[i] && cartProd.product._id === checkOutProducts[i].productId) {
+          console.log(cartProd.product._id, i, "right")
+          count++
+          i++
         }
-        else toast.error(`${cartProd.productCart.title} in size ${cartProd.size} out of stock!`, {autoClose:3000})
+        else {
+          toast.error(`${cartProd.product.title} in size ${cartProd.size} out of stock!`, {autoClose:3000})
+          console.log(cartProd.product._id, i, "wrong")
+          i=0
+        }
       })
-      console.log(count, "count")
-      if(count === cartData[0].cart.length) history.push('/address')
-      e.preventDefault()
+      if(count && cartData[0].cart.length) {
+        if (count == cartData[0].cart.length) history.push('/address')
+      }
+      else {
+        console.log("no")
+        e.preventDefault()
+      }
     }
+    console.log(count, cartData[0].cart.length, "count")
   }
 
   useEffect(()=> {
     dispatch(getCartList())
+    dispatch(getInventoryList())
   }, [dispatch])
 
   return(
@@ -83,16 +113,16 @@ const Cart = () => {
         <> 
           <HideTop/>
           <div style={{marginTop: "8%"}}>
-            {cartData[0] && cartData[0].cart && cartData[0].cart.length>0 ? (
+            {cartData && cartData[0] && cartData[0].cart && cartData[0].cart.length>0 ? (
               cartData.map(cart => (       
                 cart.cart.map(cartProd => {
                   return(
                     <div className="cart-container">
                       <div className="cart-left">
-                        <img style={{height: "20rem", width: "200px"}} src={`http://localhost:5000/${cartProd.productCart.image}`} alt=''/>
+                        <img style={{height: "20rem", width: "200px"}} src={`http://localhost:5000/${cartProd.product.image}`} alt=''/>
                       </div>
                       <div className="cart-right">
-                        <div style={{marginTop: "1.5em"}}>{cartProd.productCart.title}</div>
+                        <div style={{marginTop: "1.5em"}}>{cartProd.product.title}</div>
                         <div>Rs. {cartProd.price}</div>
                         <div>Size: {cartProd.size}</div>
                         <div>Quantity: {cartProd.quantity}</div>
@@ -103,7 +133,7 @@ const Cart = () => {
                             type="select"
                             name="size"
                             value = {size}
-                            onChange = {(e) => changeSize(e, cartProd.productCart._id, cartProd.size, e.target.value)}
+                            onChange = {(e) => changeSize(e, cartProd.product._id, cartProd.size, e.target.value)}
                           >
                             <option value="Small">Small</option>
                             <option value="Medium">Medium</option>
@@ -116,14 +146,14 @@ const Cart = () => {
                             type="number" style={{height: "1.5rem", marginTop: "0.5rem", width: "2.7rem"}} 
                             value = {quantity} onChange = {(e) => setQuantity(e.target.value)}
                           />
-                          <Button className="setQuan" onClick = {() => changeQuantity(cartProd.productCart._id, cartProd.size)}>Set Quantity</Button>
+                          <Button className="setQuan" onClick = {() => changeQuantity(cartProd.product._id, cartProd.size)}>Set Quantity</Button>
                         </FormGroup>
                         <div style={{marginTop: "0.5rem"}}>
-                          <Button className="left two-button" onClick={() => removeFromCart(cartProd.productCart._id, cartProd.size)}>
+                          <Button className="left two-button" onClick={() => removeFromCart(cartProd.product._id, cartProd.size)}>
                             Remove
                           </Button>
                           <br/>
-                          <Button className="two-button" style={{ marginTop: "0.5rem", width: "12.5rem"}} onClick={() => moveToWishList(cartProd.productCart._id, cartProd.size)}>
+                          <Button className="two-button" style={{ marginTop: "0.5rem", width: "12.5rem"}} onClick={() => moveToWishList(cartProd.product._id, cartProd.size)}>
                             Move back to wishlist
                           </Button>  
                         </div>
@@ -139,7 +169,7 @@ const Cart = () => {
               </>    
             )}
             
-            {cartData[0] && cartData[0].cart && cartData[0].cart.length>0? (
+            {cartData && cartData[0] && cartData[0].cart && cartData[0].cart.length>0? (
               cartData.map(cart => {
                 return(
                   <>

@@ -9,10 +9,14 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import Footer from "../../components/footer.js";
 import "../../components/products.css"
 import { Link, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure() 
 
 const ProductsByCategory = () => {
   const {category} = useParams()
   const productData = useSelector(state => state.products.productsByCategory)
+  const user = localStorage.getItem("token")
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(getProductByCategory(category))
@@ -50,6 +54,9 @@ const ProductsByCategory = () => {
   }
 
   const addRemoveWishlist = (productId) => {
+    if(!user){
+      toast.error("Please login!", {autoClose:2000})
+    }
     wishlistedProducts.forEach(prod => {
       if(prod.productId === productId) {
         foundProduct = productId

@@ -33,13 +33,13 @@ export const signup = ({firstName, lastName, email, mobile, password}, event) =>
     const response = await request.post('/auth/signup', {firstName, lastName, email, mobile, name: firstName + ' ' + lastName, role:"CUSTOMER", password});
     console.log(response.data, "USERINFORMATION");
     if (response.data.success) {
-    await dispatch({
-      type: "SIGNUP_SUCCESS",
-      payload: response.data.result
-    })
-    toast.success(response.data.message, {autoClose:2000})
-    localStorage.setItem('token', response.data.result.token);
-    localStorage.setItem('user', JSON.stringify(response.data.result));
+      await dispatch({
+        type: "SIGNUP_SUCCESS",
+        payload: response.data.result
+      })
+      toast.success(response.data.message, {autoClose:2000})
+      localStorage.setItem('token', response.data.result.token);
+      localStorage.setItem('user', JSON.stringify(response.data.result));
     } else {
       event.preventDefault();
       toast.error(response.data.message, {autoClose:2000})

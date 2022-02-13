@@ -55,7 +55,7 @@ const AddProduct = () => {
                 <div className='uk-width-1-1@s'>
                   <h2 className="uk-text-center">Main image</h2>
                   <input type="file" id="txtMainImgID" name="txtMainImgID" onChange = {(e) => setImage(e.target.files[0])}/>
-                  {image && (<div><img src = {URL.createObjectURL(image)} style={{height: "15rem", width: "12rem"}} alt=""/>{URL.createObjectURL(image)}</div>)} 
+                  {image && (<div><img src = {URL.createObjectURL(image)} style={{height: "15rem", width: "12rem"}} alt=""/></div>)} 
                 </div>
               </div>
               <div className="uk-width-1-2">
@@ -65,31 +65,37 @@ const AddProduct = () => {
                   <div className="uk-width-1-1@s">
                     <label className="uk-form-label" for="txtModel">Title</label>
                     <div className="uk-form-controls">
-                      <input className="uk-input" id="txtModel" type="text" value = {title} placeholder="P40 Warhawk" onChange={(e) => setTitle(e.target.value)}/>
+                      <input className="uk-input" id="txtModel" type="text" value = {title} placeholder="Title" onChange={(e) => setTitle(e.target.value)}/>
                     </div>
                   </div>
                   <div className="uk-margin">
                     <label className="uk-form-label" for="txtBrand">Description</label>
                     <div className="uk-form-controls">
-                      <input className="uk-input" id="txtBrand" type="text" value = {description} placeholder="Curtiss" onChange={(e) => setDescription(e.target.value)}/>
+                      <input className="uk-input" id="txtBrand" type="text" value = {description} placeholder="Description" onChange={(e) => setDescription(e.target.value)}/>
                     </div>
                   </div>
                   <div className="uk-margin">
                     <label className="uk-form-label" for="txtYear">Category</label>
                     <div className="uk-form-controls">
-                      <input className="uk-input" id="txtYear" type="text" value = {category} placeholder="1938" onChange={(e) => setCategory(e.target.value)}/>
+                      <select className="uk-input" style={{width: "100%", height: "1.8rem"}} type="text" value = {category} placeholder="Category" onChange={(e) => setCategory(e.target.value)}>
+                        <option value="Women" selected="true">Women</option>
+                        <option value="Men">Men</option>
+                        <option value="Unisex">Unisex</option>
+                        <option value="Boys">Boys</option>
+                        <option value="Girls">Girls</option>
+                      </select>
                     </div>
                   </div>
                   <div className="uk-margin">
                     <label className="uk-form-label" for="txtYear">Sub Category</label>
                     <div className="uk-form-controls">
-                      <input className="uk-input" id="txtYear" type="text" value = {subCategory} placeholder="1938" onChange={(e) => setSubCategory(e.target.value)}/>
+                      <input className="uk-input" id="txtYear" type="text" value = {subCategory} placeholder="Sub Category" onChange={(e) => setSubCategory(e.target.value)}/>
                     </div>
                   </div>
                   <div className="uk-margin">
                     <label className="uk-form-label" for="txtPrice">Price</label>
                     <div className="uk-form-controls">
-                      <input className="uk-input" id="txtPrice" type="text" value = {price} placeholder="2,000,000" onChange={(e) => setPrice(e.target.value)}/>
+                      <input className="uk-input" id="txtPrice" type="text" value = {price} placeholder="Price" onChange={(e) => setPrice(e.target.value)}/>
                     </div>
                   </div>
                   <Link to = "/admin/all-products"><Button onClick={(e) => handleSave(e)}>Save Product</Button></Link>

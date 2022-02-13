@@ -55,7 +55,7 @@ const Orders = () => {
                               <div>{orderInfo && orderInfo.product ? orderInfo.product.description : ''}</div>
                               <div>{orderInfo && orderInfo.product ? orderInfo.size : ''}</div>
                               <div>{orderInfo && orderInfo.product ? orderInfo.quantity : ''}</div>
-                              <div>{orderInfo && orderInfo.product ? orderInfo.price : ''}</div>
+                              <div>Rs. {orderInfo && orderInfo.product ? orderInfo.price : ''}</div>
                               <div>{history.date}</div>
                             </div>
                           </li>

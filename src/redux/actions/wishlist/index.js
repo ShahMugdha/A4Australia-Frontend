@@ -12,6 +12,9 @@ export const addProductToWishList = (productId) => {
       });
       if(response.data.success === true){
         toast.success(response.data.message, {autoClose:2000})
+        setTimeout(function() {
+          window.location.reload();
+        }, 3000);
       }
       else if(response.data.success === false){
         toast.error(response.data.message)
@@ -62,6 +65,9 @@ export const deleteProductFromWishList = (productId) => {
       });
       if(response.data.success === true){
         toast.success(response.data.message, {autoClose:2000})
+        setTimeout(function() {
+          window.location.reload();
+        }, 3000);
       }
       else {
         toast.error(response.data.message)
