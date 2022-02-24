@@ -17,7 +17,7 @@ const Cart = () => {
   const user = localStorage.getItem("token")
   const cartData = useSelector(state => state.cart.cartData)
   const inventoryData = useSelector(state => state.inventory.inventoryData)
-  const productInventory = useSelector(state => state.inventory.productInventory && state.inventory.productInventory.stock? state.inventory.productInventory.stock: null )
+  const productInventory = useSelector(state => state.inventory.productInventory && state.inventory.productInventory.stock && state.inventory.productInventory.stock[0]? state.inventory.productInventory.stock[0]: null )
   const [size, setSize] = useState("size")
   const [quantity, setQuantity] = useState(1)
   let checkOutProducts = []
@@ -42,20 +42,26 @@ const Cart = () => {
   const changeSize = (event, productId, originalSize, updatedSize) => {
     setSize(event.target.value)
     dispatch(getParticularProductInventory(productId, updatedSize))
-    if(productInventory && productInventory[0] && productInventory[0].quantity>=1) {
+    if (productInventory) console.log(productInventory, updatedSize, "prod invent")
+    if(productInventory /* && productInventory[0] */ && productInventory.size === updatedSize && productInventory.quantity>=1) {
       dispatch(updateProductSize(productId, originalSize, updatedSize))
     }
-    else toast.error("Size not available!", {autoClose:2000})
+    else {
+      toast.error("Size not available in this quantity!", {autoClose:2000})
+      console.log(productInventory /* && productInventory[0] */ && productInventory.size === updatedSize && productInventory.quantity? 
+        productInventory.quantity+" "+ productInventory.size: "no" , "size quantity"
+      )
+    }
   }
 
   const changeQuantity = (productId, Size) => {
-    console.log(quantity, productInventory && productInventory[0] && productInventory[0].quantity && productInventory[0].quantity ? productInventory[0].quantity : 0, "quantity")
     if(quantity <= 0) {
       toast.error("Please enter a valid quantity", {autoClose:2000})
     }
     else {
       dispatch(getParticularProductInventory(productId, Size))
-      if(productInventory && productInventory[0] && productInventory[0].quantity && productInventory[0].quantity>=quantity) {
+      console.log(quantity, productInventory /* && productInventory[0] */ && productInventory.size === Size && productInventory.quantity && productInventory.quantity ? productInventory.quantity : 0, "quantity")
+      if(productInventory /* && productInventory[0] */ && productInventory.size === Size && productInventory.quantity>=quantity) {
         dispatch(updateProductQuantity(productId, Size, quantity))
       }
       else toast.error("Quantity not available!", {autoClose:2000})

@@ -1,4 +1,7 @@
 import request from "../../../services/request";
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure() 
 
 export const getParticularProductInventory = (productId, size) => {
   return async(dispatch) => {

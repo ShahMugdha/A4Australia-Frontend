@@ -22,22 +22,24 @@ const Address = () => {
   }
 
   const [shipping, setShipping] = useState({
-    name: userAddress.name,
-    addressLine1: userAddress.addressLine1,
-    addressLine2: userAddress.addressLine2,
-    postalCode: userAddress.postalCode,
-    city: userAddress.city,
-    state: userAddress.state,
-    country: userAddress.country
+    name: userAddress.name ? userAddress.name: "",
+    addressLine1: userAddress.addressLine1 ? userAddress.addressLine1: "",
+    addressLine2: userAddress.addressLine2 ? userAddress.addressLine2: "",
+    postalCode: userAddress.postalCode ? userAddress.postalCode: "",
+    city: userAddress.city ? userAddress.city: "",
+    state: userAddress.state ? userAddress.state: "",
+    country: userAddress.country ? userAddress.country: ""
   })
-  console.log(shipping, "add data")
 
   const handleClick = (e) => {
-    if(!shipping.name || !shipping.addressLine1 || !shipping.postalCode || !shipping.city || !shipping.state || !shipping.country) {
+    if(!shipping.name && !userAddress.name || !shipping.addressLine1 && !userAddress.addressLine1 || 
+       !shipping.postalCode && !userAddress.postalCode || !shipping.city && !userAddress.city || 
+       !shipping.state && !userAddress.state || !shipping.country && !userAddress.country
+      ) {
       e.preventDefault()
       alert("Please enter all the required fields")
     }
-    else dispatch(addAddress(shipping))
+    else dispatch(addAddress(userAddress ? userAddress: shipping))
   }
 
   return(
@@ -56,40 +58,40 @@ const Address = () => {
             <div className="row shipping">
               <div className="col">
                 <label>Name</label>
-                <input type="text" value={shipping.name} onChange={e => setShipping({ ...shipping, name: e.target.value })} required autoFocus="true"/>
+                <input type="text" value={userAddress.name? userAddress.name: shipping.name} onChange={e => setShipping({ ...shipping, name: e.target.value })} required autoFocus="true"/>
               </div>
             </div>
             
             <div className="row shipping">
               <div className="col">
                 <label>address line 1</label>
-                <input type="text" value={shipping.addressLine1} onChange={e => setShipping({ ...shipping, addressLine1: e.target.value })} required/>
+                <input type="text" value={userAddress.addressLine1 ? userAddress.addressLine1: shipping.addressLine1} onChange={e => setShipping({ ...shipping, addressLine1: e.target.value })} required/>
               </div>
             </div>
 
             <div className="row shipping">
               <div className="col">
                 <label>address line 2</label>
-                <input type="text" value={shipping.addressLine2} onChange={e => setShipping({ ...shipping, addressLine2: e.target.value })}/>
+                <input type="text" value={userAddress.addressLine2 ? userAddress.addressLine2: shipping.addressLine2} onChange={e => setShipping({ ...shipping, addressLine2: e.target.value })}/>
               </div>
             </div>
             
             <div className="row shipping">
               <div className="col">
                 <label>city</label>
-                <input type="text" value={shipping.city} onChange={e => setShipping({ ...shipping, city: e.target.value })} required/>
+                <input type="text" value={userAddress.city ? userAddress.city: shipping.city} onChange={e => setShipping({ ...shipping, city: e.target.value })} required/>
               </div>
               <div className="col">
                 <label>State</label>
-                <input type="text" value={shipping.state} onChange={e => setShipping({ ...shipping, state: e.target.value })} required/>
+                <input type="text" value={userAddress.state ? userAddress.state: shipping.state} onChange={e => setShipping({ ...shipping, state: e.target.value })} required/>
               </div>
               <div className="col shipping">
                 <label for="country2">country</label>
-                <input type="text" value={shipping.country} onChange={e => setShipping({ ...shipping, country: e.target.value })} required/>
+                <input type="text" value={userAddress.country ? userAddress.country: shipping.country} onChange={e => setShipping({ ...shipping, country: e.target.value })} required/>
               </div>
               <div className="col">
                 <label for="postal-code">postal code</label>
-                <input type="number"  value={shipping.postalCode} onChange={e => setShipping({ ...shipping, postalCode: e.target.value })} required/>
+                <input type="number"  value={userAddress.postalCode ? userAddress.postalCode: shipping.postalCode} onChange={e => setShipping({ ...shipping, postalCode: e.target.value })} required/>
               </div>
             </div>
 

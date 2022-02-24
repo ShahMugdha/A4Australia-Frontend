@@ -12,7 +12,7 @@ const Footer = () => {
           <h2>Contact</h2>
           
           <address>
-            5534 Somewhere In. The World 22193-10212<br/>
+            Melbourne<br/>
                 
             <a className="footer__btn" href="mailto:pateljalpa181993@gmail.com">Email Us</a>
           </address>
