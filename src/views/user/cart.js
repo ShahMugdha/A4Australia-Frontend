@@ -4,7 +4,7 @@ import { Link, useHistory } from "react-router-dom";
 import { FormGroup, Label, Button } from "reactstrap";
 import HideTop from "../../components/Navigation/hideTop.js";
 import Footer from "../../components/footer.js";
-import { getParticularProductInventory, getInventoryList } from "../../redux/actions/inventory/index.js";
+import { getInventoryList } from "../../redux/actions/inventory/index.js";
 import { getCartList, updateProductQuantity, updateProductSize, moveProductToWishList, deleteProductFromCart } from "../../redux/actions/cart/index.js";
 import "../../components/cart.css";
 import { toast } from 'react-toastify'
@@ -17,11 +17,12 @@ const Cart = () => {
   const user = localStorage.getItem("token")
   const cartData = useSelector(state => state.cart.cartData)
   const inventoryData = useSelector(state => state.inventory.inventoryData)
-  const productInventory = useSelector(state => state.inventory.productInventory && state.inventory.productInventory.stock && state.inventory.productInventory.stock[0]? state.inventory.productInventory.stock[0]: null )
   const [size, setSize] = useState("size")
   const [quantity, setQuantity] = useState(1)
   let checkOutProducts = []
   let objToAdd = {}
+  let stockToAddSize = {}
+  let stockToAddQuantity = {}
 
   if(cartData && cartData[0] && cartData[0].cart) {
     inventoryData.map(inventory => {
@@ -39,19 +40,38 @@ const Cart = () => {
   }
   console.log(checkOutProducts)
 
-  const changeSize = (event, productId, originalSize, updatedSize) => {
+  const sizeCheck = (productId, upSize, cartQuan) => {
+    inventoryData.map(inventory => {
+      if(inventory.product._id === productId) {
+        inventory.stock.map(stock => {
+          if(stock.size === upSize && stock.quantity >= cartQuan) {
+            stockToAddSize = {productId: inventory.product._id, size: stock.size, quantity: cartQuan }
+          }
+        })
+      }
+    })
+  }
+
+  const sizeQuantityCheck = (productId, size) => {
+    inventoryData.map(inventory => {
+      if(inventory.product._id === productId) {
+        inventory.stock.map(stock => {
+          if(stock.size === size && stock.quantity >= quantity) {
+            stockToAddQuantity = {productId: inventory.product._id, size: stock.size, quantity }
+          }
+        })
+      }
+    })
+  }
+
+  const changeSize = (event, productId, originalSize, updatedSize, cartQuantity) => {
     setSize(event.target.value)
-    dispatch(getParticularProductInventory(productId, updatedSize))
-    if (productInventory) console.log(productInventory, updatedSize, "prod invent")
-    if(productInventory /* && productInventory[0] */ && productInventory.size === updatedSize && productInventory.quantity>=1) {
+    sizeCheck(productId, updatedSize, cartQuantity)
+    if(stockToAddSize.size === updatedSize && stockToAddSize.quantity === cartQuantity) {
+      console.log("size updated")
       dispatch(updateProductSize(productId, originalSize, updatedSize))
     }
-    else {
-      toast.error("Size not available in this quantity!", {autoClose:2000})
-      console.log(productInventory /* && productInventory[0] */ && productInventory.size === updatedSize && productInventory.quantity? 
-        productInventory.quantity+" "+ productInventory.size: "no" , "size quantity"
-      )
-    }
+    else toast.error("Size not available in this quantity!", {autoClose:2000})
   }
 
   const changeQuantity = (productId, Size) => {
@@ -59,9 +79,9 @@ const Cart = () => {
       toast.error("Please enter a valid quantity", {autoClose:2000})
     }
     else {
-      dispatch(getParticularProductInventory(productId, Size))
-      console.log(quantity, productInventory /* && productInventory[0] */ && productInventory.size === Size && productInventory.quantity && productInventory.quantity ? productInventory.quantity : 0, "quantity")
-      if(productInventory /* && productInventory[0] */ && productInventory.size === Size && productInventory.quantity>=quantity) {
+      sizeQuantityCheck(productId, Size)
+      if(stockToAddQuantity.size === Size && stockToAddQuantity.quantity === quantity) {
+        console.log("quantity updated")
         dispatch(updateProductQuantity(productId, Size, quantity))
       }
       else toast.error("Quantity not available!", {autoClose:2000})
@@ -139,7 +159,7 @@ const Cart = () => {
                             type="select"
                             name="size"
                             value = {size}
-                            onChange = {(e) => changeSize(e, cartProd.product._id, cartProd.size, e.target.value)}
+                            onChange = {(e) => changeSize(e, cartProd.product._id, cartProd.size, e.target.value, cartProd.quantity)}
                           >
                             <option value="Small">Small</option>
                             <option value="Medium">Medium</option>
