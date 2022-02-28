@@ -65,13 +65,18 @@ const Cart = () => {
   }
 
   const changeSize = (event, productId, originalSize, updatedSize, cartQuantity) => {
-    setSize(event.target.value)
-    sizeCheck(productId, updatedSize, cartQuantity)
-    if(stockToAddSize.size === updatedSize && stockToAddSize.quantity === cartQuantity) {
-      console.log("size updated")
-      dispatch(updateProductSize(productId, originalSize, updatedSize))
+    if(updatedSize === originalSize) {
+      toast.error("Size already selected", {autoClose:2000})
     }
-    else toast.error("Size not available in this quantity!", {autoClose:2000})
+    else {
+      setSize(event.target.value)
+      sizeCheck(productId, updatedSize, cartQuantity)
+      if(stockToAddSize.size === updatedSize && stockToAddSize.quantity === cartQuantity) {
+        console.log("size updated")
+        dispatch(updateProductSize(productId, originalSize, updatedSize))
+      }
+      else toast.error("Size not available in this quantity!", {autoClose:2000})
+    }
   }
 
   const changeQuantity = (productId, Size) => {
